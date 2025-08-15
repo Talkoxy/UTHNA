@@ -1,6 +1,6 @@
 "use client";
 import CustomButton from "../Buttons/custombutton";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
@@ -9,7 +9,7 @@ import Link from "next/link";
 const signup = () => {
     const router = useRouter();
 
-    const [name, setName] = useState('');
+    const [username, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password1,setPassword1] = useState('');
     const [password2,setPassword2] = useState('');
@@ -20,7 +20,7 @@ const signup = () => {
 
     const submitSignup = async () => {
         const formData = {
-            name : name,
+            username : username,
             email : email,
             password1 : password1,
             password2 : password2,
@@ -33,9 +33,7 @@ const signup = () => {
         if(response.access){
             handleLogin(response.user.pk, response.access, response.refresh)
 
-            router.push('/home');
-
-
+            router.push('/translate');
 
             
          }else {
@@ -52,7 +50,7 @@ const signup = () => {
         <div className="grid gap-8 card">
           <div className="grid gap-4">
             <input
-              value={name}
+              value={username}
               onChange={(e) => setName(e.target.value)}
               placeholder="Username"
             />
@@ -87,12 +85,13 @@ const signup = () => {
               ))}
             </div>
           )}
-        </div>
-
-        <CustomButton
+          <CustomButton
               label="Submit"
               onClick={submitSignup}
             />
+        </div>
+
+        
 
         <div className="text-center text-subtitle mt-4">
           Already have an account?{" "}

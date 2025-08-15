@@ -13,7 +13,7 @@ const Landing = () => {
             <div className ="grid grid-flow-row col-span-3 gap-10 justify-items-center items-center">
 
                 <div>
-                    <CustomButton label="Login"/>
+                    <CustomButton label="Login" link="/login"/>
                 </div>
                 <div>
                      

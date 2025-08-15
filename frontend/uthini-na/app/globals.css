@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --font-main: 'mainfont', sans-serif;
+  --font-secondary: 'secondaryfont', sans-serif;
+}
+
+@font-face {
+  font-family: 'mainfont';
+  src: url('/fonts/CostaRica.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'secondaryfont';
+  src: url('/fonts/CostaRica.otf') format('opentype');
+}
+
+
 
 .landing-bg {
 background: linear-gradient( #a0dee5 20%, #bad79a 100%);
@@ -17,10 +33,14 @@ overflow: hidden;
 }
 
 .btn {
-  background-color: #112250;
+  background-color: var(--btn_bg);
   border-radius: 0.8rem;
-  padding: 1rem 5rem;
-  
+  padding: 1rem 4rem;
+  font-size: 40px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  font-weight: 900;
+  letter-spacing: 0%;
 }
 
 .page_bg{
@@ -41,7 +61,7 @@ overflow: hidden;
 
 .pttbtn-text {
   font-size: 54px;
-  font-family: Inter;
+  font-family: var(--font-main);
   color: #112250;
   font-weight: 900;
   letter-spacing: 0%;
@@ -52,13 +72,7 @@ overflow: hidden;
 }
 
 
-.btn-text {
-  font-size: 54px;
-  font-family: Inter;
-  color: #a0dee5;
-  font-weight: 900;
-  letter-spacing: 0%;
-}
+
 
 .page_bg{
   background: var(--page_bg);
@@ -70,37 +84,45 @@ overflow: hidden;
   cursor: pointer;
   background-color: var(--theme_btn_bg);
   font-size: 20px;
-  font-family: Inter;
+  font-family: var(--font-main);
   color: var(--theme_btn_text);
   border: none;
   padding: 0.75rem 1rem;
 }
 
 .card{
+  border-radius: 1rem;
   background: var(--card_bg);
   font-size: 24px;
-  font-family: Inter;
+  font-family: var(--font-main);
+  padding: 5rem;
   color: var(--card_bg_text);
   font-weight: 900;
   letter-spacing: 0%;
+  
+  border: 0.2rem solid var(--card_bg_text);
 }
 
 /*Themes*/
 
 html.theme-dark{
-  --page_bg:linear-gradient(90deg, #112250 10%, #1c3883 36%, #274db6 54%, #152961 91%);
-  --card_bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
+  --page_bg: #14285e;
+  --card_bg:linear-gradient(90deg, #112250 0%, #112250 100%);
   --card_bg_text: #a0dee5;
   --theme_btn_text: #112250;
   --theme_btn_bg:  #a0dee5;
+  --btn_bg: #112250;
+  --btn_text: #a0dee5;
 }
 
 html.theme-light{
-  --page_bg: #F9FFF7;
+  --page_bg: #ffffff ;
   --card_bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
   --card_bg_text: #112250;
   --theme_btn_text: #a0dee5;
   --theme_btn_text: #112250;
+  --btn_bg: #a0dee5;
+  --btn_text: #112250;
 }
 /* DARK THEME 
 html.theme-dark {

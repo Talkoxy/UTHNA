@@ -12,7 +12,6 @@ interface CustombtnProps{
 
 const Custombtn: React.FC<CustombtnProps> = ({label, className, onClick,icon,link}) => {
     return (
-        <Link href={String(link)}>
             <div
             onClick={onClick} 
             className={`cursor-pointer btn btn-text place-items-center ${className}`}>
@@ -22,7 +21,7 @@ const Custombtn: React.FC<CustombtnProps> = ({label, className, onClick,icon,lin
                 </div>
                 
             </div>
-        </Link>
+        
     )
 }
 
