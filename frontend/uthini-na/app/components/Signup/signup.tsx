@@ -1,0 +1,108 @@
+"use client";
+import CustomButton from "../Buttons/custombutton";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import apiService from "@/app/services/apiService";
+import { handleLogin } from "@/app/lib/actions";
+import Link from "next/link";
+
+const signup = () => {
+    const router = useRouter();
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password1,setPassword1] = useState('');
+    const [password2,setPassword2] = useState('');
+
+    const [errors,setErrors] = useState<string[]>([]);
+
+    //functions
+
+    const submitSignup = async () => {
+        const formData = {
+            name : name,
+            email : email,
+            password1 : password1,
+            password2 : password2,
+        }
+
+
+        const response = await apiService.postWithoutToken('/api/auth/register/', JSON.stringify(formData))
+        
+
+        if(response.access){
+            handleLogin(response.user.pk, response.access, response.refresh)
+
+            router.push('/home');
+
+
+
+            
+         }else {
+            const tmpErrors: string[] = Object.values(response).map((error: any) =>{
+                return error;
+            } )
+
+            setErrors(tmpErrors);
+         }
+
+    }
+  return (
+     <div className="grid place-items-center h-screen pt-50">
+        <div className="grid gap-8 card">
+          <div className="grid gap-4">
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Username"
+            />
+
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+
+            <input
+              type="password"
+              value={password1}
+              onChange={(e) => setPassword1(e.target.value)}
+              placeholder="Password"
+            />
+
+            <input
+              type="password"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              placeholder="Re-enter password"
+            />
+          </div>
+          {errors.length > 0 && (
+            <div className="grid gap-2">
+              {errors.map((error, index) => (
+                <div key={`error_${index}`} className="error-message">
+                  {error}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <CustomButton
+              label="Submit"
+              onClick={submitSignup}
+            />
+
+        <div className="text-center text-subtitle mt-4">
+          Already have an account?{" "}
+          <Link href="/login" className=" hover:underline">
+            Login here
+          </Link>
+        </div>
+
+    </div>
+  );
+}
+
+export default signup;
