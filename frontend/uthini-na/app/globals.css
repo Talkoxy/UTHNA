@@ -34,7 +34,7 @@ overflow: hidden;
 
 .btn {
   background-color: var(--btn_bg);
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
   padding: 1rem 4rem;
   font-size: 40px;
   font-family: var(--font-main);

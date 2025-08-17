@@ -1,10 +1,10 @@
 "use client";
-import CustomButton from "../Buttons/custombutton";
-import { use, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 import Link from "next/link";
+import Custombtn from "../Buttons/custombutton";
 
 const signup = () => {
     const router = useRouter();
@@ -33,9 +33,7 @@ const signup = () => {
         if(response.access){
             handleLogin(response.user.pk, response.access, response.refresh)
 
-            router.push('/translate');
-
-            
+            router.push('/');
          }else {
             const tmpErrors: string[] = Object.values(response).map((error: any) =>{
                 return error;
@@ -45,8 +43,9 @@ const signup = () => {
          }
 
     }
+
   return (
-     <div className="grid place-items-center h-screen pt-50">
+     <div className="grid place-items-center fixed inset-0">
         <div className="grid gap-8 card">
           <div className="grid gap-4">
             <input
@@ -85,8 +84,8 @@ const signup = () => {
               ))}
             </div>
           )}
-          <CustomButton
-              label="Submit"
+          <Custombtn
+              label= 'Signup'
               onClick={submitSignup}
             />
         </div>

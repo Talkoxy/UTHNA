@@ -1,4 +1,4 @@
-import CustomButton from "../Buttons/custombutton";
+import Custombtn from "../Buttons/custombutton";
 import ProceedToTranslateButton from "../Buttons/proceedtotranslate";
 import Logo from "./logo";
 import { TranslateIcon } from "../icons";
@@ -13,11 +13,11 @@ const Landing = () => {
             <div className ="grid grid-flow-row col-span-3 gap-10 justify-items-center items-center">
 
                 <div>
-                    <CustomButton label="Login" link="/login"/>
+                    <Custombtn label="Login" link="/login"/>
                 </div>
                 <div>
                      
-                    <CustomButton label="Signup" link="/signup"/>
+                    <Custombtn label="Signup" link="/signup"/>
                     
                 </div>
 

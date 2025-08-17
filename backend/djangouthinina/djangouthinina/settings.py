@@ -1,6 +1,7 @@
+from datetime import timedelta
 from pathlib import Path
 from decouple import config
-from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,43 +17,26 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-AUTH_USER_MODEL = 'uthnadb.user'
-
 SITE_ID = 1
+
+AUTH_USER_MODEL = 'clients.User'
+
 
 WEBSITE_URL = 'http://localhost:8000'
 
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
-ACCOUNT_SIGNUP_FIELDS = {
-    'email': {
-        'required': True,
-        'field_type': 'email'
-    },
-    'username': {
-        'required': True,
-        'field_type': 'text'
-    },
-    'password1': {
-        'required': True,
-        'field_type': 'password'
-    },
-    'password2': {
-        'required': True,
-        'field_type': 'password'
-    }
-}
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
-    "ROTATE_REFRESH_TOKEN": True,
-    "BLACKLIST_AFTER_ROTATION": True,
-    "UPDATE_LAST_LOGIN": True,
-    "SIGNING_KEY": "BGCOMGATE",
-    "ALGORITHM": "HS256",
+     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),  
+     "ROTATE_REFRESH_TOKEN" : True,
+     "BLACKLIST_AFTER_ROTATION": True,
+     "UPDATE_LAST_LOGIN" : True,
+     "SIGNING_KEY" : "BGCOMGATE",
+     "ALGORITHM" : "HS256",
 
 }
 
@@ -71,8 +55,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
-
 CORS_ALLOW_CREDENTIALS = True
+
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_HTTPONLY": False,
+}
 
 
 # Application definition
@@ -85,17 +73,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'uthnadb',
+
+    'clients',
 
 
-
-    # rest_framework
+     #rest_framework
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-
-    # for authentication between django and rest framework
+    
+    #for authentication between django and rest framework
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -103,9 +91,12 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
-    # allowing things to come from frontend
+    #allowing things to come from frontend
     'corsheaders',
+    
 ]
+
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Must be first
@@ -146,13 +137,15 @@ WSGI_APPLICATION = 'djangouthinina.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'uthininabackends',
+        'NAME': config('DATABASE'),
         'USER': 'uthna',
         'PASSWORD': config('PASSWORD'),
         'HOST': config('HOST'),
         'PORT': config('PORT'),
     }
 }
+
+
 
 
 # Password validation
