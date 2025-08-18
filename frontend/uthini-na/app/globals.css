@@ -15,10 +15,55 @@
   src: url('/fonts/CostaRica.otf') format('opentype');
 }
 
+.translate_btn{
+  background-color: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 0.2rem solid var(--btn_text);
+  padding: 1rem 2rem;
+  font-size: 35px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+}
+
+.dropmenu{
+    background-color: var(--btn_bg);
+    color: var(--btn_text);    /* Changed from var(--color-translation-text) */
+    border: 0.2rem solid var(--btn_text);
+    border-radius: 0.5rem;
+    text-align: center;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-size: 27px;
+    font-family: var(--font-main);
+    
+    /* Theme-aware dropdown arrow */
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23d1c0ec' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+}
+
+  
+
+.translation-textarea {
+  padding: 1rem;
+  width: 1000px; /* Adjust as needed */
+  height: 350px; /* Adjust as needed */
+  border-radius: 0.8rem;
+  border: 0.2rem solid var(--translation-border);
+  background-color: var(--translation-bg);
+  color: var(--translation-text);
+  font-size: 24px;
+  font-family: var(--font-main);
+
+}
+
 
 
 .landing-bg {
-background: linear-gradient( #a0dee5 20%, #bad79a 100%);
+background: linear-gradient( #a0dee5 20%, #acdf76 100%);
 overflow: hidden;
 }
 
@@ -34,7 +79,8 @@ overflow: hidden;
 
 .btn {
   background-color: var(--btn_bg);
-  border-radius: 0.6rem;
+  border-radius: 0.8rem;
+  border: 0.2rem solid var(--btn_text);
   padding: 1rem 4rem;
   font-size: 40px;
   font-family: var(--font-main);
@@ -113,6 +159,9 @@ html.theme-dark{
   --theme_btn_bg:  #a0dee5;
   --btn_bg: #112250;
   --btn_text: #a0dee5;
+  --translation-border: #a0dee5;
+  --translation-bg: #152e72;
+  --translation-text: #a0dee5;
 }
 
 html.theme-light{
@@ -123,6 +172,9 @@ html.theme-light{
   --theme_btn_text: #112250;
   --btn_bg: #a0dee5;
   --btn_text: #112250;
+  --translation-border: #112250;
+  --translation-bg: #a0dee5;
+  --translation-text: #112250;
 }
 /* DARK THEME 
 html.theme-dark {
