@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
@@ -11,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "creds/g_creds.json"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -73,7 +74,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
+    #local apps
+    'translations',
     'clients',
 
 

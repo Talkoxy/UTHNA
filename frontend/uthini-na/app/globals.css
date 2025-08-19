@@ -89,6 +89,14 @@ overflow: hidden;
   letter-spacing: 0%;
 }
 
+.likebtn {
+  border-radius: 0.8rem;
+  font-size: 40px;
+  color: var(--btn_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+}
+
 .page_bg{
   background-color: var(--color-main-bg);
   color: var(--color-text);

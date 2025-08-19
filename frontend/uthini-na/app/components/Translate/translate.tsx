@@ -1,5 +1,6 @@
 "use client";
 import Translatebtn from "../Buttons/translatebutton";
+import Likebtn from '../Buttons/likebutton';
 const Translate = () => {
     return (
         <div className="grid place-items-center fixed inset-0">
@@ -61,14 +62,17 @@ const Translate = () => {
 
                     </div>
 
-                        <div className=" grid grid-flow-col place-items-center">
+                        <div className="flex justify-center gap-6">
                             
+                            
+                            <div>
+                                <Translatebtn
+                                    label="Save Translation"
+                                    />
+                            </div>
 
-                            <div>like translation</div>
-
-                            <Translatebtn
-                                label="Save Translation"
-                            />
+                            <div className="pl-20"> <Likebtn/> </div>
+                            
                         </div>
                        
 
