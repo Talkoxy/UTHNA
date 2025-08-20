@@ -64,7 +64,7 @@ def just_translate(request):
         if results and isinstance(results, list):
             return Response({
                 "Clienttranslations": [{
-                    "translatedText": result["translatedText"],
+                    "output": result["translatedText"],
                     "detectedSourceLanguage": result.get("detectedSourceLanguage", ""),
                     "input": original_text
                 } for result in results]

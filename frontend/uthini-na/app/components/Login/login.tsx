@@ -31,7 +31,7 @@ const Login = () => {
                 response.refresh
             );
 
-            router.push('/');
+            router.push('/translate');
         } else {
         const tmpErrors: string[] = Object.values(response).map((error: any) =>{
             return error;
