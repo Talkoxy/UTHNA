@@ -178,7 +178,7 @@ const Translate = () => {
                                 <textarea
                                     className="translation-textarea"
                                     placeholder="Result of translation"
-                                    value={translatedText}
+                                    defaultValue={translatedText}
                                 />
 
 
