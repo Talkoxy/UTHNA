@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";
 import Custombtn from "../Buttons/custombutton";
+import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
 
 
 type ClientDetailsProps = {
@@ -14,13 +15,13 @@ type ClientDetailsProps = {
 };
 
 const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
-    const [username, setUsername] = useState(user.name);
+    const [name, setUsername] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [errors, setErrors] = useState<string[]>([]);
 
     const handleUpdate = async () => {
         const formData = new FormData();
-        formData.append("name", username);
+        formData.append("name", name);
         formData.append("email", email);
 
         try {
@@ -39,18 +40,28 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
     return (
         <main className="grid place-items-center fixed inset-0">
-            <div className="grid grid-flow-col grid-cols-3">
+
+            <div className="grid grid-flow-col gap-10 place-items-center">
+
+                <div className="grid grid-rows-2 gap-10 place-items-center">
+
+                    <div>D.P</div>
+                    <div className="label">My Insights</div>
+
+                </div>
 
 
+                <div className="grid grid-rows-2 gap-10 place-items-center">
+
+                    <div className="label">My World</div>
+
+                    <div><SavedTranslations user_id={userId}/></div>
+                    <div>liked Translations</div>
+
+
+                </div>
 
             </div>
-                    
-
-            <Custombtn
-            label="Update Profile"
-            onClick={handleUpdate}
-            />
-            
         </main>
     );
 };

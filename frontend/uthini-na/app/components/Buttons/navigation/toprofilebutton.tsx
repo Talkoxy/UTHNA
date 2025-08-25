@@ -17,9 +17,15 @@ const ToProfileButton = () => {
 
     if (!userId) {
         return null;
-    }
+    };
 
-    return <ProfileDropdown userId={userId} />;
+    return (
+        <div className="">
+            <ProfileDropdown userId={userId} />
+        </div>
+    );
+
+  
 };
 
 export default ToProfileButton;
