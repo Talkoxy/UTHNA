@@ -25,7 +25,7 @@ const SavedTranslations: React.FC<SavedTranslationsProps> = ({ user_id }) => {
     const [translations, setTranslations] = useState<TranslationType[]>([]);
 
     const getTranslations = async () => {
-        let url = '/api/translate/Clienttranslations/list';
+        let url = '/api/translate/Clienttranslations/saved/list/';
 
         if (user_id) {
             url += `?user_id=${user_id}`;

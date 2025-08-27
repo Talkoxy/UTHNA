@@ -14,6 +14,8 @@ class ClientTranslationListSerializer(serializers.ModelSerializer):
             'original_text',
             'translated_text',
             'target_language',
+            'is_saved',
+            'is_liked',
         )
 
 

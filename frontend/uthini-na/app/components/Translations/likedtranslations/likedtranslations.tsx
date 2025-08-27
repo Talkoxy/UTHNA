@@ -15,7 +15,7 @@ const LikedTranslations: React.FC<LikedTranslationsProps> = ({ user_id }) => {
     const [translations, setTranslations] = useState<TranslationType[]>([]);
 
     const getTranslations = async () => {
-        let url = '/api/translate/Clienttranslations/list';
+        let url = '/api/translate/Clienttranslations/liked/list/';
 
         if (user_id) {
             url += `?user_id=${user_id}`;

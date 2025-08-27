@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";
 import Custombtn from "../Buttons/custombutton";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
+import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
 
 
 type ClientDetailsProps = {
@@ -65,7 +66,7 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
                         <div className="label">MY LIKED TRANSLATIONS</div>
 
-                        <div><SavedTranslations user_id={userId}/></div>
+                        <div><LikedTranslations user_id={userId}/></div>
                     </div>
 
                 </div>

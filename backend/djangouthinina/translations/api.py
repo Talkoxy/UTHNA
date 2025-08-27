@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from .forms import ClientTranslationForm as ClientTranslationForm
 from .models import User, ClientTranslation
-from .models import ClientTranslation
 from .serializers import ClientTranslationListSerializer, ClientTranslationDetailSerializer
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -148,21 +147,40 @@ def Clienttranslation_list(request):
     })
 
 
+
 @api_view(['GET'])
 @authentication_classes([])  # Add your auth classes if needed
 @permission_classes([])      # Add your permission classes if needed
-def Clienttranslation_liked_list(request):
+def saved_Clienttranslation_list(request):
     Clienttranslations = ClientTranslation.objects.all()
 
     user_id = request.GET.get('user_id', '')
     if user_id:
-        Clienttranslations = Clienttranslations.filter(user_id=user_id)
+        Clienttranslations = Clienttranslations.filter(user_id=user_id , is_saved=True)
 
     serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
 
     return Response({
         'data': serializer.data
     })
+
+
+@api_view(['GET'])
+@authentication_classes([])  # Add your auth classes if needed
+@permission_classes([])      # Add your permission classes if needed
+def liked_Clienttranslation_list(request):
+    Clienttranslations = ClientTranslation.objects.all()
+
+    user_id = request.GET.get('user_id', '')
+    if user_id:
+        Clienttranslations = Clienttranslations.filter(user_id=user_id , is_liked=True)
+
+    serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
+
+    return Response({
+        'data': serializer.data
+    })
+
 
 
 @api_view(['GET'])
@@ -187,3 +205,7 @@ def Clienttranslation_delete(request, pk):
 
     Clienttranslation.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
