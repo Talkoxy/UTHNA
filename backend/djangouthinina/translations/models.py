@@ -13,3 +13,5 @@ class ClientTranslation(models.Model):
     source_language = models.CharField(max_length=10)
     target_language = models.CharField(max_length=10)
 
+    is_saved = models.BooleanField(default=False)
+    is_liked = models.BooleanField(default=False)

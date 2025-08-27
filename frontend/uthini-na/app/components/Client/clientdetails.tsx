@@ -39,11 +39,11 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
     };
 
     return (
-        <main className="grid place-items-center fixed inset-0">
+        <main className="grid grid-flow-col fixed inset-0 pt-20 ">
 
-            <div className="grid grid-flow-col gap-10 place-items-center">
+            <div className="grid grid-flow-col gap-10 justify-items-center">
 
-                <div className="grid grid-rows-2 gap-10 place-items-center">
+                <div className="grid grid-rows-2 place-items-center ">
 
                     <div>D.P</div>
                     <div className="label">My Insights</div>
@@ -51,13 +51,22 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
                 </div>
 
 
-                <div className="grid grid-rows-2 gap-10 place-items-center">
+                <div className="grid grid-rows-3 justify-items-center">
 
-                    <div className="label">My World</div>
+                    <div className="grid grid-col-2 gap-1 place-items-center">
 
-                    <div><SavedTranslations user_id={userId}/></div>
-                    <div>liked Translations</div>
+                        <div className="label">MY SAVED TRANSLATIONS</div>
 
+                        <div><SavedTranslations user_id={userId}/></div>
+                    </div>
+
+                    <div className="grid grid-col-2 gap-1 place-items-center">
+
+
+                        <div className="label">MY LIKED TRANSLATIONS</div>
+
+                        <div><SavedTranslations user_id={userId}/></div>
+                    </div>
 
                 </div>
 

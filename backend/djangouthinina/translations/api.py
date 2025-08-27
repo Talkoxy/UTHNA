@@ -22,19 +22,19 @@ def just_translate(request):
     # Validate required fields
     if not original_text:
         return Response(
-            {"error": "original_text is required"}, 
+            {"error": "original_text is required"},
             status=status.HTTP_400_BAD_REQUEST
         )
 
     if not target_language:
         return Response(
-            {"error": "target_language is required"}, 
+            {"error": "target_language is required"},
             status=status.HTTP_400_BAD_REQUEST
         )
-    
+
     if not source_language:
         return Response(
-            {"error": "source_language is required"}, 
+            {"error": "source_language is required"},
             status=status.HTTP_400_BAD_REQUEST
         )
 
@@ -48,7 +48,7 @@ def just_translate(request):
             text = [original_text]
         else:
             return Response(
-                {"error": "Invalid text format"}, 
+                {"error": "Invalid text format"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -58,7 +58,6 @@ def just_translate(request):
             target_language=target_language,
             source_language=source_language
         )
-
 
         # Format response to match frontend expectations
         if results and isinstance(results, list):
@@ -71,29 +70,58 @@ def just_translate(request):
             })
         else:
             return Response(
-                {"error": "ClientTranslation failed"}, 
+                {"error": "ClientTranslation failed"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
     except Exception as e:
         return Response(
-            {"error": str(e)}, 
+            {"error": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def save_Clienttranslation(request):
-    form = ClientTranslationForm(request.data,request.FILES)
-    
+    data = request.data.copy()
+    data['is_saved'] = True  # Mark as saved when using this endpoint
+
+    form = ClientTranslationForm(data, request.FILES)
+
     if form.is_valid():
-        Clienttranslation = form.save(commit=False)
-        Clienttranslation.user = request.user  # assign logged-in user
-        Clienttranslation.save()
-        
+        clienttranslation = form.save(commit=False)
+        clienttranslation.user = request.user
+        clienttranslation.is_saved = True
+        clienttranslation.save()
+
         return Response({
             'success': True,
-            'data': ClientTranslationDetailSerializer(Clienttranslation).data
+            'data': ClientTranslationDetailSerializer(clienttranslation).data
+        })
+    else:
+        return Response({
+            'success': False,
+            'errors': form.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def like_Clienttranslation(request):
+    data = request.data.copy()
+    data['is_liked'] = True  # Mark as saved when using this endpoint
+
+    form = ClientTranslationForm(request.data, request.FILES)
+
+    if form.is_valid():
+        liked_Clienttranslation = form.save(commit=False)
+        liked_Clienttranslation.user = request.user  # assign logged-in user
+        liked_Clienttranslation.is_liked = True
+        liked_Clienttranslation.save()
+
+        return Response({
+            'success': True,
+            'data': ClientTranslationDetailSerializer(liked_Clienttranslation).data
         })
     else:
         print('error', form.errors, form.non_field_errors)
@@ -101,20 +129,37 @@ def save_Clienttranslation(request):
             'success': False,
             'errors': form.errors
         }, status=status.HTTP_400_BAD_REQUEST)
-    
+
 
 @api_view(['GET'])
 @authentication_classes([])  # Add your auth classes if needed
 @permission_classes([])      # Add your permission classes if needed
 def Clienttranslation_list(request):
     Clienttranslations = ClientTranslation.objects.all()
-    
+
     user_id = request.GET.get('user_id', '')
     if user_id:
         Clienttranslations = Clienttranslations.filter(user_id=user_id)
-        
+
     serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
-    
+
+    return Response({
+        'data': serializer.data
+    })
+
+
+@api_view(['GET'])
+@authentication_classes([])  # Add your auth classes if needed
+@permission_classes([])      # Add your permission classes if needed
+def Clienttranslation_liked_list(request):
+    Clienttranslations = ClientTranslation.objects.all()
+
+    user_id = request.GET.get('user_id', '')
+    if user_id:
+        Clienttranslations = Clienttranslations.filter(user_id=user_id)
+
+    serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
+
     return Response({
         'data': serializer.data
     })
@@ -125,19 +170,20 @@ def Clienttranslation_list(request):
 @permission_classes([])      # Add your permission classes if needed
 def Clienttranslation_detail(request, pk):
     Clienttranslation = ClientTranslation.objects.get(pk=pk)
-    serializer = ClientTranslationDetailSerializer(Clienttranslation, many=False)
-    
+    serializer = ClientTranslationDetailSerializer(
+        Clienttranslation, many=False)
+
     return JsonResponse(serializer.data)
+
 
 @api_view(['DELETE'])
 @permission_classes([])
 def Clienttranslation_delete(request, pk):
     try:
-        Clienttranslation = ClientTranslation.objects.get(pk=pk, user=request.user)
+        Clienttranslation = ClientTranslation.objects.get(
+            pk=pk, user=request.user)
     except ClientTranslation.DoesNotExist:
         return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
     Clienttranslation.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-
-

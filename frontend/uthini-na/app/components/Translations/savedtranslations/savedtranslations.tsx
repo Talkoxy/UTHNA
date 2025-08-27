@@ -18,7 +18,6 @@ export type TranslationType = {
 }
 
 interface SavedTranslationsProps {
-    
     user_id?: string | null
 }
 

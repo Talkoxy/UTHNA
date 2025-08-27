@@ -196,10 +196,23 @@
 .label{
   background-color: var(--btn_bg);
   border-radius: 0.8rem;
-  font-size: 30px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--btn_text);
-  padding: 2rem;
+  padding: 0.6rem 0.5rem 0.6rem;
+}
+
+.saved_translation_card{
+  background: linear-gradient(-164deg, #a0dee5 20%, #cef2bf 53%, #acff8b 100%);
+  font-size: 20px;
+  font-family: var(--font-main);
+  padding: 1rem;
+  color: var(--card_bg_text);
+
+  letter-spacing: 0%;
+
+  border: 0.1rem solid var(--card_bg_text);
+  border-radius: 0.8rem;
 }
 
 

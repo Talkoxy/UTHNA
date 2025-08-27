@@ -2,21 +2,18 @@
 
 import { TranslationType } from "./savedtranslations"
 
-interface TranslationProps {
+export interface TranslationProps {
     translation: TranslationType
 }
 
 const SavedTranslationItem: React.FC<TranslationProps> = ({translation}) => {
     return (
-        <div className="card">
-            <div className="grid gap-4">
-                <div className="grid grid-cols-2 gap-2">
-                    <div className="">{translation.original_text}</div>
-                    <div className="">{translation.translated_text}</div>
+        <div className="saved_translation_card">
+            <div className="grid place-items-center">
+                <div className="grid gap-2 place-items-center">
+                    <div className=""> Original Text: {translation.original_text}</div>
+                    <div className=""> Translated Text: {translation.translated_text}</div>
                 </div>           
-                <div className="text-subtitle flex justify-between items-center">
-                    <span>{translation.target_language}</span>
-                </div>
             </div>
         </div>
     )

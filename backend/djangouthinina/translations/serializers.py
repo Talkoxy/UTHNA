@@ -30,4 +30,7 @@ class ClientTranslationDetailSerializer(serializers.ModelSerializer):
             'source_language',
             'target_language',
             'created_at',
+            'is_saved',
+            'is_liked'
         )
+

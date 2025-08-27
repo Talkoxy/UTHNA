@@ -4,6 +4,7 @@ import Likebtn from '../Buttons/likebutton';
 import apiService from "@/app/services/apiService";
 import { getUserId } from "@/app/lib/actions";
 import { useState, useEffect } from "react";
+import Custombtn from "../Buttons/custombutton";
 
 interface TranslationResult {
     output: string;
@@ -90,6 +91,35 @@ const Translate = () => {
         }
     };
 
+    const handlelikedTranslation = async () => {
+        try {
+            const userId = await getUserId();
+            if (!userId) {
+                setErrors(['Please log in to save translations']);
+                return;
+            }
+
+            const saveData = new FormData();
+            saveData.append('original_text', originalText);
+            saveData.append('translated_text', translatedText);
+            saveData.append('target_language', targetLang);
+            saveData.append('source_language', sourceLang || 'auto'); // Use 'auto' if source language is not specified
+
+            const response = await apiService.post('/api/translate/Clienttranslations/like/', saveData)
+
+
+            if (response.success) {
+                setSaved(true);
+                setTimeout(() => setSaved(false), 3000); // Reset saved state after 3 seconds
+                setErrors(['saved translation']);
+            } else {
+                setErrors(['Failed to save translation']);
+            }
+        } catch (error: any) {
+            setErrors([error.message || 'Failed to save translation']);
+        }
+    };
+
 
     return (
         <div className="grid place-items-center fixed inset-0">
@@ -143,7 +173,7 @@ const Translate = () => {
                     </div>
 
                     <div className=" grid place-items-center">
-                        <Translatebtn
+                        <Custombtn
                             label="Translate"
                             onClick={submitTranslate}
                         />
@@ -191,13 +221,17 @@ const Translate = () => {
 
 
                         <div>
-                            <Translatebtn
+                            <Custombtn
                                 label="Save Translation"
                                 onClick={handleSaveTranslation}
                             />
                         </div>
 
-                        <div className="pl-20"> <Likebtn /> </div>
+                        <div className="pl-20"> 
+                            <Custombtn 
+                            onClick={handlelikedTranslation}
+                            icon={<Likebtn />} />
+                        </div>
 
                     </div>
 

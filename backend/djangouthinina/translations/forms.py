@@ -9,4 +9,6 @@ class ClientTranslationForm(ModelForm):
             'translated_text',
             'source_language',
             'target_language',
+            'is_saved',
+            'is_liked',
         )
