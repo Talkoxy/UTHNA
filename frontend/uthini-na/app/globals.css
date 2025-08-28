@@ -215,6 +215,20 @@
   border-radius: 0.8rem;
 }
 
+.insights_card{
+
+  background: linear-gradient(177.28deg, #97DBE2 -64.79%, #A0DEE5 22.36%, #ACFF8B 230.53%);
+
+
+  padding: 2rem;
+  border-radius: 1rem;
+  color: var(--card_bg_text);
+  font-size: 20px;
+  font-family: var(--font-main);
+  font-weight: 900;
+  letter-spacing: 0%;
+}
+
 
 /*Themes*/
 

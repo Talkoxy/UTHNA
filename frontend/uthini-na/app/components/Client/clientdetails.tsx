@@ -5,6 +5,7 @@ import apiService from "@/app/services/apiService";
 import Custombtn from "../Buttons/custombutton";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
 import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
+import TranslationInsights from "../Insights/insights";
 
 
 type ClientDetailsProps = {
@@ -44,10 +45,12 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
             <div className="grid grid-flow-col gap-10 justify-items-center">
 
-                <div className="grid grid-rows-2 place-items-center ">
+                <div className="grid grid-rows-3 place-items-center ">
 
                     <div>D.P</div>
-                    <div className="label">My Insights</div>
+                    
+                    <div> <TranslationInsights userId={userId}/> </div>
+
 
                 </div>
 

@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import IsAuthenticated
 
 from google.cloud import translate_v2 as translate
+from django.db.models import Sum, Count, F
+from django.db.models.functions import Length
 
 
 @api_view(['POST'])
@@ -147,7 +149,6 @@ def Clienttranslation_list(request):
     })
 
 
-
 @api_view(['GET'])
 @authentication_classes([])  # Add your auth classes if needed
 @permission_classes([])      # Add your permission classes if needed
@@ -156,7 +157,8 @@ def saved_Clienttranslation_list(request):
 
     user_id = request.GET.get('user_id', '')
     if user_id:
-        Clienttranslations = Clienttranslations.filter(user_id=user_id , is_saved=True)
+        Clienttranslations = Clienttranslations.filter(
+            user_id=user_id, is_saved=True)
 
     serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
 
@@ -173,14 +175,14 @@ def liked_Clienttranslation_list(request):
 
     user_id = request.GET.get('user_id', '')
     if user_id:
-        Clienttranslations = Clienttranslations.filter(user_id=user_id , is_liked=True)
+        Clienttranslations = Clienttranslations.filter(
+            user_id=user_id, is_liked=True)
 
     serializer = ClientTranslationListSerializer(Clienttranslations, many=True)
 
     return Response({
         'data': serializer.data
     })
-
 
 
 @api_view(['GET'])
@@ -207,5 +209,38 @@ def Clienttranslation_delete(request, pk):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET'])
+@authentication_classes([]) 
+@permission_classes([])
+def user_translation_stats(request):
+    # Get translation statistics for a user
+    try:
+        user_id = request.GET.get('user_id', request.user.id)
 
+        # Get all translations for the user
+        translations = ClientTranslation.objects.filter(user_id=user_id)
 
+        # Calculate statistics
+        stats = {
+            'total_translations': translations.count(),
+            'total_words_original': sum(
+                len(t.original_text.split())
+                for t in translations
+            ),
+            'total_words_translated': sum(
+                len(t.translated_text.split())
+                for t in translations
+            ),
+            'saved_translations': translations.filter(is_saved=True).count(),
+            'liked_translations': translations.filter(is_liked=True).count(),
+        }
+
+        return Response({
+            'success': True,
+            'data': stats
+        })
+    except Exception as e:
+        return Response({
+            'success': False,
+            'error': str(e)
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

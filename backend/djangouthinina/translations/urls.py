@@ -15,5 +15,6 @@ urlpatterns = [
     path('Clienttranslations/like/', api.like_Clienttranslation, name='like_Clienttranslation'),  # POST as liked Clienttranslation
     path('Clienttranslations/liked/list/', api.liked_Clienttranslation_list, name='like_Clienttranslation_list'),  # GET liked Clienttranslation list
 
+    path('Clienttranslations/stats/', api.user_translation_stats, name='Clienttranslation_stats'),  # GET user translation statistics
     
 ]
