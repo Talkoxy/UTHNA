@@ -122,7 +122,7 @@ const Translate = () => {
 
 
     return (
-        <div className="grid place-items-center fixed inset-0">
+        <div className="grid place-items-center fixed inset-0 pt-20">
             <div className="grid grid-flow-row gap-8">
 
                 <div className="grid grid-flow-row gap-8" >
@@ -148,13 +148,29 @@ const Translate = () => {
                                     onChange={(e) => setSourceLang(e.target.value)}
                                     value={sourceLang}
                                 >
-                                    <option value="">Select language</option>
+                                    <option value="">Translate from</option>
                                     <option value="zu">Zulu</option>
                                     <option value="xh">Xhosa</option>
                                     <option value="en">English</option>
                                 </select>
 
                             </div>
+
+
+                                <div>
+                                    <select
+                                        className="dropmenu"
+                                        id="targetLang"
+                                        onChange={(e) => setTargetLang(e.target.value)}
+                                        value={targetLang}
+                                    >
+                                        <option value="">Translate to</option>
+                                        <option value="zu">Zulu</option>
+                                        <option value="xh">Xhosa</option>
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+
 
                             <div>
                                 {errors.length > 0 && (
@@ -186,21 +202,7 @@ const Translate = () => {
 
                 <div className="grid grid-flow-row gap-8">
 
-                    <div className="grid grid-flow-col gap-8">
-                        <div>
-                            <select
-                                className="dropmenu"
-                                id="targetLang"
-                                onChange={(e) => setTargetLang(e.target.value)}
-                                value={targetLang}
-                            >
-                                <option value="">Select language</option>
-                                <option value="zu">Zulu</option>
-                                <option value="xh">Xhosa</option>
-                                <option value="en">English</option>
-                            </select>
-                        </div>
-
+                    
 
 
                         <div>
@@ -227,10 +229,8 @@ const Translate = () => {
                             />
                         </div>
 
-                        <div className="pl-20"> 
-                            <Custombtn 
-                            onClick={handlelikedTranslation}
-                            icon={<Likebtn />} />
+                        <div className=""> 
+                            <Likebtn/>
                         </div>
 
                     </div>
@@ -240,12 +240,6 @@ const Translate = () => {
 
 
             </div>
-
-
-
-
-
-        </div>
     )
 }
 export default Translate;

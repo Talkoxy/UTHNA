@@ -12,19 +12,17 @@
 
 @font-face {
   font-family: 'secondaryfont';
-  src: url('/fonts/CostaRica.otf') format('opentype');
+  src: url('/fonts/Caramel.otf') format('opentype');
 }
 
 .translate_btn {
   background-color: var(--btn_bg);
   border-radius: 0.8rem;
-  border: 0.2rem solid var(--btn_text);
+  border: 1px solid var(--btn_text);
   padding: 1rem 2rem;
-  font-size: 35px;
+  font-size: 25px;
   font-family: var(--font-main);
   color: var(--btn_text);
-  font-weight: 900;
-  letter-spacing: 0%;
 }
 
 .profile-btn {
@@ -35,10 +33,10 @@
 }
 
 .dropmenu {
-  background-color: var(--btn_bg);
+  background: var(--btn_bg);
   color: var(--btn_text);
   /* Changed from var(--color-translation-text) */
-  border: 0.2rem solid var(--btn_text);
+  border: 1px solid var(--btn_text);
   border-radius: 0.5rem;
   text-align: center;
   padding: 1rem 2rem;
@@ -57,13 +55,13 @@
 
 .translation-textarea {
   padding: 1rem;
-  width: 1000px;
+  width: 700px;
   /* Adjust as needed */
-  height: 350px;
+  height: 300px;
   /* Adjust as needed */
   border-radius: 0.8rem;
-  border: 0.2rem solid var(--translation-border);
-  background-color: var(--translation-bg);
+  border: 2px solid var(--translation-border);
+  background: var(--translation-bg);
   color: var(--translation-text);
   font-size: 24px;
   font-family: var(--font-main);
@@ -90,21 +88,16 @@
 .btn {
   background-color: var(--btn_bg);
   border-radius: 0.8rem;
-  border: 0.2rem solid var(--btn_text);
-  padding: 1rem 4rem;
-  font-size: 40px;
+  border: 2px solid var(--btn_text);
+  padding: 1rem 3rem;
+  font-size: 30px;
   font-family: var(--font-main);
   color: var(--btn_text);
-  font-weight: 900;
-  letter-spacing: 0%;
 }
 
 .likebtn {
-  border-radius: 0.8rem;
-  font-size: 40px;
+  font-size: 20px;
   color: var(--btn_text);
-  font-weight: 900;
-  letter-spacing: 0%;
 }
 
 .page_bg {
@@ -255,11 +248,14 @@ html.theme-light {
   --btn_bg: #a0dee5;
   --btn_text: #112250;
   --translation-border: #112250;
-  --translation-bg: #a0dee5;
+  --translation-bg: linear-gradient(180deg, #9bd6dd 49.28%, #c1e6b1 72.58%, #66d03c 106.39%);
   --translation-text: #112250;
   --dropdown-bg: #a0dee5;
   --hover_bg: #28334f;
 }
+
+
+
 
 /* DARK THEME 
 html.theme-dark {
