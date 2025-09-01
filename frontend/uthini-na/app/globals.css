@@ -61,7 +61,7 @@
 
 .translation-textarea {
   min-height: 250px;
-  min-width:450px;
+  min-width: 450px;
   height: auto;
   width: 100%;
   padding: 1.5rem;
@@ -432,3 +432,79 @@ html.theme-light {
   --color-language-select-outline: #87281B;
 } 
 */
+
+.translation-saves {
+  width: min(100%, 1200px);
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 1.5rem;
+  padding: 2rem;
+
+  /* Base scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--translation-border) var(--translation-bg);
+
+  /* Webkit scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--translation-bg);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--translation-border);
+    border-radius: 4px;
+    border: 2px solid var(--translation-bg);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--translation-border-focus);
+  }
+
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+
+  /* Container styling */
+  background: var(--translation-bg);
+  border: 2px solid var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+}
+
+.translation-saves:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px var(--card-glow);
+}
+
+/* Handle scrollbar appearance when hovering the container */
+.translation-saves:hover::-webkit-scrollbar-thumb {
+  background: var(--translation-border-focus);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .translation-saves {
+    width: 95vw;
+    padding: 1rem;
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .translation-saves {
+    max-height: 60vh;
+    border-radius: 1rem;
+  }
+}
+
+/* Prevent scroll issues on mobile */
+@media (hover: none) {
+  .translation-saves:hover {
+    transform: none;
+  }
+}

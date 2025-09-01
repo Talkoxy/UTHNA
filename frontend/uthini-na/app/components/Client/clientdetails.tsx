@@ -55,20 +55,15 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
                 </div>
 
 
-                <div className="grid grid-rows-3 justify-items-center">
+                <div className="grid grid-rows-3 place-items-center">
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
-
                         <div className="label">MY SAVED TRANSLATIONS</div>
-
                         <div><SavedTranslations user_id={userId}/></div>
                     </div>
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
-
-
                         <div className="label">MY LIKED TRANSLATIONS</div>
-
                         <div><LikedTranslations user_id={userId}/></div>
                     </div>
 
