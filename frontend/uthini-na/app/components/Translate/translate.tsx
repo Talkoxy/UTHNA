@@ -3,7 +3,7 @@ import Translatebtn from "../Buttons/translatebutton";
 import Likebtn from '../Buttons/likebutton';
 import apiService from "@/app/services/apiService";
 import { getUserId } from "@/app/lib/actions";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Custombtn from "../Buttons/custombutton";
 
 interface TranslationResult {
@@ -20,7 +20,16 @@ const Translate = () => {
     const [sourceLang, setSourceLang] = useState(''); // Optional: if you want to detect source language
     const [translatedText, setTranslatedText] = useState('');
     const [errors, setErrors] = useState<string[]>([]);
+    const [success, setSuccess] = useState<string[]>([]);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [isTranslated, setIsTranslated] = useState(false);
+
+    const autoGrowTextArea = useCallback((element: HTMLTextAreaElement) => {
+        element.style.height = 'auto';
+        element.style.height = `${element.scrollHeight}px`;
+    }, []);
 
     const submitTranslate = async () => {
         setErrors([]);
@@ -50,15 +59,21 @@ const Translate = () => {
             ) {
                 const translation = response.Clienttranslations[0] as TranslationResult;
                 setTranslatedText(translation.output || 'No translation available');
+                setIsTranslated(true);
+                setIsError(false);
+                setIsSuccess(true);
+                setSuccess(['Translation successful']);
 
                 // Don't clear the input fields automatically
                 // setOriginalText('');
                 // setTargetLang('');
             } else {
                 setErrors(['Translation failed: No translation result']);
+                setIsError(true);
             }
         } catch (error: any) {
             setErrors([error.message || 'Translation failed']);
+            setIsError(true);
         }
     };
 
@@ -82,7 +97,7 @@ const Translate = () => {
             if (response.success) {
                 setSaved(true);
                 setTimeout(() => setSaved(false), 3000); // Reset saved state after 3 seconds
-                setErrors(['saved translation']);
+                setSuccess(['Translation saved, view it in your profile']);
             } else {
                 setErrors(['Failed to save translation']);
             }
@@ -111,7 +126,7 @@ const Translate = () => {
             if (response.success) {
                 setSaved(true);
                 setTimeout(() => setSaved(false), 3000); // Reset saved state after 3 seconds
-                setErrors(['saved translation']);
+                setSuccess(['Translation liked, view it in your profile']);
             } else {
                 setErrors(['Failed to save translation']);
             }
@@ -121,28 +136,74 @@ const Translate = () => {
     };
 
 
+    // Optional: Reset height when text is cleared
+    useEffect(() => {
+        if (!originalText) {
+            const textarea = document.getElementById('originalText') as HTMLTextAreaElement;
+            if (textarea) {
+                textarea.style.height = '150px'; // Reset to min-height
+            }
+        }
+    }, [originalText]);
+
     return (
         <div className="grid place-items-center fixed inset-0 pt-20">
             <div className="grid grid-flow-row gap-8">
 
-                <div className="grid grid-flow-row gap-8" >
+                <div className="grid grid-flow-row gap-6" >
                     <div className="grid grid-flow-col gap-8">
+                        <div className="grid grid-flow-row gap-8 place-items-center">
 
-                        <div>
+                            <div>
                             <textarea
                                 className="translation-textarea"
                                 placeholder="Enter text to translate"
                                 id="originalText"
-                                onChange={(e) => setOriginalText(e.target.value)}
+                                value={originalText}
+                                onChange={(e) => {
+                                    setOriginalText(e.target.value);
+                                    autoGrowTextArea(e.target);
+                                }}
+                                onInput={(e) => autoGrowTextArea(e.target as HTMLTextAreaElement)}
                             />
+                            </div>
+
+                            <div className="grid grid-flow-col gap-8 place-items-center">
+
+                                <div className=" grid  place-items-center">
+                                    <Custombtn
+                                        label="Translate"
+                                        onClick={submitTranslate}
+                                    />
+                                </div>
+
+                                {isSuccess &&(   
+                                <div className="grid gap-2 success-container">
+                                    {success.length > 0 && (
+                                        <div className="grid gap-2 success-message">
+                                            {success.map((success, index) => (
+                                                <div
+                                                    key={`success_${index}`}
+                                                >
+                                                    {success}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                    )}
+
+                            </div>
+
+                            
+
                         </div>
+                        
 
 
 
-                        <div className="grid  grid-flow-row justify-center">
-
-                            <div>
-
+                        <div className="grid grid-flow-row place-items-center pb-40">
+                            <div className="grid place-items-center gap-8">
                                 <select className="dropmenu"
                                     id="sourceLang"
                                     onChange={(e) => setSourceLang(e.target.value)}
@@ -154,92 +215,78 @@ const Translate = () => {
                                     <option value="en">English</option>
                                 </select>
 
+                                <select
+                                    className="dropmenu"
+                                    id="targetLang"
+                                    onChange={(e) => setTargetLang(e.target.value)}
+                                    value={targetLang}
+                                >
+                                    <option value="">Translate to</option>
+                                    <option value="zu">Zulu</option>
+                                    <option value="xh">Xhosa</option>
+                                    <option value="en">English</option>
+                                </select>
+
                             </div>
 
 
-                                <div>
-                                    <select
-                                        className="dropmenu"
-                                        id="targetLang"
-                                        onChange={(e) => setTargetLang(e.target.value)}
-                                        value={targetLang}
-                                    >
-                                        <option value="">Translate to</option>
-                                        <option value="zu">Zulu</option>
-                                        <option value="xh">Xhosa</option>
-                                        <option value="en">English</option>
-                                    </select>
-                                </div>
-
-
-                            <div>
-                                {errors.length > 0 && (
-                                    <div className="grid gap-2">
-                                        {errors.map((error, index) => (
-                                            <div
-                                                key={`error_${index}`}
-                                            >
-                                                {error}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
                         </div>
+
+
                     </div>
-
-                    <div className=" grid place-items-center">
-                        <Custombtn
-                            label="Translate"
-                            onClick={submitTranslate}
-                        />
-                    </div>
-
-
-                </div>
-
-
-
-                <div className="grid grid-flow-row gap-8">
 
                     
-
-
-                        <div>
-                            <div>
-                                <textarea
-                                    className="translation-textarea"
-                                    placeholder="Result of translation"
-                                    defaultValue={translatedText}
-                                />
-
-
+                {isError &&(   
+                    <div className="grid gap-2 error-container">
+                        {errors.length > 0 && (
+                            <div className="grid gap-2 error-message">
+                                {errors.map((error, index) => (
+                                    <div
+                                        key={`error_${index}`}
+                                    >
+                                        {error}
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-
+                        )}
                     </div>
+                    )}
 
-                    <div className="flex justify-center gap-6">
-
-
-                        <div>
-                            <Custombtn
-                                label="Save Translation"
-                                onClick={handleSaveTranslation}
-                            />
-                        </div>
-
-                        <div className=""> 
-                            <Likebtn/>
-                        </div>
-
-                    </div>
-
+                
 
                 </div>
 
 
+                {isTranslated && (                 
+                    <div className="grid grid-flow-row gap-8 place-items-center">
+                                <div>
+                                    <textarea
+                                        className="translation-textarea"
+                                        placeholder="Result of translation"
+                                        defaultValue={translatedText}
+                                    />
+                                </div>
+
+                                <div className="flex items-center gap-8">
+                                    <div>
+                                        <Custombtn
+                                            label="Save Translation"
+                                            onClick={handleSaveTranslation}
+                                        />
+                                    </div>
+
+                                    <div className="place-items-center"> 
+                                        <Likebtn onClick={handlelikedTranslation}/>
+                                    </div>
+                                </div>
+                    </div>
+
+                )}
+
             </div>
+
+
+        </div>
     )
 }
 export default Translate;

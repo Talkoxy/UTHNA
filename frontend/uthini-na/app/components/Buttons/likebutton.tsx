@@ -1,9 +1,17 @@
 'use client';
 
+import { on } from "events";
 
-const Likebtn = () => {
+
+interface LikebtnProps{
+    onClick?: () => void;
+    disabled?: boolean;
+}
+    
+
+const Likebtn : React.FC <LikebtnProps> = ({onClick}) => {
     return(
-        <div className="likebtn">
+        <div onClick= {onClick} className="likebtn">
             <svg width="70px" 
             height="70px" 
             viewBox="0 0 16 16" 
