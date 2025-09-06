@@ -1,5 +1,5 @@
 "use client";
-
+import Translatebtn from "../Buttons/translatebutton";
 import Likebtn from '../Buttons/likebutton';
 import apiService from "@/app/services/apiService";
 import { getUserId } from "@/app/lib/actions";
@@ -12,14 +12,13 @@ interface TranslationResult {
     input: string;
 }
 
+
 const Translate = () => {
-    // Form states
+
     const [originalText, setOriginalText] = useState('');
     const [targetLang, setTargetLang] = useState('');
-    const [sourceLang, setSourceLang] = useState('');
+    const [sourceLang, setSourceLang] = useState(''); // Optional: if you want to detect source language
     const [translatedText, setTranslatedText] = useState('');
-
-    // UI states
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState<string[]>([]);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -33,53 +32,48 @@ const Translate = () => {
     }, []);
 
     const submitTranslate = async () => {
-        // Reset states for new translation
         setErrors([]);
-        setSuccess([]);
-        setIsError(false);
-        setIsSuccess(false);
+        setTranslatedText('');
 
         if (!originalText.trim()) {
             setErrors(['Please enter text to translate.']);
-            setIsError(true);
             return;
         }
 
-        if (!targetLang) {
-            setErrors(['Please select a target language.']);
-            setIsError(true);
-            return;
-        }
+        const formData = {
+            original_text: originalText,
+            target_language: targetLang,
+            source_language: sourceLang,
+        };
 
         try {
             const response = await apiService.postWithoutToken(
                 '/api/translate/translate/',
-                JSON.stringify({
-                    original_text: originalText,
-                    target_language: targetLang,
-                    source_language: sourceLang,
-                })
+                JSON.stringify(formData)
             );
 
             if (
-                response.Clienttranslations &&
+                response.Clienttranslations &&  // Changed from response.translations
                 Array.isArray(response.Clienttranslations) &&
                 response.Clienttranslations.length > 0
             ) {
                 const translation = response.Clienttranslations[0] as TranslationResult;
-                setTranslatedText(translation.output);
+                setTranslatedText(translation.output || 'No translation available');
                 setIsTranslated(true);
+                setIsError(false);
                 setIsSuccess(true);
                 setSuccess(['Translation successful']);
+
+                // Don't clear the input fields automatically
+                // setOriginalText('');
+                // setTargetLang('');
             } else {
                 setErrors(['Translation failed: No translation result']);
                 setIsError(true);
-                setIsTranslated(false);
             }
         } catch (error: any) {
             setErrors([error.message || 'Translation failed']);
             setIsError(true);
-            setIsTranslated(false);
         }
     };
 
@@ -153,33 +147,14 @@ const Translate = () => {
     }, [originalText]);
 
     return (
-        <main className="grid place-items-center fixed inset-0">
-            <div className="grid grid-flow-row gap-5">
-                {/* Success/Error Messages */}
-                {isSuccess && (
-                    <div className="success-container">
-                        {success.map((msg, index) => (
-                            <div key={`success_${index}`} className="success-message">
-                                {msg}
-                            </div>
-                        ))}
-                    </div>
-                )}
+        <div className="grid place-items-center fixed inset-0 pt-20">
+            <div className="grid grid-flow-row gap-8">
 
-                {isError && (
-                    <div className="error-container">
-                        {errors.map((error, index) => (
-                            <div key={`error_${index}`} className="error-message">
-                                {error}
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {/* Translation Input Section */}
-                <div className="grid grid-flow-row gap-6 glow">
-                    <div className="grid grid-flow-col gap-6">
+                <div className="grid grid-flow-row gap-6" >
+                    <div className="grid grid-flow-col gap-8">
                         <div className="grid grid-flow-row gap-8 place-items-center">
+
+                            <div>
                             <textarea
                                 className="translation-textarea"
                                 placeholder="Enter text to translate"
@@ -189,22 +164,50 @@ const Translate = () => {
                                     setOriginalText(e.target.value);
                                     autoGrowTextArea(e.target);
                                 }}
+                                onInput={(e) => autoGrowTextArea(e.target as HTMLTextAreaElement)}
                             />
+                            </div>
 
-                            <Custombtn
-                                label="Translate"
-                                onClick={submitTranslate}
-                                disabled={!originalText.trim() || !targetLang}
-                            />
+                            <div className="grid grid-flow-col gap-8 place-items-center">
+
+                                <div className=" grid  place-items-center">
+                                    <Custombtn
+                                        label="Translate"
+                                        onClick={submitTranslate}
+                                    />
+                                </div>
+
+                                {isSuccess &&(   
+                                <div className="grid gap-2 success-container">
+                                    {success.length > 0 && (
+                                        <div className="grid gap-2 success-message">
+                                            {success.map((success, index) => (
+                                                <div
+                                                    key={`success_${index}`}
+                                                >
+                                                    {success}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                    )}
+
+                            </div>
+
+                            
+
                         </div>
+                        
 
-                        {/* Language Selection */}
+
+
                         <div className="grid grid-flow-row place-items-center pb-40">
                             <div className="grid place-items-center gap-8">
-                                <select
-                                    className="dropmenu"
-                                    value={sourceLang}
+                                <select className="dropmenu"
+                                    id="sourceLang"
                                     onChange={(e) => setSourceLang(e.target.value)}
+                                    value={sourceLang}
                                 >
                                     <option value="">Translate from</option>
                                     <option value="zu">Zulu</option>
@@ -214,45 +217,76 @@ const Translate = () => {
 
                                 <select
                                     className="dropmenu"
-                                    value={targetLang}
+                                    id="targetLang"
                                     onChange={(e) => setTargetLang(e.target.value)}
+                                    value={targetLang}
                                 >
                                     <option value="">Translate to</option>
                                     <option value="zu">Zulu</option>
                                     <option value="xh">Xhosa</option>
                                     <option value="en">English</option>
                                 </select>
+
                             </div>
+
+
                         </div>
+
+
                     </div>
+
+                    
+                {isError &&(   
+                    <div className="grid gap-2 error-container">
+                        {errors.length > 0 && (
+                            <div className="grid gap-2 error-message">
+                                {errors.map((error, index) => (
+                                    <div
+                                        key={`error_${index}`}
+                                    >
+                                        {error}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    )}
+
+                
+
                 </div>
 
-                {/* Translation Result Section */}
-                {isTranslated && (
+
+                {isTranslated && (                 
                     <div className="grid grid-flow-row gap-8 place-items-center">
-                        <textarea
-                            className="translation-textarea"
-                            placeholder="Result of translation"
-                            value={translatedText}
-                            readOnly
-                        />
+                                <div>
+                                    <textarea
+                                        className="translation-textarea"
+                                        placeholder="Result of translation"
+                                        defaultValue={translatedText}
+                                    />
+                                </div>
 
-                        <div className="flex items-center gap-8">
-                            <Custombtn
-                                label="Save Translation"
-                                onClick={handleSaveTranslation}
-                                disabled={!translatedText}
-                            />
-                            <Likebtn
-                                onClick={handlelikedTranslation}
-                                disabled={!translatedText}
-                            />
-                        </div>
+                                <div className="flex items-center gap-8">
+                                    <div>
+                                        <Custombtn
+                                            label="Save Translation"
+                                            onClick={handleSaveTranslation}
+                                        />
+                                    </div>
+
+                                    <div className="place-items-center"> 
+                                        <Likebtn onClick={handlelikedTranslation}/>
+                                    </div>
+                                </div>
                     </div>
-                )}
-            </div>
-        </main>
-    );
-};
 
+                )}
+
+            </div>
+
+
+        </div>
+    )
+}
 export default Translate;
