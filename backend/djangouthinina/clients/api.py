@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
+
 @api_view(['GET'])
 @authentication_classes([])
 @permission_classes([])

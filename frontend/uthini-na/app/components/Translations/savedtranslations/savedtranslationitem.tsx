@@ -8,7 +8,7 @@ export interface TranslationProps {
 
 const SavedTranslationItem: React.FC<TranslationProps> = ({translation}) => {
     return (
-        <div className="list-item">
+        <div className="saved_translation_card">
             <div className="grid place-items-center">
                 <div className="grid gap-2 place-items-center">
                     <div className=""> Original Text: {translation.original_text}</div>

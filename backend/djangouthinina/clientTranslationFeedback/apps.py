@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ClientdetailsConfig(AppConfig):
+class ClienttranslationfeedbackConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'clientdetails'
+    name = 'clientTranslationFeedback'

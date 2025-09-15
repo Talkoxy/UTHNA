@@ -77,10 +77,10 @@ INSTALLED_APPS = [
     #local_apps
     'translations',
     'clients',
-    'clientdetails',
+    'clientsettings',
 
 
-     #rest_framework
+    #rest_framework
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',

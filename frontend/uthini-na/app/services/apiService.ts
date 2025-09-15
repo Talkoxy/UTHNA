@@ -12,6 +12,7 @@ const apiService = {
                 headers:{
                     'Accept':'application/json',
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 }
             })
 
@@ -138,7 +139,34 @@ const apiService = {
 
 
 
+     delete: async function(url: string): Promise<any> {
+        const token = await getAccessToken();
 
+        return new Promise((resolve, reject) => {
+            fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    alert("Session expired. Please log in again.");
+                    reject("Unauthorized access - Please log in.");
+                } else if (response.status === 204 || response.status === 200) {
+                    resolve(null); // No content to parse for successful delete
+                } else {
+                    return response.json();
+                }
+            })
+            .then((json) => {
+                resolve(json);
+            })
+            .catch(error => {
+                reject(error);
+            });
+        });
+    },
 
 
 }

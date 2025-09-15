@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiService from "@/app/services/apiService";
-import Custombtn from "../Buttons/custombutton";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
 import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
 import TranslationInsights from "../Insights/insights";
