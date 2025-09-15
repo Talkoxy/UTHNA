@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Custombtn from '../Buttons/custombutton';
+import LogoutButton from '../Buttons/logoutbutton';
+import AddSettingsModal from '../Modals/CreateSettingsModal';
+import useAddSettingsModal from '../Modals/Hooks/useAddSettingsModal';
 
 interface ProfileDropdownProps {
     userId: string | null;
@@ -10,9 +14,18 @@ interface ProfileDropdownProps {
 const ProfileDropdown = ({ userId }: ProfileDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const addSettingsModal = useAddSettingsModal();
+
+    //functions
+
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+
+    const SettingsUpload = () => {
+        addSettingsModal.open
+
+    }
 
     return (
         <div className="grid grid-flow-row relative place-items-center">
@@ -40,7 +53,7 @@ const ProfileDropdown = ({ userId }: ProfileDropdownProps) => {
 
                     </div>
                     <div>
-                        <Link href="/settings">
+                        <Link href={`/settings/${userId}`}>
                             <div className="dropdown-item">
                                 Settings
                             </div>
@@ -49,7 +62,7 @@ const ProfileDropdown = ({ userId }: ProfileDropdownProps) => {
                     </div>
 
                    <div className="dropdown-item">
-                     <div>Logout</div>
+                     <LogoutButton/>
                    </div>
                 </div>
             )}

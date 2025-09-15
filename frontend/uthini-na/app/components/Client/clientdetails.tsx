@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiService from "@/app/services/apiService";
-import Custombtn from "../Buttons/custombutton";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
 import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
 import TranslationInsights from "../Insights/insights";
@@ -55,20 +54,15 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
                 </div>
 
 
-                <div className="grid grid-rows-3 justify-items-center">
+                <div className="grid grid-rows-3 place-items-center">
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
-
                         <div className="label">MY SAVED TRANSLATIONS</div>
-
                         <div><SavedTranslations user_id={userId}/></div>
                     </div>
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
-
-
                         <div className="label">MY LIKED TRANSLATIONS</div>
-
                         <div><LikedTranslations user_id={userId}/></div>
                     </div>
 

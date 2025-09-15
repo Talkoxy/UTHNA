@@ -1,10 +1,10 @@
 "use client"
-import { TranslationType } from "../savedtranslations/savedtranslations"
 import { TranslationProps } from "../savedtranslations/savedtranslationitem"
 
 
 
-const LikedTranslationItem: React.FC<TranslationProps> = ({translation}) => {
+const LikedTranslationItem: React.FC<TranslationProps> = 
+({translation}) => {
     return (
         <div className="saved_translation_card">
             <div className="grid place-items-center">

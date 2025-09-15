@@ -5,9 +5,12 @@ import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 import Link from "next/link";
 import Custombtn from "../Buttons/custombutton";
+import useAddSettingsModal from "../Modals/Hooks/useAddSettingsModal";
 
 const signup = () => {
     const router = useRouter();
+
+    const addSettingsModal = useAddSettingsModal()
 
     const [username, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -17,6 +20,11 @@ const signup = () => {
     const [errors,setErrors] = useState<string[]>([]);
 
     //functions
+
+    const createSettingsmodal = () =>{
+      addSettingsModal.open()
+    }
+
 
     const submitSignup = async () => {
         const formData = {
@@ -33,10 +41,13 @@ const signup = () => {
         if(response.access){
             handleLogin(response.user.pk, response.access, response.refresh)
 
-            router.push('/');
+           createSettingsmodal();
+           
          }else {
             const tmpErrors: string[] = Object.values(response).map((error: any) =>{
                 return error;
+
+                
             } )
 
             setErrors(tmpErrors);
