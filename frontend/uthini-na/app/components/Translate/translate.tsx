@@ -5,6 +5,7 @@ import apiService from "@/app/services/apiService";
 import { getUserId } from "@/app/lib/actions";
 import { useCallback, useEffect, useState } from "react";
 import Custombtn from "../Buttons/custombutton";
+import AddFeedbackButton from '../Buttons/feedback/addFeedbackbutton';
 
 interface TranslationResult {
     output: string;
@@ -253,6 +254,14 @@ const Translate = () => {
                             <Likebtn
                                 onClick={handlelikedTranslation}
                                 disabled={!translatedText}
+                            />
+                        </div>
+
+                        <div>
+                            <AddFeedbackButton 
+                                original_translation={translatedText} 
+                                translated_from={sourceLang} 
+                                translated_to={targetLang}
                             />
                         </div>
                     </div>

@@ -41,6 +41,32 @@
   border: 2px solid var(--btn_border_focus);  
 }
 
+.feedback_btn {
+  background-color: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--btn_text);
+  padding: 1rem 2rem;
+  font-size: 25px;
+  font-family: var(--font-secondary);
+  color: var(--btn_text);
+  outline: none;
+
+  transition: all 1.5s ease;
+}
+
+.feedback_btn:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 10px var(--card-glow);
+
+}
+
+.feedback_btn:hover {
+  background: var(--btn_bg-focus);
+  box-shadow: 0 0 5px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);  
+}
+
 
 .profile-btn {
   border-radius: 6rem;
@@ -275,6 +301,8 @@
 .pttbtn-icon {
   height: 50px;
 }
+
+
 
 
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import  Navbar from "./components/Navbar/navbar";
 import { ThemeProvider } from './components/ThemeProvider';
 import AddSettingsModal from "./components/Modals/CreateSettingsModal";
+import AddFeedbackModal from "./components/Modals/CreateFeedbackModal";
 
 
 const geistSans = Geist({
@@ -39,6 +40,7 @@ export default function RootLayout({
           </div>
           
           <AddSettingsModal/>
+          <AddFeedbackModal/>
         </ThemeProvider>
       </body>
     </html>
