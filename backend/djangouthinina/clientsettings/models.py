@@ -17,7 +17,4 @@ class ClientSettings(models.Model):
     profile_visibility = models.CharField(max_length=10, default='private') 
 
 
-    def image_url(self):
-        if self.profile_picture: # Check if a file is associated with the field
-            return f'{settings.WEBSITE_URL}{self.profile_picture.url}'
-        return None 
+    

@@ -14,7 +14,7 @@ const ClientSettingsItem: React.FC<ClientSettingsItemProps> =
                 <div className='grid gap-2 place-items-center'>
                     <div className='p-4'>
                         <Image
-                        src={setting.image_url}
+                        src={setting.profile_picture}
                         width={300}
                         height={300}
                         alt='user profile photo'

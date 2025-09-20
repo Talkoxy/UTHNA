@@ -11,7 +11,7 @@ class ClientSettingsSerializer(serializers.ModelSerializer):
             'user',
             'user_preferred_source_language',
             'user_preferred_target_language', 
-            'image_url',
+            'profile_picture',
             'subscription_status', 
             'profile_visibility',
         ]

@@ -10,7 +10,7 @@ export type ClientSettingsType= {
     id: string; 
     user_preferred_source_language: string;
     user_preferred_target_language: string;
-    image_url: string;
+    profile_picture: string;
     subscription_status: string;
     profile_visibility: string;
     user: {
