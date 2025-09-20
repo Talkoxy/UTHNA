@@ -41,22 +41,21 @@ def client_settings_detail(request, pk):
 @permission_classes([IsAuthenticated])
 def create_client_settings(request):
     """Create new client settings"""
-    form = ClientSettingsForm(request.POST, request.FILES)
+    # Use the serializer to validate and create data
+    serializer = ClientSettingsSerializer(data=request.data)
 
-    if form.is_valid():
-        settings = form.save(commit=False)
-        settings.user = request.user
-        settings.save()
-
+    if serializer.is_valid():
+        # Assign the user before saving
+        serializer.save(user=request.user)
         return Response({
             'success': True,
-        })
+            'data': serializer.data
+        }, status=status.HTTP_201_CREATED)
 
     return Response({
         'success': False,
-        'errors': form.errors
+        'errors': serializer.errors
     }, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['PUT'])
 @authentication_classes([JWTAuthentication])
@@ -64,20 +63,20 @@ def create_client_settings(request):
 def update_client_settings(request, pk):
     """Update existing client settings"""
     settings = get_object_or_404(ClientSettings, id=pk, user=request.user)
-    form = ClientSettingsForm(request.data, instance=settings)
+    # Use the serializer with the instance to update
+    serializer = ClientSettingsSerializer(settings, data=request.data)
 
-    if form.is_valid():
-        settings = form.save()
+    if serializer.is_valid():
+        serializer.save()
         return Response({
             'success': True,
-            'data': ClientSettingsSerializer(settings).data
+            'data': serializer.data
         })
 
     return Response({
         'success': False,
-        'errors': form.errors
+        'errors': serializer.errors
     }, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['DELETE'])
 @permission_classes([])

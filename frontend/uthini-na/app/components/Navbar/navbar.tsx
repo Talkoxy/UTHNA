@@ -4,37 +4,44 @@ import ToProfileButton from "../Buttons/navigation/toprofilebutton";
 import Themetoggle from "../Buttons/themetoggle";
 import { ConnectIcon, TranslateIcon } from "../icons";
 import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from "../Modals/Hooks/useAddSettingsModal";
+import useAddSettingsModal from "../Hooks/useAddSettingsModal";
 import NavbarItem from "./navbaritem";
+import { link } from "fs/promises";
+import Link from "next/link";
 
 
 const Navbar = () => {
-    const addSettingsModal= useAddSettingsModal()
+   
 
-    const createSettingsmodal = () =>{
-      addSettingsModal.open()
-    }
-
-    
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
-            <div className="grid grid-flow-col place-items-center justify-center Navbar">
-                <div className="">
-                    <NavbarItem label='Translate' icon={<TranslateIcon/>}/>
+            <div className="grid grid-flow-col grid-cols-4 place-items-center justify-center ">
+                <div >
+                    <Link href={'/welcome'} >
+                        <img src="/images/UthiniNaNavbar.png" width={80} height={80} alt="To home page" />
+                    </Link>
                 </div>
 
-                <div className="">
-                    <NavbarItem label='Connect' icon={<ConnectIcon/>} />
-                </div>
+                <div className=" pl-130 grid grid-flow-col grid-cols-2  gap-60">
+                    
+                    <div >
+                    <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
+                    </div>
 
-                <div className="">
+                    <div>
+                        <NavbarItem label='Connect' icon={<ConnectIcon />}  link='/connect' />
+                    </div>
+
+                </div>
+                
+                
+                <div className="pl-200 grid place-items-center justify-center">
                     <ToProfileButton />
                 </div>
-
                 
+
             </div>
 
-            
         </nav>
     )
 

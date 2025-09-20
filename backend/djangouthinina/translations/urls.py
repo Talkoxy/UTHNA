@@ -4,8 +4,8 @@ from . import api
 urlpatterns = [
     path('translate/', api.just_translate, name='just_translate'),  # POST to translate text without saving
 
-    path('Clienttranslations/<int:pk>/', api.Clienttranslation_detail, name='Clienttranslation_detail'),  # GET a single and more detailed Clienttranslation
-    path('Clienttranslations/<int:pk>/delete/', api.Clienttranslation_delete, name='Clienttranslation_delete'),  # DELETE Clienttranslation
+    path('Clienttranslations/<uuid:pk>/', api.Clienttranslation_detail, name='Clienttranslation_detail'),  # GET a single and more detailed Clienttranslation
+    path('Clienttranslations/<uuid:pk>/delete/', api.Clienttranslation_delete, name='Clienttranslation_delete'),  # DELETE Clienttranslation
 
     path('Clienttranslations/list/', api.Clienttranslation_list, name='Clienttranslation_list'),  # GET list of saved and liked Clienttranslations
 

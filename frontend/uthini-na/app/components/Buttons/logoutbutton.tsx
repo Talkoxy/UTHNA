@@ -13,13 +13,13 @@ const LogoutButton = () => {
     const submitLogout = async () => {
 
         resetAuthCookies();
-
-
         router.push('/')
     }
 
     return(
-        <Custombtn label= 'logout' onClick={submitLogout}/>
+        <div onClick={submitLogout}>
+            logout
+        </div>
     )
 
 

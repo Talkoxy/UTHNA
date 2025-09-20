@@ -23,7 +23,7 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'clients.User'
 
 
-WEBSITE_URL = 'http://localhost:8000'
+WEBSITE_URL ='http://localhost:8000'
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
@@ -36,7 +36,7 @@ SIMPLE_JWT = {
      "ROTATE_REFRESH_TOKEN" : True,
      "BLACKLIST_AFTER_ROTATION": True,
      "UPDATE_LAST_LOGIN" : True,
-     "SIGNING_KEY" : "BGCOMGATE",
+     "SIGNING_KEY" : config('SECRET_KEY'),
      "ALGORITHM" : "HS256",
 
 }
@@ -45,10 +45,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSIONS_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': ( 
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
@@ -189,7 +190,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

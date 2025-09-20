@@ -15,3 +15,5 @@ class ClientSettingsSerializer(serializers.ModelSerializer):
             'subscription_status', 
             'profile_visibility',
         ]
+
+        

@@ -42,9 +42,9 @@ const Login = () => {
     }
 
     return (
-        <div className="grid place-items-center fixed inset-0">
+        <div className="grid place-items-center fixed inset-0 p-50">
                 <div className="grid gap-8 card">
-                    <div className="grid gap-4">
+                    <div className="grid gap-5">
                         <input
                             type="email"
                             value={email}
@@ -59,8 +59,8 @@ const Login = () => {
                             placeholder="Password"
                         />
 
-
-                        {errors.length > 0 && (
+                        <div className="p-2">
+                            {errors.length > 0 && (
                             <div className="grid gap-2">
                                 {errors.map((error, index) => (
                                     <div key={`error_${index}`} className="error-message">
@@ -70,9 +70,17 @@ const Login = () => {
                             </div>
                         )}
 
+
+
+                        </div>
+
+
+                        
+
                         <Custombtn
-                            label='Login'
+                            label='Log-in'
                             onClick={submitLogin}
+                            
                         />
                     </div>
 

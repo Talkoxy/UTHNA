@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 interface NavbarItemProps{
-    link?: React.ReactNode
+    link?: string;
     label?: string | React.ReactNode;
     icon?: React.ReactNode;
     className?: string;
@@ -15,14 +15,20 @@ const NavbarItem: React.FC<NavbarItemProps> = ({label, className, onClick,icon,l
         <>
             {link ?(
             <Link href={String(link)}>
-                <div onClick={onClick} className={`cursor-pointer navbar-item place-items-center ${className}`}>
-                    <div className="grid grid-flow-col gap-4">
+                <div onClick={onClick} className={`cursor-pointer ${className}`}>
+                    <div className="place-items-center grid grid-flow-col gap-1">
                         <div>
-                            {label}
+                            <div className="navbar-item">
+                                {label}
+                            </div>
                         </div>
                         
-                        <div className="Navbar-Icon">
-                            {icon}
+                        
+                        <div className="grid grid-rows-2 Navbar-Icon">
+                            <div className="">
+                                {icon}
+                            </div>
+                            
                         </div>
                         
                     </div>
@@ -31,14 +37,17 @@ const NavbarItem: React.FC<NavbarItemProps> = ({label, className, onClick,icon,l
              </Link>
             ):(
             <div>
-                <div onClick={onClick} className={`cursor-pointer place-items-center ${className}`}>
-                     <div className="grid grid-flow-col gap-2">
+                <div onClick={onClick} className={`cursor-pointer  ${className}`}>
+                     <div className="place-items-center grid grid-flow-col gap-1">
                         <div>
                             {label}
                         </div>
                         
-                        <div className="Navbar-Icon">
-                            {icon}
+                        <div className="grid grid-rows-2 Navbar-Icon">
+                            <div>
+                                {icon}
+                            </div>
+                            
                         </div>
                         
                     </div>

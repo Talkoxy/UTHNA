@@ -42,7 +42,7 @@
 }
 
 .feedback_btn {
-  background-color: var(--btn_bg);
+  background: var(--btn_bg);
   border-radius: 0.8rem;
   border: 1px solid var(--btn_text);
   padding: 1rem 2rem;
@@ -241,11 +241,7 @@
   overflow: hidden;
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 .lightmode-nav {
   background: #a0dee5;
@@ -254,18 +250,20 @@
 .btn {
   background: var(--btn_bg);
   border-radius: 0.8rem;
-  border: 3px solid var(--btn_border);
+  border: 2px solid var(--btn_border);
   padding: 1rem 2rem;
   font-size: 30px;
   font-family: var(--font-main);
   color: var(--btn_text);
 
-  transition: all 1.8s ease;
+  transition: all 1s;
   outline: none;
+  border: none;
 }
+
 .btn:hover {
-  box-shadow: 0 0 32px var(--card-glow);
-  border: 3px solid var(--btn_border_focus); 
+  box-shadow: 0 0 25px var(--btn-glow);
+   
 }
 
 .likebtn {
@@ -334,16 +332,22 @@
   font-weight: 900;
   letter-spacing: 0%;
 
-  border: 0.2rem solid var(--card_bg_text);
+  border: none;
+  transition: all 1.5s ease-in;
+
 }
+
+
+
 
 .profile-dropdown-menu {
   position: absolute;
-  margin-top: 2rem;
+  margin-top: 4rem;
   margin-left: -5.5rem;
   background-color: var(--dropdown-bg);
   border-radius: 0.8rem;
   padding: 3rem;
+  box-shadow: 0 0 20px 1px var(--card-glow);
 }
 
 .dropdown-item {
@@ -398,23 +402,33 @@
   transition: all 2s ease;
 }
 
+
+input:focus{
+ outline: #5bfc16;
+ outline-width: 10rem;
+}
+
 .insights_card:hover {
   background: var(--insights_card_focus);
 }
 
 .glow {
-  box-shadow: 0 0 15px var(--card-glow);
-  border-radius: 4rem;
-  padding: 4rem;
-}
+  box-shadow: 0 0 10px var(--card-glow);
+  border-radius: 2rem;
+  padding: 3rem;
+} 
 
-.Navbar{
-  display: grid;
-  column-gap: 150px;
-}
 
+.navbar-item{
+  cursor: pointer;
+  font-size: 25px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+}
 .Navbar-Icon{
-  display: grid;
+  cursor: pointer;
+  font-family: var(--font-main);
+  color: var(--btn_text);
   
 }
 /*Themes*/
@@ -458,6 +472,7 @@ html.theme-light {
   --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
   --btn_border: #c8eaba;
   --btn_border_focus: #7dc6769c;
+  --btn-glow:#65d25bc6;
   /* translation box colors */
   --translation-border: #BDF9A5;
   --translation-border-focus: #91eb889c;
