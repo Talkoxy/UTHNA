@@ -31,7 +31,7 @@ const ProfileDropdown = ({ userId, userSettings }: ProfileDropdownProps) => {
             <div>
                 <button onClick={toggleDropdown} className="profile-btn">
                      <Image
-                    src={userSettings.profile_picture}
+                    src={userSettings.image_url}
                     alt="User Profile"
                     width={40}
                     height={40}
