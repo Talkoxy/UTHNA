@@ -24,33 +24,17 @@ const AddFeedbackModal = () => {
     const [datatranslated_from, setTranslated_from] = useState(translated_from);
     const [datatranslated_to, setTranslated_to] = useState(translated_to);
 
-
-    const [currentStep, setCurrentStep] = useState(1);
-
-    useEffect(() => {
-        if (AddFeedbackModal.isOpen) {
-            setOriginal_translation(original_translation)
-            setTranslated_from(translated_from)
-            setTranslated_to(translated_to)
-        } else {
-            setOriginal_translation("")
-            setTranslated_from("")
-            setTranslated_to("")
-        }
-
-    })
-
-
-
     const sudmitForm = async () => {
-        const formData = new FormData()
-        formData.append('context', datacontext);
-        formData.append('feedback', datafeedback);
-        formData.append('original_translation', dataoriginal_translation);
-        formData.append('translated_from', datatranslated_from);
-        formData.append('translated_to', datatranslated_to)
 
-        const response = await apiService.post('/api/feedback/create/', formData)
+     const senddata= new FormData();
+     senddata.append('context', datacontext);
+     senddata.append('feedback', datafeedback);
+     senddata.append('original_translation', dataoriginal_translation);
+     senddata.append('translated_from', datatranslated_from);
+     senddata.append('translated_to', datatranslated_to);
+
+
+        const response = await apiService.post('/api/feedback/create/', senddata);
 
         if (response.success) {
 
@@ -81,17 +65,16 @@ const AddFeedbackModal = () => {
 
                         <input
                             className=""
-
                             type="text"
-                            value={original_translation}
+                            value={dataoriginal_translation}
                             onChange={(e) => {
-                                setFeedback(e.target.value)
+                                setOriginal_translation(e.target.value)
                             }}
                         />
 
                         <select
                             className="dropmenu"
-                            value={translated_from}
+                            value={datatranslated_from}
                             onChange={(e) => setTranslated_from(e.target.value)}
                         >
                             <option >{translated_from}</option>
@@ -103,7 +86,7 @@ const AddFeedbackModal = () => {
 
                         <select
                             className="dropmenu"
-                            value={translated_to}
+                            value={datatranslated_to}
                             onChange={(e) => setTranslated_to(e.target.value)}
                         >
                             <option >{translated_to}</option>

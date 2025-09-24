@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .models import ClientSettings
-from .forms import ClientSettingsForm
-from .serializers import ClientSettingsDetailSerializer
+from .models import ClientSetting
+from .forms import ClientSettingForm
+from .serializers import ClientSettingSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -15,8 +15,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 @permission_classes([IsAuthenticated])
 def client_settings_list(request):
     """Get list of all client settings"""
-    settings = ClientSettings.objects.filter(user=request.user)
-    serializer = ClientSettingsSerializer(settings, many=True)
+    settings = ClientSetting.objects.filter(user=request.user)
+    serializer = ClientSettingSerializer(settings, many=True)
     return Response({
         'success': True,
         'data': serializer.data
@@ -28,8 +28,8 @@ def client_settings_list(request):
 @permission_classes([IsAuthenticated])
 def client_settings_detail(request, pk):
     """Get specific client settings"""
-    settings = get_object_or_404(ClientSettings, id=pk, user=request.user)
-    serializer = ClientSettingsSerializer(settings)
+    settings = get_object_or_404(ClientSetting, id=pk, user=request.user)
+    serializer = ClientSettingSerializer(settings)
     return Response({
         'success': True,
         'data': serializer.data
@@ -40,18 +40,16 @@ def client_settings_detail(request, pk):
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def create_client_settings(request):
-
-    data = request.data.copy()
-    form = ClientSettingsForm(request.data,request.FILES)
+    form = ClientSettingForm(request.data,request.FILES)
     
     if form.is_valid():
-        settings = form.save(commit=False)
-        settings.user = request.user  # assign logged-in user
-        settings.save()
+        story = form.save(commit=False)
+        story.user = request.user  # assign logged-in user
+        story.save()
         
         return Response({
             'success': True,
-            'data': ClientSettingsDetailSerializer(settings).data
+            'data': ClientSettingSerializer(story).data
         })
     else:
         print('error', form.errors, form.non_field_errors)
@@ -59,17 +57,15 @@ def create_client_settings(request):
             'success': False,
             'errors': form.errors
         }, status=status.HTTP_400_BAD_REQUEST)
-    
 
-    
 @api_view(['PUT'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def update_client_settings(request, pk):
     """Update existing client settings"""
-    settings = get_object_or_404(ClientSettings, id=pk, user=request.user)
+    settings = get_object_or_404(ClientSetting, id=pk, user=request.user)
     # Use the serializer with the instance to update
-    serializer = ClientSettingsSerializer(settings, data=request.data)
+    serializer = ClientSettingSerializer(settings, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
@@ -87,7 +83,7 @@ def update_client_settings(request, pk):
 @permission_classes([])
 def delete_client_settings(request, pk):
     """Delete client settings"""
-    settings = get_object_or_404(ClientSettings, id=pk, user=request.user)
+    settings = get_object_or_404(ClientSetting, id=pk, user=request.user)
     settings.delete()
 
     return Response({

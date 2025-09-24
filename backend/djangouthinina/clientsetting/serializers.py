@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import ClientSettings
+from .models import ClientSetting
 from clients.serializers import UserSerializer
 
-class ClientSettingsSerializer(serializers.ModelSerializer):
+class ClientSettingSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
-        model = ClientSettings
+        model = ClientSetting
         fields = [
             'id',
             'user',
@@ -16,3 +16,4 @@ class ClientSettingsSerializer(serializers.ModelSerializer):
             'profile_visibility',
         ]
 
+        

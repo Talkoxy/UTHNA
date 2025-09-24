@@ -1,3 +1,5 @@
+// your_component_name.tsx
+
 'use client'
 
 import { useState } from "react";
@@ -5,6 +7,8 @@ import apiService from "@/app/services/apiService";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
 import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
 import TranslationInsights from "../Insights/insights";
+import { ClientSettingsType } from "../ClientSettings/clientsettings";
+import Image from "next/image";
 
 
 type ClientDetailsProps = {
@@ -12,21 +16,25 @@ type ClientDetailsProps = {
         name: string;
         email: string;
     };
-    userId?: string|null;
+    userId?: string | null;
+
+    
 };
 
-const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
+
+
+const ClientDetails = ({ user, userId}: ClientDetailsProps) => {
     const [name, setUsername] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [errors, setErrors] = useState<string[]>([]);
-
+    
     const handleUpdate = async () => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("email", email);
 
         try {
-            const response = await apiService.put(`/api/auth/${userId}/update/`, formData);
+           const response = await apiService.put(`/api/auth/${userId}/update/`, formData);
             if (response.success) {
                 // Handle successful update
             } else {
@@ -46,24 +54,24 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
                 <div className="grid grid-rows-3 place-items-center ">
 
-                    <div>D.P</div>
-                    
-                    <div> <TranslationInsights userId={userId}/> </div>
+                    <div> 
+                        
+                    </div>
 
+                    <div> <TranslationInsights userId={userId} /> </div>
 
                 </div>
-
 
                 <div className="grid grid-rows-3 place-items-center">
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
                         <div className="label">MY SAVED TRANSLATIONS</div>
-                        <div><SavedTranslations user_id={userId}/></div>
+                        <div><SavedTranslations user_id={userId} /></div>
                     </div>
 
                     <div className="grid grid-col-2 gap-1 place-items-center">
                         <div className="label">MY LIKED TRANSLATIONS</div>
-                        <div><LikedTranslations user_id={userId}/></div>
+                        <div><LikedTranslations user_id={userId} /></div>
                     </div>
 
                 </div>

@@ -10,12 +10,12 @@ export type ClientSettingsType= {
     id: string; 
     user_preferred_source_language: string;
     user_preferred_target_language: string;
-    profile_picture: string;
+    image_url: string;
     subscription_status: string;
     profile_visibility: string;
     user: {
         id: string;
-        name: string;
+        username: string;
     };
     
 }
@@ -37,16 +37,16 @@ const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
     }, []);
     return (
         <div className='grid grid-flow-row gap-4 place-items-center'> 
-        {settings.map((setting) => (
-            <div
-                key={setting.id}
-            >
-                <ClientSettingsItem
-                    setting={setting}
-                />
-
-            </div>
-        ))}
+        {settings.length > 0 ? (
+            settings.map((setting) => (
+                <div key={setting.id}>
+                    <ClientSettingsItem setting={setting} />
+                </div>
+            ))
+        ) : (
+            // A message or component to display when no settings are found
+            <p>No settings found for this user.</p>
+        )}
 
         </div>
     );

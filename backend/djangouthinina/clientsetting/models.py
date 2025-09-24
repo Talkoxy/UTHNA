@@ -3,9 +3,9 @@ from django.db import models
 from clients.models import User
 from django.conf import settings
 
-class ClientSettings(models.Model):
+class ClientSetting(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='clientsettings', db_column='user_id')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='clientsetting', db_column='user_id')
 
     """ language settings """
     user_preferred_source_language = models.CharField(max_length=10, default='en')
@@ -18,5 +18,5 @@ class ClientSettings(models.Model):
 
 
     def image_url(self):
-                return f'{settings.WEBSITE_URL}{self.profile_picture.url}'
+        return f'{settings.WEBSITE_URL}{self.profile_picture.url}'
             

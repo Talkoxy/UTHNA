@@ -15,6 +15,14 @@
   src: url('/fonts/Radlush-ExtraBold.otf') format('opentype');
 }
 
+.profile-image {
+  border-radius: 5rem;
+  border: 5px solid var(--btn_border);
+  transition: all 1.3s ease;
+
+}
+
+
 .translate_btn {
   background-color: var(--btn_bg);
   border-radius: 0.8rem;
@@ -27,6 +35,7 @@
 
   transition: all 1.3s ease;
 }
+
 
 .translate_btn:focus {
   background: var(--btn_bg-focus);
@@ -69,7 +78,6 @@
 
 
 .profile-btn {
-  border-radius: 6rem;
   border: 2px solid var(--btn_text);
   padding: 0.5rem;
   color: var(--btn_text);
@@ -342,12 +350,19 @@
 
 .profile-dropdown-menu {
   position: absolute;
-  margin-top: 4rem;
-  margin-left: -5.5rem;
+  margin-top: 20rem;
   background-color: var(--dropdown-bg);
   border-radius: 0.8rem;
   padding: 3rem;
   box-shadow: 0 0 20px 1px var(--card-glow);
+}
+
+.name-display{
+  font-size: 15px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  padding: 4px;
+  text-align: center;
 }
 
 .dropdown-item {

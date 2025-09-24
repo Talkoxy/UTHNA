@@ -140,14 +140,12 @@ const AddSettingsModal = () => {
                                 </div>
                                 {dataProfilePicture && (
                                     <div className=" w-[200px] h-[150px] relative">
-
                                         <Image
                                             fill
                                             alt="uploaded profile picture"
                                             src={URL.createObjectURL(dataProfilePicture)}
                                             className=" p-2 w-full h-full object-cover rounded-xl"
                                         />
-
                                     </div>
                                 )}
                             </div>

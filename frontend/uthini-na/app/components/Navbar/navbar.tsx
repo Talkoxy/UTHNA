@@ -11,20 +11,21 @@ import Link from "next/link";
 
 
 const Navbar = () => {
+
    
 
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
-            <div className="grid grid-flow-col grid-cols-4 place-items-center justify-center ">
+            <div className="grid grid-flow-col grid-cols-3 place-items-center justify-center ">
                 <div >
                     <Link href={'/welcome'} >
-                        <img src="/images/UthiniNaNavbar.png" width={80} height={80} alt="To home page" />
+                        <img src="/images/UthiniNaNavbar.png" width={100} height={100} alt="To home page" />
                     </Link>
                 </div>
 
-                <div className=" pl-130 grid grid-flow-col grid-cols-2  gap-60">
+                <div className="grid grid-flow-col grid-cols-2  gap-60">
                     
-                    <div >
+                    <div>
                     <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
                     </div>
 
@@ -35,7 +36,7 @@ const Navbar = () => {
                 </div>
                 
                 
-                <div className="pl-200 grid place-items-center justify-center">
+                <div className="grid place-items-center justify-center">
                     <ToProfileButton />
                 </div>
                 

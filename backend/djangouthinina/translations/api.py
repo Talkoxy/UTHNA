@@ -14,6 +14,7 @@ from django.db.models.functions import Length
 
 
 @api_view(['POST'])
+
 def just_translate(request):
     # Get original_text instead of text to match frontend
     original_text = request.data.get("original_text", "")

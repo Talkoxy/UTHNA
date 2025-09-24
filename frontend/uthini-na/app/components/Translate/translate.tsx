@@ -53,13 +53,13 @@ const Translate = () => {
         }
 
         try {
-            const response = await apiService.postWithoutToken(
+            const response = await apiService.post(
                 '/api/translate/translate/',
-                JSON.stringify({
+                {
                     original_text: originalText,
                     target_language: targetLang,
                     source_language: sourceLang,
-                })
+                }
             );
 
             if (
@@ -96,11 +96,12 @@ const Translate = () => {
                 return;
             }
 
-            const saveData = new FormData();
-            saveData.append('original_text', originalText);
-            saveData.append('translated_text', translatedText);
-            saveData.append('target_language', targetLang);
-            saveData.append('source_language', sourceLang || 'auto'); // Use 'auto' if source language is not specified
+            const saveData = {
+                original_text: originalText,
+                translated_text: translatedText,
+                target_language: targetLang,
+                source_language: sourceLang,
+            }; 
 
             const response = await apiService.post('/api/translate/Clienttranslations/save/', saveData)
 

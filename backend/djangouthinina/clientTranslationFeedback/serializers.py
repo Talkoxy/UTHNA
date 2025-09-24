@@ -1,19 +1,16 @@
 from rest_framework import serializers
 from .models import ClientFeedback
-from clients.serializers import UserDetailSerializer 
-from translations.serializers import ClientTranslationDetailSerializer
+from clients.serializers import UserDetailSerializer
 
 
 class ClientFeedbackListSerializer(serializers.ModelSerializer):
-    user = UserDetailSerializer(read_only=True, many=False)
     class Meta:
         model = ClientFeedback
         fields = (
             'id',
-            'user',
             'feedback',
             'context',
-            'original',
+            'original_translation',
             'translated_from',
             'translated_to',
         )
@@ -26,11 +23,12 @@ class ClientFeedbackDetailSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'user',
-            'created_at',
             'original_translation',
             'translated_from',
             'translated_to',
             'feedback',
             'context',
         )
+
+
 
