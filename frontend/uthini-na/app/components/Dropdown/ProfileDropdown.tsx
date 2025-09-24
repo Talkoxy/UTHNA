@@ -31,6 +31,7 @@ const ProfileDropdown =  ({ userId, userSettings }: ProfileDropdownProps) => {
 
 
     return (
+<<<<<<< HEAD
         <div className="grid grid-flow-row relative place-items-center justify-center">
             
             <div onClick={toggleDropdown} className='grid place-items-center' >
@@ -44,6 +45,19 @@ const ProfileDropdown =  ({ userId, userSettings }: ProfileDropdownProps) => {
                         className="profile-image"
                         />
                     </div>
+=======
+        <div className="grid grid-flow-row relative place-items-center">
+            <div>
+                <button onClick={toggleDropdown} className="profile-btn">
+                     <Image
+                    src={userSettings.image_url}
+                    alt="User Profile"
+                    width={40}
+                    height={40}
+                    className="rounded-full cursor-pointer"
+                />
+                </button>
+>>>>>>> parent of 9d33065 (Navbar addition)
             </div>
 
             <div className='grid place-items-center'>

@@ -18,5 +18,11 @@ class ClientSettings(models.Model):
 
 
     def image_url(self):
+<<<<<<< HEAD
                 return f'{settings.WEBSITE_URL}{self.profile_picture.url}'
             
+=======
+        if self.profile_picture: # Check if a file is associated with the field
+            return f'{settings.WEBSITE_URL}{self.profile_picture.url}'
+        return None 
+>>>>>>> parent of 9d33065 (Navbar addition)
