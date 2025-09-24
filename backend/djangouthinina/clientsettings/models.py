@@ -17,4 +17,4 @@ class ClientSettings(models.Model):
     profile_visibility = models.CharField(max_length=10, default='private') 
 
 
-   
+    
