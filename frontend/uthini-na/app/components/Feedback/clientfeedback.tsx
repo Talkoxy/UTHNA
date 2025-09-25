@@ -1,55 +1,43 @@
-'use client'
+"use client";
+import { useEffect, useState } from 'react';
+import apiService from '@/app/services/apiService';
 
-import apiService from "@/app/services/apiService";
-import { useState, useEffect } from "react";
-import ClientFeedbackItem from "./clientfeedbackitem";
+export type FeedbackType = {
+    id : string;
 
-export type ClientFeedbackType = {
-    id: string;
-    created_at: string;
-    original_translation : string;
-    translated_form : string;
-    translated_to: string;
+    original_translation: string;
+    corrected_translation: string;
     feedback: string;
-    context: string | null;
-    user: {
-        id: string;
-        name: string;
-    };
+
+    source_language: string;
+    target_language: string;
 }
 
-interface ClientFeedbackProps {
-    user_id?: string | null
+interface FeedbackProps {
+    user_id?: string;
 }
 
-const ClientFeedback: React.FC<ClientFeedbackProps> = ({ user_id }) => {
-    const [feedback, setFeedback] = useState<ClientFeedbackType[]>([]);
+const ClientFeedback: React.FC<FeedbackProps> = ({ user_id }) => {
+    const [feedbacks, setFeedbacks] = useState<FeedbackType[]>([]);
 
-    const getFeedback = async () => {
+    const getFeedbacks = async () => {
         let url = '/api/feedback/list/';
 
         if (user_id) {
             url += `?user_id=${user_id}`;
         }
 
-        const tmpfeedback = await apiService.get(url);
-        setFeedback(tmpfeedback.data);
+        const tmpFeedbacks = await apiService.get(url);
+        setFeedbacks(tmpFeedbacks.data);
     }
 
     useEffect(() => {
-        getFeedback();
-    }, [user_id]); 
+        getFeedbacks();
+    }, [user_id]);
 
     return (
-        <div className=" grid grid-flow-row gap-4 place-items-center ">
-            {feedback.map((feedbacks) => (
-                <div 
-                    key={feedbacks.id}                >
-                    < ClientFeedbackItem 
-                        feedback={feedbacks}
-                    />
-                </div>
-            ))}
+        <div>
+
         </div>
     );
 }

@@ -14,7 +14,6 @@ from django.db.models.functions import Length
 
 
 @api_view(['POST'])
-
 def just_translate(request):
     # Get original_text instead of text to match frontend
     original_text = request.data.get("original_text", "")
@@ -109,24 +108,24 @@ def save_Clienttranslation(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def like_Clienttranslation(request):
     data = request.data.copy()
     data['is_liked'] = True  # Mark as saved when using this endpoint
 
-    form = ClientTranslationForm(request.data, request.FILES)
+    form = ClientTranslationForm(data, request.FILES)
 
     if form.is_valid():
-        liked_Clienttranslation = form.save(commit=False)
-        liked_Clienttranslation.user = request.user  # assign logged-in user
-        liked_Clienttranslation.is_liked = True
-        liked_Clienttranslation.save()
+        clienttranslation = form.save(commit=False)
+        clienttranslation.user = request.user  # assign logged-in user
+        clienttranslation.is_liked = True
+        clienttranslation.save()
 
         return Response({
             'success': True,
-            'data': ClientTranslationDetailSerializer(liked_Clienttranslation).data
+            'data': ClientTranslationDetailSerializer(clienttranslation).data
         })
     else:
-        print('error', form.errors, form.non_field_errors)
         return Response({
             'success': False,
             'errors': form.errors

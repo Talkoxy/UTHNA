@@ -126,11 +126,12 @@ const Translate = () => {
                 return;
             }
 
-            const saveData = new FormData();
-            saveData.append('original_text', originalText);
-            saveData.append('translated_text', translatedText);
-            saveData.append('target_language', targetLang);
-            saveData.append('source_language', sourceLang || 'auto'); // Use 'auto' if source language is not specified
+            const saveData = {
+                original_text: originalText,
+                translated_text: translatedText,
+                target_language: targetLang,
+                source_language: sourceLang,
+            };
 
             const response = await apiService.post('/api/translate/Clienttranslations/like/', saveData)
 
@@ -147,16 +148,6 @@ const Translate = () => {
         }
     };
 
-
-    // Optional: Reset height when text is cleared
-    useEffect(() => {
-        if (!originalText) {
-            const textarea = document.getElementById('originalText') as HTMLTextAreaElement;
-            if (textarea) {
-                textarea.style.height = '150px'; // Reset to min-height
-            }
-        }
-    }, [originalText]);
 
     return (
         <main className="grid place-items-center fixed inset-0">

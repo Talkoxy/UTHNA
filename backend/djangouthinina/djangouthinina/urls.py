@@ -8,7 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('clients.urls')),
     path('api/translate/', include('translations.urls')),
-    path('api/settings/', include('clientsettings.urls')),
-    path('api/feedback/', include('clientTranslationFeedback.urls')),
-
+    path('api/feedback/', include('feedback.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

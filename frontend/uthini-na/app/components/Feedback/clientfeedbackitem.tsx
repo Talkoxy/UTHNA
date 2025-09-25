@@ -1,24 +1,25 @@
-"use client"
+"use client";
 
-import { ClientFeedbackType } from "./clientfeedback"
+import { FeedbackType } from "./clientfeedback";
 
-export interface ClientFeedbackProps {
-    feedback: ClientFeedbackType
+export interface FeedbackProps {
+    feedbacks: FeedbackType;
 }
 
-const ClientFeedbackItem: React.FC<ClientFeedbackProps> = ({feedback}) => {
+const ClientFeedbackItem: React.FC<FeedbackProps> = ({feedbacks}) => {
     return (
-        <div className="clientfeedback_card">
+        <div className="saved_translation_card">
             <div className="grid place-items-center">
                 <div className="grid gap-2 place-items-center">
-                    <div className=""> Original Text: {feedback.original_translation}</div>
-                    <div className=""> Translated From: {feedback.translated_form}</div>
-                    <div className=""> Translated To: {feedback.translated_to}</div>
-                    <div className=""> Feedback: {feedback.feedback}</div>
-                    <div className=""> context: {feedback.context}</div>
+                    <div className=""> Original Translation: {feedbacks.original_translation}</div>
+                    <div className=""> Corrected Translation: {feedbacks.corrected_translation}</div>
+                    <div className=""> Feedback: {feedbacks.feedback}</div>
+                    <div className=""> Source Language: {feedbacks.source_language}</div>
+                    <div className=""> Target Language: {feedbacks.target_language}</div>
                 </div>           
             </div>
         </div>
     )
 }
+
 export default ClientFeedbackItem;

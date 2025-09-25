@@ -78,8 +78,9 @@ INSTALLED_APPS = [
     #local_apps
     'translations',
     'clients',
-    'clientsettings',
-    'clientTranslationFeedback',
+    'feedback',
+
+    
 
 
     #rest_framework

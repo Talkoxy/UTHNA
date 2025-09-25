@@ -1,6 +1,6 @@
 "use client"
 
-import useAddFeedbackModal from "../../Hooks/useAddFeedbackModal"
+import useAddFeedbackModal from "../../Hooks/useCreateFeedbackModal"
 
 interface AddFeedbackButtonProps {
     original_translation: string;

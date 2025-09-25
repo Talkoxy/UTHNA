@@ -13,7 +13,7 @@ import apiService from '@/app/services/apiService';
 interface ProfileDropdownProps {
     userId: string | null;
     userSettings: ClientSettingsType;
-     
+    
 }
 
 const ProfileDropdown =  ({ userId, userSettings }: ProfileDropdownProps) => {
