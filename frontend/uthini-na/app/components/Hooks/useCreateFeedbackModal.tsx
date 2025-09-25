@@ -3,13 +3,11 @@ import {create} from "zustand";
 interface AddFeedbackModalStore{
     translated_from: string|null;
     setTranslated_from:(translated_from:string | null) => void;
-
+    
     translated_to: string|null;
     setTranslated_to:(translated_to:string | null) => void;
-
     original_translation: string|null;
     setOriginal_translation:(original_translation:string | null) => void;
-    
     isOpen: boolean;
     open: () => void;
     close: () => void;

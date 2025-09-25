@@ -123,10 +123,10 @@
 
 .translation-textarea {
   min-height: 250px;
-  min-width: 450px;
+  min-width: 700px;
   height: auto;
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
@@ -139,6 +139,7 @@
 
 .translation-area{
   background-color: var(--translation-area-bg);
+  
 }
 
 .translation-textarea:hover {
@@ -153,14 +154,14 @@
   border-color: var(--translation-border-focus);
   border: 5px solid var(--translation-border);
   box-shadow: 0 0 20px var(--card-glow);
-  min-height: 265px;
-  min-width: 465px;
+  min-height: 270px;
+  min-width: 740px;
 }
 
 .translation-resultarea{
-  padding: 3rem;
-
-  border-radius: 1rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  
   border: 3px solid var(--translation-border);
 
   background: var(--translation-bg-focus);
@@ -198,7 +199,7 @@
 .error-message {
   color: #5e2d2dce;
   font-family: var(--font-secondary);
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   padding: 0.5rem;
 }
@@ -227,7 +228,7 @@
 .success-message {
   color: #3d8448ce;
   font-family: var(--font-secondary);
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   padding: 0.5rem;
 }

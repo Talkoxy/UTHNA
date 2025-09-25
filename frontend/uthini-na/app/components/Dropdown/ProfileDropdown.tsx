@@ -11,17 +11,16 @@ import Image from 'next/image';
 import apiService from '@/app/services/apiService';
 
 interface ProfileDropdownProps {
-    userId: string | null;
-    userSettings: ClientSettingsType;
+    userId: string | null | undefined;
     
 }
 
-const ProfileDropdown =  ({ userId, userSettings }: ProfileDropdownProps) => {
+const ProfileDropdown =  ({ userId }: ProfileDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
 
-    const fallbackImage = '/images/avatar.png'; // Make sure this path is correct
-    const imageUrl = userSettings.image_url || fallbackImage;
+    const fallbackImage = 'images/avatar.png'; // Make sure this path is correct
+    
 
     //functions
 
@@ -34,16 +33,12 @@ const ProfileDropdown =  ({ userId, userSettings }: ProfileDropdownProps) => {
         <div className="grid grid-flow-row relative place-items-center justify-center">
             
             <div onClick={toggleDropdown} className='grid place-items-center' >
-                    <div className='name-display'>{userSettings.user.username}</div>
-                    <div>
-                        <Image
-                        src= {imageUrl}
-                        alt="User Profile"
-                        width={50}
-                        height={50}
-                        className="profile-image"
-                        />
-                    </div>
+                <img
+                    src="/images/avatar.png" // Use a default image if userSettings.image_url is not available
+                    alt="User Profile"
+                    width={100}
+                    height={100}
+                />
             </div>
 
             <div className='grid place-items-center'>

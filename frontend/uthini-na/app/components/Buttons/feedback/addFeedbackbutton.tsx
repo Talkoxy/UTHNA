@@ -21,7 +21,7 @@ const AddFeedbackButton: React.FC<AddFeedbackButtonProps> = ({ original_translat
     }
 
     return (
-        <div onClick={AddFeedback} className="feedback_btn">
+        <div onClick={AddFeedback} className="cursor-pointer btn place-items-center">
             <div>Add-Feedback</div>
         </div>
     )
