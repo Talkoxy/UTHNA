@@ -5,6 +5,7 @@ import  Navbar from "./components/Navbar/navbar";
 import { ThemeProvider } from './components/ThemeProvider';
 import AddSettingsModal from "./components/Modals/CreateSettingsModal";
 import CreateFeedbackModal from "./components/Modals/CreateFeedbackModal";
+import CreateSettingModal from "./components/Modals/CreateSettingsModal";
 
 
 
@@ -40,7 +41,7 @@ export default function RootLayout({
             {children}
           </div>
           <CreateFeedbackModal/>
-          <AddSettingsModal/>
+          <CreateSettingModal/>
         </ThemeProvider>
       </body>
     </html>

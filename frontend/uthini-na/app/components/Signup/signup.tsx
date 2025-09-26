@@ -5,12 +5,13 @@ import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 import Link from "next/link";
 import Custombtn from "../Buttons/custombutton";
-import useAddSettingsModal from "../Hooks/useAddSettingsModal";
+import { create } from "domain";
+import useCreateSettingsModal from "../Hooks/useCreateSettingsModal";
 
 const signup = () => {
   const router = useRouter();
 
-  const addSettingsModal = useAddSettingsModal()
+  const createSettingsModal = useCreateSettingsModal()
 
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,9 +22,7 @@ const signup = () => {
 
   //functions
 
-  const createSettingsmodal = () => {
-    addSettingsModal.open()
-  }
+
 
 
   const submitSignup = async () => {
@@ -41,7 +40,7 @@ const signup = () => {
     if (response.access) {
       handleLogin(response.user.pk, response.access, response.refresh)
 
-      createSettingsmodal();
+      createSettingsModal.open()
 
     } else {
       const tmpErrors: string[] = Object.values(response).map((error: any) => {

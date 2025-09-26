@@ -5,22 +5,22 @@ import Link from 'next/link';
 import Custombtn from '../Buttons/custombutton';
 import LogoutButton from '../Buttons/logoutbutton';
 import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from '../Hooks/useAddSettingsModal';
+import useAddSettingsModal from '../Hooks/useCreateSettingsModal';
 import { ClientSettingsType } from '../ClientSettings/clientsettings';
 import Image from 'next/image';
 import apiService from '@/app/services/apiService';
 
 interface ProfileDropdownProps {
     userId: string | null | undefined;
-    
+
 }
 
-const ProfileDropdown =  ({ userId }: ProfileDropdownProps) => {
+const ProfileDropdown = ({ userId }: ProfileDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
 
     const fallbackImage = 'images/avatar.png'; // Make sure this path is correct
-    
+
 
     //functions
 
@@ -31,13 +31,13 @@ const ProfileDropdown =  ({ userId }: ProfileDropdownProps) => {
 
     return (
         <div className="grid grid-flow-row relative place-items-center justify-center">
-            
+
             <div onClick={toggleDropdown} className='grid place-items-center' >
                 <img
-                    src="/images/avatar.png" // Use a default image if userSettings.image_url is not available
+                    src="/avatar.png" // Use a default image if userSettings.image_url is not available
                     alt="User Profile"
-                    width={100}
-                    height={100}
+                    width={50}
+                    height={50}
                 />
             </div>
 

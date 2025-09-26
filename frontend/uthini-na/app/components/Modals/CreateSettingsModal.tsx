@@ -1,199 +1,254 @@
-'use client'
-import Image from "next/image"
-import Modal from "./Modal"
-import useAddSettingsModal from "../Hooks/useAddSettingsModal"
-import Custombtn from "../Buttons/custombutton"
-import { ChangeEvent, useState } from "react"
-import apiService from "@/app/services/apiService"
-import { useRouter } from "next/navigation"
-
-const AddSettingsModal = () => {
-    const addSettingsModal = useAddSettingsModal();
+"use client"
+import apiService from "@/app/services/apiService";
+import { useEffect, useState,ChangeEvent, use } from "react";
+import Modal from "./Modal";
+import Custombtn from "../Buttons/custombutton";
+import useCreateSettingsModal from "../Hooks/useCreateSettingsModal";
+import Image from "next/image";
 
 
-    const router = useRouter();
+const CreateSettingModal = () => {
 
-    const [errors, setErrors] = useState<string[]>([]);
-
-    const [dataUserprefferedTargetLang, setUserprefferedTargetLang] = useState('');
-    const [dataUserprefferedSourceLang, setUserprefferedSourceLang] = useState('');
-    const [dataProfilePicture, setProfilePicture] = useState<File | null>(null);
-    const [dataProfileVisibility, setProfileVisibilty] = useState('');
+    const createSettingModal = useCreateSettingsModal()
 
     const [currentStep, setCurrentStep] = useState(1);
 
+    
+    const [userPreferredSourceLanguage, setUserPreferredSourceLanguage] = useState('');
+    const [userPreferredTargetLanguage, setUserPreferredTargetLanguage] = useState('');
+    const [subscriptionStatus, setSubscriptionStatus] = useState('');
+    const [profileVisibility, setProfileVisibility] = useState('');
+    const [userAvatar, setUserAvatar] = useState <File | null>(null);
 
     const setImage = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             const tmpImage = event.target.files[0];
 
-            setProfilePicture(tmpImage)
+            setUserAvatar(tmpImage);
         }
     }
 
+    const [errors, setErrors] = useState<string[]>([]);
+    const [success, setSuccess] = useState<string[]>([]);
 
-    const sudmitForm = async () => {
 
-        if (
-            dataUserprefferedSourceLang &&
-            dataUserprefferedTargetLang &&
-            dataProfilePicture &&
-            dataProfileVisibility
-        ) {
+    const [isError, setIsError] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    
+     useEffect(() => {
+        if (!createSettingModal.isOpen) {
+            setCurrentStep(1);
 
-            const formData = new FormData()
-            formData.append('user_preferred_source_language', dataUserprefferedSourceLang);
-            formData.append('user_preferred_target_language', dataUserprefferedTargetLang);
-            formData.append('profile_picture', dataProfilePicture);
-            formData.append('profile_visibility', dataProfileVisibility);
+            setUserPreferredSourceLanguage('');
+            setUserPreferredTargetLanguage('');
+            setSubscriptionStatus('');
+            setUserAvatar(null);    
 
-            const response = await apiService.post('/api/settings/create/', formData)
-
-            if (response.success) {
-
-                router.push('/translate?welcome=success')
-
-                addSettingsModal.close()
-            } else {
-                console.log('Error');
-
-                const tmpErrors: string[] = Object.values(response).map((error: any) => {
-                    return error;
-                })
-
-                setErrors(tmpErrors)
+            
+            }else {
+                setErrors([]);
             }
+
+        }, [createSettingModal.isOpen]);
+    
+    // Reset state when modal is closed
+    const sudmitSettings = async () => {
+        // Client-side validation to ensure all fields are present
+        if (
+            userPreferredSourceLanguage &&
+            userPreferredTargetLanguage &&
+            subscriptionStatus &&
+            userAvatar &&
+            profileVisibility
+        ) {
+            try {
+                // ⭐️ START OF FIX: Use FormData for file upload ⭐️
+                const formData = new FormData();
+                
+                formData.append('user_preferred_source_language', userPreferredSourceLanguage);
+                formData.append('user_preferred_target_language', userPreferredTargetLanguage);
+                formData.append('subscription_status', subscriptionStatus);
+                formData.append('profile_visibility', profileVisibility);
+                formData.append('user_avatar', userAvatar);
+                // Append the file itself
+                
+
+                // Send the FormData object to the API service
+                const response = await apiService.postset('/api/settings/create/', formData);
+                // ⭐️ END OF FIX ⭐️
+
+                if (response.status && response.status >= 200 && response.status < 300) { // Assuming apiService returns status or throws for bad requests
+                    setErrors([]);
+                    setIsError(false);
+                    setSuccess(['Settings submitted successfully']);
+                    setIsSuccess(true);
+
+                    setTimeout(() => {
+                        setIsSuccess(false);
+                        setSuccess([]);
+                        createSettingModal.close();
+                    }, 2000); 
+                } else {
+                     // This block may be hit if apiService doesn't throw on error, but returns a failure object.
+                     // The logic here needs to correctly parse the error response structure.
+                     // Assuming errors are inside 'response.errors' or are the response itself.
+                     const responseErrors = response.errors || response;
+                     
+                     // Flatten error values from the server response
+                     const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
+                         // Only display the last error in case of multiple for simplicity
+                         return Array.isArray(error) ? error[0] : error;
+                     }).filter(msg => typeof msg === 'string');
+
+
+                     setErrors(tmpErrors);
+                     setIsError(true); 
+                }
+
+
+            } catch (error: any) {
+                console.error("Error submitting Settings:", error);
+                // Catch network errors or errors thrown by apiService.post (e.g., for 400 status)
+                let errorMessages: string[] = ["An error occurred while submitting the Settings."];
+
+                // Check for the custom error structure thrown by apiService
+                if (error.errors) {
+                    // Pull error messages from the custom error object
+                    errorMessages = Object.values(error.errors).flat().map((e: any) => String(e)).filter(msg => msg.length > 0);
+                } else if (error.message) {
+                    errorMessages = [error.message];
+                }
+                
+                setErrors(errorMessages);
+                setIsError(true); 
+            }
+
+        } else {
+            // Client-side validation failure
+            const tmpErrors: string[] = [];
+            // ... (Your existing client-side error checks) ...
+            if (!userPreferredSourceLanguage) {
+                tmpErrors.push('Please enter your preferred source language of Translation');
+            }
+            if (!userPreferredTargetLanguage) {
+                tmpErrors.push('Please enter your preferred target language of Translation');
+            }
+            if (!userAvatar) {
+                tmpErrors.push('User avatar is required');
+            }
+            if (!profileVisibility) {
+                tmpErrors.push('Profile visibility is required');
+            }
+            if (!subscriptionStatus) {
+                tmpErrors.push('Subscription status is required');
+            }
+
+            setErrors(tmpErrors);
+            setIsError(true); // Set isError to true to ensure the error block renders
         }
+
     };
 
-    const content = (
+        const content = (
         <>
-            {currentStep == 1 ? (
+            <div className="grid gap-4 card">
 
                 <div>
-
-                    <div className="grid place-items-center">
-
-                        <h3 className="grid place-items-center ">Before you start translation please confirm the following setting</h3>
-
-                        <div className="grid gap-4">
-                            <select
-                                className="dropmenu"
-                                value={dataUserprefferedSourceLang}
-                                onChange={(e) => setUserprefferedSourceLang(e.target.value)}
-                            >
-                                <option value="">I prefer Translating from</option>
-
-                                <option value="xh">Xhosa</option>
-                                <option value="en">English</option>
-                                <option value="af">Afrikaans</option>
-                            </select>
-
-                            <select
-                                className="dropmenu"
-                                value={dataUserprefferedTargetLang}
-                                onChange={(e) => setUserprefferedTargetLang(e.target.value)}
-                            >
-                                <option value="">I prefer Translating to</option>
-
-                                <option value="xh">Xhosa</option>
-                                <option value="en">English</option>
-                                <option value="af">Afrikaans</option>
-                            </select>
-                        </div>
-
-                        {errors.length > 0 && (
-                            <div className="grid gap-2">
-                                {errors.map((error, index) => (
-                                    <div key={`error_${index}`} className="error-message">
-                                        {error}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <Custombtn
-                            label='Next'
-                            onClick={() => setCurrentStep(2)}
-                        />
-
-
-
-                    </div>
-
+                    <input type="file" accept="image/*" onChange={setImage}/>
+                    <div className=" w-[200px] h-[150px] relative">
+                    <Image 
+                        fill
+                        alt="Uploaded project cover art"
+                        src={userAvatar ? URL.createObjectURL(userAvatar)
+                             : '/avatar.png'}
+                        className=" p-2 w-full h-full object-cover rounded-xl"
+                    />
                 </div>
-            ) : (
-                <>
 
-                    <div className="grid place-items-center">
+                <select
+                    className="dropmenu"
+                    value={userPreferredSourceLanguage}
+                    onChange={(e) => setUserPreferredSourceLanguage(e.target.value)}
+                >
+                    <option value="">I like translating From</option>
+        
+                    <option value="xh">Xhosa</option>
+                    <option value="en">English</option>
+                    <option value="af">Afrikaans</option>
+                    
+                </select>
 
-                        <h3 className="grid place-items-center ">Before you start translation please confirm the following setting</h3>
+                <select
+                    className="dropmenu"
+                    value={userPreferredTargetLanguage}
+                    onChange={(e) => setUserPreferredTargetLanguage(e.target.value)}
+                >
+                   <option value="">I like translating To</option>
+        
+                    <option value="xh">Xhosa</option>
+                    <option value="en">English</option>
+                    <option value="af">Afrikaans</option>
+                    
+                </select>
 
-                        <div className="grid gap-4">
-                            <div>
-                                <div>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={setImage}
-                                    />
-                                </div>
-                                {dataProfilePicture && (
-                                    <div className=" w-[200px] h-[150px] relative">
-                                        <Image
-                                            fill
-                                            alt="uploaded profile picture"
-                                            src={URL.createObjectURL(dataProfilePicture)}
-                                            className=" p-2 w-full h-full object-cover rounded-xl"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                            <div>
-                                <select
-                                    className="dropmenu"
-                                    value={dataProfileVisibility}
-                                    onChange={(e) => setProfileVisibilty(e.target.value)}
-                                >
-                                    <option value="">Translate from</option>
-                                    <option value="private">Private</option>
-                                    <option value="public">Public</option>
-                                </select>
+                <select
+                    className="dropmenu"
+                    value={profileVisibility}
+                    onChange={(e) => setProfileVisibility(e.target.value)}
+                >
+                    <option value="">Choose your profile visibility </option>
+                    
+                    <option value="prv">Private</option>
+                    <option value="pub">Public</option>
+                    
+                </select>
 
-                            </div>
+                <select
+                    className="dropmenu"
+                    value={subscriptionStatus}
+                    onChange={(e) => setSubscriptionStatus(e.target.value)}
+                >
+                    <option value="">Choose your subscription Type </option>
+                    
+                    <option value="bt">Beta-Tester</option>
+                    
+                </select>
+                
+                </div>
+                <Custombtn label='Save Settings' onClick={sudmitSettings} />
+            {isSuccess && 
+                <div className="success-message">
+                    {success.map((msg, index) => (
+                        <div key={`success_${index}`}>
+                            {msg}
                         </div>
+                    ))}
+                </div>
+            }
+            </div>
 
-                        {errors.length > 0 && (
-                            <div className="grid gap-2">
-                                {errors.map((error, index) => (
-                                    <div key={`error_${index}`} className="error-message">
-                                        {error}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <Custombtn
-                            label='Finish Signing up'
-                            onClick={sudmitForm}
-                        />
-                    </div>
-                </>
+            {errors.length > 0 && (
+                <div className="grid gap-2">
+                    {errors.map((error, index) => (
+                        <div key={`error_${index}`} className="error-message">
+                            {error}
+                        </div>
+                    ))}
+                </div>
             )}
         </>
-
     )
+        
+
 
     return (
         <Modal
-            isOpen={addSettingsModal.isOpen}
-            close={addSettingsModal.close}
-            label="Setting Up"
+            isOpen={createSettingModal.isOpen}
+            close={createSettingModal.close}
+            label="Finish Setting up your Profile"
             content={content}
         />
     )
-
 }
 
-
-export default AddSettingsModal;
+export default CreateSettingModal;

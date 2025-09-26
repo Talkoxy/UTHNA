@@ -1,16 +1,15 @@
 import {create} from "zustand";
 
-interface AddSettingsModalStore{
+interface createSettingsModalStore{
     isOpen: boolean;
     open: () => void;
     close: () => void;
 }
 
-const useAddSettingsModal = create<AddSettingsModalStore>((set) => ({
-
+const useCreateSettingsModal = create<createSettingsModalStore>((set) => ({
     isOpen: false,
     open: () => set({isOpen: true}),
     close: () => set({isOpen: false})
 }));
 
-export default useAddSettingsModal;
+export default useCreateSettingsModal;

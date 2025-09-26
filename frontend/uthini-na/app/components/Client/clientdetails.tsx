@@ -9,6 +9,7 @@ import LikedTranslations from "../Translations/likedtranslations/likedtranslatio
 import TranslationInsights from "../Insights/insights";
 import { ClientSettingsType } from "../ClientSettings/clientsettings";
 import Image from "next/image";
+import AddSettingsButton from "../Buttons/settings/addSettingsbutton";
 
 
 type ClientDetailsProps = {
@@ -55,7 +56,8 @@ const ClientDetails = ({ user, userId}: ClientDetailsProps) => {
                 <div className="grid grid-rows-3 place-items-center ">
 
                     <div> 
-                        
+                    
+                        <AddSettingsButton />   
                     </div>
 
                     <div> <TranslationInsights userId={userId} /> </div>

@@ -4,15 +4,13 @@ import ToProfileButton from "../Buttons/navigation/toprofilebutton";
 import Themetoggle from "../Buttons/themetoggle";
 import { ConnectIcon, TranslateIcon } from "../icons";
 import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from "../Hooks/useAddSettingsModal";
+import useAddSettingsModal from "../Hooks/useCreateSettingsModal";
 import NavbarItem from "./navbaritem";
 import { link } from "fs/promises";
 import Link from "next/link";
 
 
 const Navbar = () => {
-
-   
 
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
@@ -24,22 +22,22 @@ const Navbar = () => {
                 </div>
 
                 <div className="grid grid-flow-col grid-cols-2  gap-60">
-                    
+
                     <div>
-                    <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
+                        <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
                     </div>
 
                     <div>
-                        <NavbarItem label='Connect' icon={<ConnectIcon />}  link='/connect' />
+                        <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
                     </div>
 
                 </div>
-                
-                
+
+
                 <div className="grid place-items-center justify-center">
                     <ToProfileButton />
                 </div>
-                
+
 
             </div>
 

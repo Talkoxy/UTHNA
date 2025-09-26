@@ -23,7 +23,7 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'clients.User'
 
 
-WEBSITE_URL  ='http://localhost:8000'
+WEBSITE_URL ='http://localhost:8000'
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'translations',
     'clients',
     'feedback',
+    'settings',
 
     
 
