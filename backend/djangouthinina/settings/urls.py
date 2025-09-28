@@ -3,4 +3,9 @@ from . import api
 
 urlpatterns = [
     path('create/', api.create_settings, name='create_settings_url'),
+    
+    path('list/', api.list_settings, name='list_settings_url'),
+
+    
+
 ]

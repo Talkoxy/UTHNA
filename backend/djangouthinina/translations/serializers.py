@@ -6,7 +6,6 @@ from .models import ClientTranslation
 class ClientTranslationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClientTranslation
-    
         fields = (
             'id',
             'original_text',

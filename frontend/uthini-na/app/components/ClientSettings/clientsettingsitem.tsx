@@ -2,7 +2,7 @@
 import { ClientSettingsType } from './clientsettings';
 import Image from 'next/image';
 
-export interface ClientSettingsItemProps {
+interface ClientSettingsItemProps {
     setting: ClientSettingsType;
 }
 

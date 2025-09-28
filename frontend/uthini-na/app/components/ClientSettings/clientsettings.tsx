@@ -13,11 +13,6 @@ export type ClientSettingsType= {
     image_url: string;
     subscription_status: string;
     profile_visibility: string;
-    user: {
-        id: string;
-        username: string;
-    };
-    
 }
 
 interface ClientSettingsProps {
@@ -27,14 +22,19 @@ const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
     const[settings, setSettings] = useState<ClientSettingsType[]>([]);
     
      const getSettings = async() => {
-        // Just call the base URL. The API will use the authenticated user.
-        const tmpSettings = await apiService.get('/api/settings/list');
+        let url = '/api/settings/list';
+
+        if (user_id) {
+            url += `?user_id=${user_id}`;
+        }
+
+        const tmpSettings = await apiService.get(url);
         setSettings(tmpSettings.data);
     }
 
     useEffect(() => {
         getSettings();
-    }, []);
+    }, [user_id]);
     return (
         <div className='grid grid-flow-row gap-4 place-items-center'> 
         {settings.length > 0 ? (

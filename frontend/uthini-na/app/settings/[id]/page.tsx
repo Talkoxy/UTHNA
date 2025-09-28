@@ -10,7 +10,7 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
 
     return (
             <main className="page_bg">
-                <ClientSettings/>
+                <ClientSettings user_id={userId}/>
             </main>
     );
 };

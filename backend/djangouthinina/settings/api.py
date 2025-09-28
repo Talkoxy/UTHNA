@@ -18,3 +18,20 @@ def create_settings(request):
     else:
         print('error', form.errors, form.non_field_errors)
         return JsonResponse({'errors': form.errors.as_json()}, status=400)
+    
+
+@api_view(['GET'])
+@authentication_classes([])  
+@permission_classes([])      
+def list_settings(request):
+    settings_list = Settings.objects.all()
+
+    user_id = request.GET.get('user_id', '')
+    if user_id:
+        settings_list = settings_list.filter(client_id=user_id)
+
+    serializer = SettingsSerializer(settings_list, many=True)
+
+    return Response({
+        'data': serializer.data
+    })

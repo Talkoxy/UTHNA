@@ -8,7 +8,7 @@ from django.conf import settings
 
 class Settings(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='settings', db_column='user_id')
 
     user_preferred_source_language = models.CharField(blank=False)
     user_preferred_target_language= models.CharField(blank=False)

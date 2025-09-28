@@ -133,8 +133,8 @@ def like_Clienttranslation(request):
 
 
 @api_view(['GET'])
-@authentication_classes([])  # Add your auth classes if needed
-@permission_classes([])      # Add your permission classes if needed
+@authentication_classes([])  
+@permission_classes([])     
 def Clienttranslation_list(request):
     Clienttranslations = ClientTranslation.objects.all()
 
