@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import apiService from '@/app/services/apiService';
 import ClientSettingsItem from './clientsettingsitem';
+import { ClientDetailsProps } from '../Client/clientdetails';
+import { get } from 'http';
 
 
 export type ClientSettingsType= {
@@ -20,8 +22,12 @@ interface ClientSettingsProps {
 }
 const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
     const[settings, setSettings] = useState<ClientSettingsType[]>([]);
-    
-     const getSettings = async() => {
+
+
+
+
+
+    const getSettings = async() => {
         let url = '/api/settings/list';
 
         if (user_id) {
@@ -31,6 +37,7 @@ const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
         const tmpSettings = await apiService.get(url);
         setSettings(tmpSettings.data);
     }
+
 
     useEffect(() => {
         getSettings();

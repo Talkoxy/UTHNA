@@ -9,6 +9,8 @@ import apiService from "@/app/services/apiService";
 const ToProfileButton = () => {
     // 1. All useState and other hooks should be at the top level
     const [userId, setUserId] = useState<string | null>(null);
+    const [userSettings, setUserSettings] = useState<ClientSettingsType | null>(null);
+    
 
     // 2. All useEffect hooks should be called unconditionally
     useEffect(() => {
@@ -19,18 +21,15 @@ const ToProfileButton = () => {
         fetchUserId();
     }, []);
 
-    
-
     // 3. Conditional returns must come after all hook calls
     if (!userId) {
         return null;
     }
 
-    
 
     return (
         <div>
-            <ProfileDropdown userId={userId} />
+            <ProfileDropdown  userId={userId}  />
         </div>
     );
 };

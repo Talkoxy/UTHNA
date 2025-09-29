@@ -346,7 +346,18 @@
 
 }
 
+.modal-card {
+  border-radius: 1rem;
+  background: var(--card_bg);
+  font-family: var(--font-main);
+  padding: 4rem;
+  color: var(--card_bg_text);
+  letter-spacing: 0%;
 
+  border: none;
+  transition: all 1.5s ease-in;
+
+}
 
 
 .profile-dropdown-menu {

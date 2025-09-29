@@ -12,7 +12,7 @@ import Image from "next/image";
 import AddSettingsButton from "../Buttons/settings/addSettingsbutton";
 
 
-type ClientDetailsProps = {
+export type ClientDetailsProps = {
     user: {
         name: string;
         email: string;

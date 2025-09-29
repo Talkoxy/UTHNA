@@ -8,10 +8,10 @@ import useAddSettingsModal from "../Hooks/useCreateSettingsModal";
 import NavbarItem from "./navbaritem";
 import { link } from "fs/promises";
 import Link from "next/link";
+import { ClientSettingsType } from '../ClientSettings/clientsettings';
 
 
 const Navbar = () => {
-
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
             <div className="grid grid-flow-col grid-cols-3 place-items-center justify-center ">

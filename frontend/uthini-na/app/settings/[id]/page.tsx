@@ -8,6 +8,7 @@ const ProfilePage = async ({ params }: { params: { id: string } }) => {
     const user = await apiService.get(`/api/auth/${params.id}`);
     const userId = await getUserId();
 
+
     return (
             <main className="page_bg">
                 <ClientSettings user_id={userId}/>

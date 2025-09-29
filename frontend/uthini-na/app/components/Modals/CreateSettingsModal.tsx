@@ -151,9 +151,8 @@ const CreateSettingModal = () => {
 
         const content = (
         <>
-            <div className="grid gap-4 card">
-
-                <div>
+            <div className="grid gap-4 modal-card">
+                <div className="grid gap-2">
                     <input type="file" accept="image/*" onChange={setImage}/>
                     <div className=" w-[200px] h-[150px] relative">
                     <Image 
@@ -165,16 +164,17 @@ const CreateSettingModal = () => {
                     />
                 </div>
 
-                <select
+                <div className="grid grid-flow-row gap-2 ">
+                    <select
                     className="dropmenu"
                     value={userPreferredSourceLanguage}
                     onChange={(e) => setUserPreferredSourceLanguage(e.target.value)}
                 >
                     <option value="">I like translating From</option>
         
-                    <option value="xh">Xhosa</option>
-                    <option value="en">English</option>
-                    <option value="af">Afrikaans</option>
+                    <option value="Xhosa">Xhosa</option>
+                    <option value="English">English</option>
+                    <option value="Afrikaans">Afrikaans</option>
                     
                 </select>
 
@@ -185,41 +185,45 @@ const CreateSettingModal = () => {
                 >
                    <option value="">I like translating To</option>
         
-                    <option value="xh">Xhosa</option>
-                    <option value="en">English</option>
-                    <option value="af">Afrikaans</option>
+                    <option value="Xhosa">Xhosa</option>
+                    <option value="English">English</option>
+                    <option value="Afrikaans">Afrikaans</option>
                     
                 </select>
 
-                <select
-                    className="dropmenu"
-                    value={profileVisibility}
-                    onChange={(e) => setProfileVisibility(e.target.value)}
-                >
-                    <option value="">Choose your profile visibility </option>
                     
-                    <option value="prv">Private</option>
-                    <option value="pub">Public</option>
-                    
-                </select>
+                </div>
 
-                <select
-                    className="dropmenu"
-                    value={subscriptionStatus}
-                    onChange={(e) => setSubscriptionStatus(e.target.value)}
-                >
-                    <option value="">Choose your subscription Type </option>
-                    
-                    <option value="bt">Beta-Tester</option>
-                    
-                </select>
+                <div className="grid grid-cols-2 gap-2">
+                    <select
+                        className="dropmenu"
+                        value={profileVisibility}
+                        onChange={(e) => setProfileVisibility(e.target.value)}
+                    >
+                        <option value="">Profile visibility </option>
+                        <option value="Private">Private</option>
+                        <option value="Public">Public</option>
+                        
+                    </select>
+
+                    <select
+                        className="dropmenu"
+                        value={subscriptionStatus}
+                        onChange={(e) => setSubscriptionStatus(e.target.value)}
+                    >
+                        <option value="">Subscription Type </option>
+
+                        <option value="Beta-Tester">Beta-Tester</option>
+                        
+                    </select>
+                </div>             
                 
                 </div>
                 <Custombtn label='Save Settings' onClick={sudmitSettings} />
             {isSuccess && 
                 <div className="success-message">
                     {success.map((msg, index) => (
-                        <div key={`success_${index}`}>
+                        <div key={`success_${index}`} className="success-message">
                             {msg}
                         </div>
                     ))}
