@@ -80,10 +80,9 @@ INSTALLED_APPS = [
     'clients',
     'feedback',
     'settings',
+    'connect',
 
     
-
-
     #rest_framework
     'rest_framework',
     'rest_framework.authtoken',
@@ -100,7 +99,6 @@ INSTALLED_APPS = [
 
     #allowing things to come from frontend
     'corsheaders',
-    
 ]
 
 

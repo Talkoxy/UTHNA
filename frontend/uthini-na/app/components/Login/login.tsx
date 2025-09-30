@@ -43,7 +43,7 @@ const Login = () => {
 
     return (
         <div className="grid place-items-center fixed inset-0 p-50">
-                <div className="grid gap-8 card">
+                <div className="grid gap-8 login">
                     <div className="grid gap-5">
                         <input
                             type="email"

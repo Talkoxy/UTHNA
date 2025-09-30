@@ -127,7 +127,7 @@
   height: auto;
   width: 100%;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 15px;
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
@@ -139,7 +139,72 @@
 
 .translation-area{
   background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 4rem;
+  border-radius: 2rem;
+
+  transition: all 1.3s ease;
+
+  border: none;
   
+}
+
+.login{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+
+  font-size: 30px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+
+  border: none;
+  transition: all 2.3s ease;
+  
+}
+
+.login input{
+
+  background: var(--card-bg);
+  padding: 10px;
+
+  border-radius: 10px;
+  
+}
+
+.login input:focus{
+  background: var(--input-bg-focus);
+}
+
+.signup{
+  background: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+
+  font-size: 30px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+
+  border: none;
+  transition: all 1.5s ease;
+  
+}
+
+.signup input{
+
+  background: var(--card-bg);
+  padding: 10px;
+
+  border-radius: 10px;
+  
+
+
+}
+
+.signup input:focus{
+  background: var(--input-bg-focus);
 }
 
 .translation-textarea:hover {
@@ -191,7 +256,7 @@
       rgba(107, 255, 250, 0.136),
       rgba(137, 255, 73, 0.31));
   border: 1px solid rgba(255, 107, 107, 0.663);
-  transition: all 1.3s ease;
+  transition: all 2.5s ease;
 
   box-shadow: 0 0 4px rgba(255, 107, 107, 0.5);
 }
@@ -199,9 +264,11 @@
 .error-message {
   color: #5e2d2dce;
   font-family: var(--font-secondary);
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
   padding: 0.5rem;
+
+  transition: all 1.3s ease;
 }
 
 .error-container:hover {
@@ -228,7 +295,7 @@
 .success-message {
   color: #3d8448ce;
   font-family: var(--font-secondary);
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
   padding: 0.5rem;
 }
@@ -285,7 +352,8 @@
   color: var(--color-text);
   position: fixed;
   inset: 0;
-  padding: 2rem
+  padding: 2rem;
+  transition: all 2s ease;
     /* equivalent to Tailwind's p-10 */
 }
 
@@ -453,9 +521,9 @@ input:focus{
 }
 
 .glow {
-  box-shadow: 0 0 8px var(--card-glow);
+  box-shadow: 1 1 8px var(--card-glow);
   border-radius: 2rem;
-  padding: 3rem;
+  padding: 1rem;
 } 
 
 
@@ -533,7 +601,13 @@ html.theme-light {
   --dropdown-bg: #a0dee5;
   --hover_bg: #28334f;
 
-  --card-glow: #a7f286;
+  --card-glow: #c3ebeb;
+  --card-glow-main:  #8bd5f3;
+  --card-glow-sec:#98f4f3;
+
+
+  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
+  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
 
 }
 

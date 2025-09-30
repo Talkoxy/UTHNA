@@ -155,7 +155,7 @@ const Translate = () => {
             <div className="grid grid-flow-row gap-5">
 
                 {/* Translation Input Section */}
-                <div className="grid grid-flow-row gap-6 glow translation-area">
+                <div className="grid grid-flow-row gap-6 translation-area">
                     <div className="grid grid-flow-col gap-6">
                         <div className="grid grid-flow-row gap-8 place-items-center">
                             <textarea
