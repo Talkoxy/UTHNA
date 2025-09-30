@@ -359,14 +359,27 @@
 
 }
 
+.settings-avatar {
+  border-radius: 10rem;
+  padding: 3rem;
+  background: var(--settings-item-bg);
+
+  font-weight: 900;
+  letter-spacing: 0%;
+
+  border: none;
+  transition: all 1.5s ease-in;
+
+}
+
 
 .profile-dropdown-menu {
   position: absolute;
-  margin-top: 20rem;
+  margin-top: 22rem;
   background-color: var(--dropdown-bg);
   border-radius: 0.8rem;
   padding: 3rem;
-  box-shadow: 0 0 20px 1px var(--card-glow);
+  box-shadow: 0 0 10px 1px var(--card-glow);
 }
 
 .name-display{
@@ -440,7 +453,7 @@ input:focus{
 }
 
 .glow {
-  box-shadow: 0 0 10px var(--card-glow);
+  box-shadow: 0 0 8px var(--card-glow);
   border-radius: 2rem;
   padding: 3rem;
 } 
@@ -515,7 +528,7 @@ html.theme-light {
   --translation-result-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
   --translation-result-text: #112250;
 
-  
+  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%);
 
   --dropdown-bg: #a0dee5;
   --hover_bg: #28334f;
