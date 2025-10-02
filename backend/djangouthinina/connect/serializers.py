@@ -32,7 +32,7 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
         model = ConnectPost
         fields = [
             'id',
-            'author'
+            'author',
             'title',
             'text',
             'image_url',

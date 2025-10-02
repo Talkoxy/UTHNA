@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/translate/', include('translations.urls')),
     path('api/feedback/', include('feedback.urls')),
     path('api/settings/', include('settings.urls')),
+    path('api/connect/', include('connect.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,7 +16,6 @@ def create_ConnectPost(request):
         serializer.save(author=request.user)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -25,11 +24,10 @@ def create_ConnectPost(request):
 @permission_classes([IsAuthenticated]) 
 def create_ConnectComment(request):
     serializer = ConnectCommentSerializer(data=request.data)
-    
+
     if serializer.is_valid():
         serializer.save(created_by=request.user)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        # 5. Return professional JSON errors 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
