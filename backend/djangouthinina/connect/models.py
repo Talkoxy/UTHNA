@@ -13,8 +13,6 @@ class ConnectPost(models.Model):
     text = models.TextField()                 
     image = models.ImageField(upload_to='connect_images/', blank=True, null=True)
     
-    
-
     def image_url(self):
         return f'{settings.WEBSITE_URL}{self.image.url}'
     
@@ -28,8 +26,7 @@ class ConnectComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='connect_comments', on_delete=models.CASCADE)
 
-    comment = models.TextField() 
+    text = models.TextField() 
     
-
     def __str__(self):
         return f"Comment by {self.created_by.username} on {self.post.title[:20]}"
