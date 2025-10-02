@@ -22,7 +22,7 @@ class ConnectCommentSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'post',
-            'comment',
+            'text',
         ]
 
 
@@ -47,5 +47,5 @@ class ConnectCommentDetailSerializer(serializers.ModelSerializer):
             'id',
             'post',
             'created_by',
-            'comment',
+            'text',
         ]

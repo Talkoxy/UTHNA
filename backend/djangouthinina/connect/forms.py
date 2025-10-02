@@ -14,7 +14,7 @@ class ConnectCommentForm(ModelForm):
     class Meta:
         model = ConnectComment
         fields = [
-            'comment'
+            'text'
         ]
 
         
