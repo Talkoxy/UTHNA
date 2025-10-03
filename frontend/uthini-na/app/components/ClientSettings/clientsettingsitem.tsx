@@ -30,6 +30,10 @@ const ClientSettingsItem: React.FC<ClientSettingsItemProps> =
                             <div>Profile visibility :</div>
                             <div className=''>{setting.profile_visibility} </div>
                         </div>
+                        <div className='grid grid-cols-2 gap-3'>
+                            <div>Subscription Status :</div>
+                            <div className=''> {setting.subscription_status}</div>
+                        </div>
                         <div className='grid grid-cols-2 gap-2'>
                             <span>Favourite Language pairing :</span>
                             <div className='flex gap-2'>
@@ -38,6 +42,9 @@ const ClientSettingsItem: React.FC<ClientSettingsItemProps> =
                                 <div className=''>{setting.user_preferred_target_language} </div>
                             </div>
                             
+                        </div>
+                        <div>
+                           
                         </div>
                         
                         

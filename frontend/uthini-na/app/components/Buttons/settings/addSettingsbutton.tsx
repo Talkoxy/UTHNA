@@ -22,4 +22,4 @@ const AddSettingsButton = ({}) => {
     )
 }
 
-export default AddSettingsButton
+export default AddSettingsButton;
