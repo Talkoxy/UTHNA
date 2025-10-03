@@ -3,9 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import  Navbar from "./components/Navbar/navbar";
 import { ThemeProvider } from './components/ThemeProvider';
-import AddSettingsModal from "./components/Modals/CreateSettingsModal";
 import CreateFeedbackModal from "./components/Modals/CreateFeedbackModal";
 import CreateSettingModal from "./components/Modals/CreateSettingsModal";
+import CreateConnectPostModal from "./components/Modals/CreateConnectPostModal";
 
 
 
@@ -40,6 +40,7 @@ export default function RootLayout({
           <div className="pt-16">
             {children}
           </div>
+          <CreateConnectPostModal/>
           <CreateFeedbackModal/>
           <CreateSettingModal/>
         </ThemeProvider>

@@ -4,14 +4,13 @@ from clients.serializers import UserSerializer
 
 
 class ConnectPostSerializer(serializers.ModelSerializer):
-    image_url = serializers.ReadOnlyField()
     class Meta:
         model = ConnectPost
         fields = [
             'id',
             'title',
             'text',
-            'image_url',
+            'image',
         ]
 
 
@@ -34,7 +33,7 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
             'id',
             'author',
             'title',
-            'text',
+            'text'
             'image_url',
         ]
 
