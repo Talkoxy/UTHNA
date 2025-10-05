@@ -9,7 +9,7 @@ import NavbarItem from "./navbaritem";
 import { link } from "fs/promises";
 import Link from "next/link";
 import { ClientSettingsType } from '../ClientSettings/clientsettings';
-
+import { CrownIcon } from "../icons";
 
 const Navbar = () => {
     return (
@@ -29,6 +29,10 @@ const Navbar = () => {
 
                     <div>
                         <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
+                    </div>
+
+                    <div>
+                        <NavbarItem label= "Upgrade" icon={<CrownIcon />} link='/upgrade'/>
                     </div>
 
                 </div>

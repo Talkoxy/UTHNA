@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from .serializers import UserDetailSerializer, CustomRegistrationSerializer
+from .serializers import UserDetailSerializer, UserRegistrationSerializer
 from .models import User
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 def user_detail(request, pk):
     user = User.objects.get ( pk = pk)
     
-    serializer = CustomRegistrationSerializer(user, many= False)
+    serializer = UserDetailSerializer(user, many= False)
     
     return JsonResponse(serializer.data, safe = False)
 

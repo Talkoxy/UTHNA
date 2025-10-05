@@ -5,8 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 from django.contrib.auth import get_user_model
 
-from dj_rest_auth.registration.serializers import RegisterSerializer 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -27,35 +25,44 @@ class UserDetailSerializer(serializers.ModelSerializer):
         
         
    
-class CustomRegistrationSerializer(RegisterSerializer):
-    # Add password2 for confirmation check
-    password2 = serializers.CharField(
-        style={'input_type': 'password'},
-        write_only=True
-    )
+class UserRegistrationSerializer(serializers.Serializer):
+    username = None
+    username = serializers.CharField(required = True)
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(write_only=True, style={"input_type": "password"})
+    password2 = serializers.CharField(write_only=True, style={"input_type": "password2"})
     
-    # 📝 RegisterSerializer already includes 'username' and 'email' fields.
-    # We only need to override the methods to enforce your specific validation.
-
     def validate_email(self, email):
-        # Re-use your existing email validation logic
         email = get_adapter().clean_email(email)
         if email and User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
                 "A user is already registered with this e-mail address. backend"
             )
         return email
+    
+    def validate_password1(self, password):
+        return get_adapter().clean_password(password)
 
     def validate(self, data):
-        # Use the base class validation which includes password hashing and checks
-        data = super().validate(data) 
-        
-        # Add your custom password matching validation
-        if data['password'] != data.get('password2'):
+        if data["password"] != data["password2"]:
             raise serializers.ValidationError("The two password fields didn't match.")
-            
         return data
-
+    
+    def get_cleaned_data(self):
+        return {
+            "username": self.validated_data.get("username", ""),
+            "password1": self.validated_data.get("password1", ""),
+            "email": self.validated_data.get("email", ""),
+        }
+        
+    def save(self, request):
+        adapter = get_adapter()
+        user = adapter.new_user(request)
+        self.cleaned_data = self.get_cleaned_data()
+        user.username = self.cleaned_data.get("username") 
+        adapter.save_user(request, user, self)
+        setup_user_email(request, user, [])
+        return user
     
 
 

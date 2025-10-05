@@ -60,11 +60,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    # Add your production domain here when ready
-]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -72,7 +67,6 @@ REST_AUTH = {
     "USE_JWT": True,
     "JWT_HTTPONLY": False,
 
-    'REGISTER_SERIALIZER': 'clients.serializers.CustomRegistrationSerializer',
 }
 
 

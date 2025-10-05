@@ -101,6 +101,7 @@ const apiService = {
                 method: 'POST',
                 body: data,
                 headers:{
+                    'Accept':'application/json',
                     'Content-Type': 'application/json',
                 },
             });
