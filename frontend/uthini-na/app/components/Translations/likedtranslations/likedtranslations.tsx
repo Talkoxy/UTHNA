@@ -30,7 +30,7 @@ const LikedTranslations: React.FC<LikedTranslationsProps> = ({ user_id }) => {
     }, [user_id]); // Add dependency to prevent infinite loop
 
     return (
-        <div className=" grid grid-flow-row gap-4 place-items-center">
+        <div className="grid grid-flow-row gap-4 place-items-center">
             {translations.map((translation) => (
                 <div 
                     key={translation.id}

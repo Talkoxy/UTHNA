@@ -6,11 +6,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/auth/', include('allauth.urls')), 
     path('api/auth/', include('clients.urls')),
     path('api/translate/', include('translations.urls')),
     path('api/feedback/', include('feedback.urls')),
     path('api/settings/', include('settings.urls')),
-    path('api/connect/', include('connect.urls'))
+    path('api/connect/', include('connect.urls')),
 
-    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -33,7 +33,7 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     }, []);
 
     return (
-        <div className='grid grid-flow-row gap-4 place-items-center'> 
+        <div className='scroll grid grid-flow-row gap-4 place-items-center'> 
         {connectPosts.length > 0 ? (
             connectPosts.map((connectpost) => (
                 <div key={connectpost.id}>

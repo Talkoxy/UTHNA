@@ -15,7 +15,7 @@ const signup = () => {
 
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password1, setPassword1] = useState('');
+  const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
   const [errors, setErrors] = useState<string[]>([]);
@@ -29,7 +29,7 @@ const signup = () => {
     const formData = {
       username: username,
       email: email,
-      password1: password1,
+      password: password,
       password2: password2,
     }
 
@@ -73,8 +73,8 @@ const signup = () => {
 
           <input
             type="password"
-            value={password1}
-            onChange={(e) => setPassword1(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
 

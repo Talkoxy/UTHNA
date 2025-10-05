@@ -29,6 +29,9 @@ ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
 
 SIMPLE_JWT = {
      "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
@@ -57,11 +60,19 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    # Add your production domain here when ready
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 REST_AUTH = {
     "USE_JWT": True,
     "JWT_HTTPONLY": False,
+
+    'REGISTER_SERIALIZER': 'clients.serializers.CustomRegistrationSerializer',
 }
 
 
@@ -82,6 +93,9 @@ INSTALLED_APPS = [
     'settings',
     'connect',
 
+    #Google and Apple Providers
+    'allauth.socialaccount.providers.google',
+    
     
     #rest_framework
     'rest_framework',
@@ -101,6 +115,25 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # 'APP' is preferred over directly listing credentials in SOCIALACCOUNT_PROVIDERS for security
+        'APP': {
+            'client_id': config('GOOGLE_CLIENT_ID'),
+            'secret': config('GOOGLE_SECRET_KEY'),
+            'key': '',  # Key is not typically needed for Google
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True, # Recommended for security
+    }
+}
 
 
 MIDDLEWARE = [
