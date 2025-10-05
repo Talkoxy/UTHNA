@@ -213,7 +213,7 @@ const CreateSettingModal = () => {
                     >
                         <option value="">Subscription Type </option>
 
-                        <option value="Beta-Tester">Free</option>
+                        <option value="Beta-Tester">Beta-Tester</option>
                         
                     </select>
                 </div>             

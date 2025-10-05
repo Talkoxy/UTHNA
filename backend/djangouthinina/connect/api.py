@@ -31,16 +31,3 @@ def create_ConnectComment(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
-@api_view(['GET'])
-@authentication_classes([])  
-@permission_classes([])      
-def list_ConnectPosts(request):
-    connectposts = ConnectPost.objects.all()
-
-    serializer = ConnectPostSerializer(connectposts, many=True, context={'request': request})
-
-    return Response({
-        'data': serializer.data
-    })
