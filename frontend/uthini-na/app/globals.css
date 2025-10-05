@@ -223,6 +223,46 @@
   min-width: 740px;
 }
 
+.premium-card{
+  border-radius: 1rem;
+  background: var(--premium-card);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  font-size: 35px;
+  font-family: var(--font-main);
+  padding: 5rem;
+  color: var(--card_bg_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+  cursor: pointer;
+
+  border: none;
+  transition: all 1.5s ease-in;
+
+}
+
+.free-card{
+  border-radius: 1rem;
+  background: var(--free-card);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  font-size: 35px;
+  font-family: var(--font-main);
+  padding: 5rem;
+  color: var(--card_bg_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+
+  cursor: pointer;
+
+  border: none;
+  transition: all 1.5s ease-in;
+
+}
+
+.upgrade-text{
+  font-size: 20px;
+  color: var(--upgrade-text);
+}
+
 .translation-resultarea{
   border-radius: 2rem;
   padding: 2rem;
@@ -242,6 +282,55 @@
   overflow-y: hidden;
   outline: none;
 }
+
+.scroll {
+    width: min(100%, 1200px);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;  
+    
+   padding: 2rem;
+   
+    
+    /* Scrollbar styling for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
+    
+    /* Add smooth transition */
+    transition: all 0.7s ease-in-out;
+}
+
+
+.scroll-translation {
+    width: min(100%, 1200px);
+    max-height: 35vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;  
+    
+   padding: 2rem;
+   
+    
+    /* Scrollbar styling for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
+    
+    /* Add smooth transition */
+    transition: all 0.7s ease-in-out;
+}
+
+.content-scroller {
+  /* This is the function/mixin concept */
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* You could also add padding or border styling here */
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+
 
 
 
@@ -605,11 +694,18 @@ html.theme-light {
   --card-glow-main:  #8bd5f3;
   --card-glow-sec:#98f4f3;
 
+  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
+  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
+  --upgrade-text: #1B4B17;
+  --upgrade-glow:#215f1c;
+  
 
   --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
   --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
 
 }
+
+
 
 
 /* DARK THEME 

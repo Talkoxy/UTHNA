@@ -2,7 +2,7 @@
 
 import ToProfileButton from "../Buttons/navigation/toprofilebutton";
 import Themetoggle from "../Buttons/themetoggle";
-import { ConnectIcon, TranslateIcon } from "../icons";
+import { ConnectIcon, CrownIcon, TranslateIcon } from "../icons";
 import AddSettingsModal from '../Modals/CreateSettingsModal';
 import useAddSettingsModal from "../Hooks/useCreateSettingsModal";
 import NavbarItem from "./navbaritem";
@@ -21,7 +21,7 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                <div className="grid grid-flow-col grid-cols-2  gap-60">
+                <div className="grid grid-flow-col grid-cols-3  gap-60">
 
                     <div>
                         <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
@@ -29,6 +29,10 @@ const Navbar = () => {
 
                     <div>
                         <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
+                    </div>
+
+                    <div>
+                        <NavbarItem label= "Upgrade" icon={<CrownIcon />} link='/upgrade'/>
                     </div>
 
                 </div>
