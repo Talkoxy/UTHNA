@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "anchor-pki": "^0.3.2"
+  }
+}

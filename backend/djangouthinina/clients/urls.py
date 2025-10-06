@@ -15,6 +15,7 @@ urlpatterns = [
 
     path("<uuid:pk>/update/", api.update_user, name="update_user"),
     path("<uuid:pk>/delete/", api.delete_user, name="delete_user"),
+    
     path("<uuid:pk>/", api.user_detail, name="api_user_detail"),
 
 ]

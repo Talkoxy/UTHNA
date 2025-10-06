@@ -1,0 +1,10 @@
+[lcl-host]
+realm-apid = 'development'
+
+[org]
+apid = 'uthinina-3f514e'
+
+[service]
+apid = 'uthna'
+category = 'javascript'
+cert-style = 'acme'

@@ -14,7 +14,7 @@ import AddSettingsButton from "../Buttons/settings/addSettingsbutton";
 
 export type ClientDetailsProps = {
     user: {
-        name: string;
+        username: string;
         email: string;
     };
     userId?: string | null;
@@ -22,24 +22,14 @@ export type ClientDetailsProps = {
     
 };
 
-export type UserDetailsType = {
-    id: string;
-    username:  string;
-    email: string;
 
-}
 
 
 const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
 
-  
-
+    const [username, setUsername] = useState(user.username);
+    const [email, setEmail] = useState(user.email);
     const [errors, setErrors] = useState<string[]>([]);
-    const [userDetails, setUserDetails] = useState<UserDetailsType>({            
-            id: '',
-            username: '',
-            email: '',
-    })
     const [setting, setSetting] = useState<ClientSettingsType>({
         id: '',
         user_preferred_source_language: 'en',
@@ -61,22 +51,13 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
         }
     };
 
-    const fetchUserDetails = async (userId: string) => {
-        try {
-            const response = await apiService.get(`/api/auth/?user_id=${userId}`);
-            if (response && response.data && response.data.length > 0) {
-                setUserDetails(response.data[0]); // Assuming the first setting is the relevant one
-            }
-        } catch (error) {
-            console.error("Error fetching user settings:", error);
-        }
-    };
+    
     
     // Fetch user settings when userId changes                                  
     useEffect(() => {
         if (userId) {
             fetchUserSettings(userId);
-            fetchUserDetails(userId)
+            
         }
     }, [userId]);
 
@@ -86,7 +67,7 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
             <div className="grid grid-flow-col gap-2 justify-items-center">
 
                 <div className="grid grid-rows-2 place-items-center ">
-                    <div>{userDetails.username}</div>
+                    <div>{username}</div>
                     
                     <div className='p-4 settings-avatar'>
                         <Image
