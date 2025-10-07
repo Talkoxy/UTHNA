@@ -54,8 +54,29 @@ class User (AbstractBaseUser, PermissionsMixin):
         related_name="custom_user_permissions",  # Avoids conflict with auth.User
         blank=True
     )
-
     
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    # New method to retrieve the user's avatar URL from the Settings model
+    @property
+    def get_avatar_url(self):
+        """
+        Retrieves the avatar image URL from the related Settings object.
+        Uses try/except to handle cases where the Settings object doesn't exist 
+        or the image field is blank/null.
+        """
+        try:
+            # Access the related settings object using the ForeignKey's related_name
+            settings_obj = self.settings.first() 
+            
+            if settings_obj and settings_obj.user_avatar:
+                return settings_obj.image_url()
+            else:
+                # Return a path to a default image if no settings or avatar is set
+                return '/static/images/default_avatar.png' 
+                
+        except:
+            # Catch exceptions if the relationship link is broken or access fails
+            return '/static/images/default_avatar.png'

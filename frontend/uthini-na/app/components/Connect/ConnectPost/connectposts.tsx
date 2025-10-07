@@ -11,11 +11,14 @@ export type ConnectPostsType= {
     id: string; 
     title: string;
     text: string;
-    image: string;
+    // UPDATED: Changed from 'image' to 'image_url' to match the serializer
+    image_url: string | null; 
     author: {
         id :string;
         email :string;
         username: string;
+        // NEW: Added author picture field from the UserSerializer
+        author_picture_url: string | null; 
     }
     
 }
@@ -25,12 +28,22 @@ interface ConnectPostsProps {
 }
 const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     const[connectPosts, setConnectPosts] = useState<ConnectPostsType[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const getConnectPosts = async() => {
+        setIsLoading(true);
         let url = '/api/connect/connectposts/';
 
-        const tmpconnectPosts = await apiService.get(url);
-        setConnectPosts(tmpconnectPosts.data);
+        try {
+            const tmpconnectPosts = await apiService.get(url);
+            // Ensure we handle the possibility that the data is nested or directly the list
+            setConnectPosts(tmpconnectPosts.data || tmpconnectPosts); 
+        } catch (error) {
+            console.error("Failed to fetch connect posts:", error);
+            setConnectPosts([]);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
 
@@ -40,7 +53,9 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
 
     return (
         <div className='scroll grid grid-flow-row gap-4 place-items-center'> 
-        {connectPosts.length > 0 ? (
+        {isLoading ? (
+            <p className='p-6 text-gray-500'>Loading posts...</p>
+        ) : connectPosts.length > 0 ? (
             connectPosts.map((connectpost) => (
                 <div key={connectpost.id}>
                     <ConnectPostItem connectpost={connectpost}/>
@@ -48,7 +63,7 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
             ))
         ) : (
             // A message or component to display when no connectPosts are found
-            <p>No connectPosts found for this user.</p>
+            <p className='p-6 text-gray-500'>No connect posts found yet.</p>
         )}
 
         </div>

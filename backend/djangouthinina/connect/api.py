@@ -39,7 +39,7 @@ def create_ConnectComment(request):
 def list_ConnectPosts(request):
     connectposts = ConnectPost.objects.all()
 
-    serializer = ConnectPostSerializer(connectposts, many=True, context={'request': request})
+    serializer = ConnectPostDetailSerializer(connectposts, many=True, context={'request': request})
 
     return Response({
         'data': serializer.data

@@ -2,8 +2,18 @@ from rest_framework import serializers
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from django.utils.translation import gettext_lazy as _
-from .models import User
 from django.contrib.auth import get_user_model
+
+
+# Import the Settings model to access its data
+# Assuming the Settings model is in the 'settings_app' application
+try:
+    from settings.models import Settings
+except ImportError:
+    
+    pass 
+
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,12 +26,36 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 class UserDetailSerializer(serializers.ModelSerializer):
+    # Define a new field to hold the avatar URL
+    author_picture_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = User
-        fields = ['id', 'username','email' ]
+        # Include the new field in the serialized output
+        fields = ['id', 'username','email', 'author_picture_url']
         extra_kwargs = {
             'password': {'write_only': True}
         }
+    
+    # Method to retrieve the avatar URL from the related Settings model
+    def get_author_picture_url(self, obj):
+        """
+        Traverses the 'settings' relationship (using related_name='settings')
+        to find the avatar URL on the related Settings model.
+        """
+        try:
+            # Since the relationship is ForeignKey, we use .first() to get the primary settings object.
+            settings_obj = obj.settings.first() 
+            
+            if settings_obj and settings_obj.user_avatar:
+                # Call the image_url method defined on the Settings model
+                return settings_obj.image_url()
+            
+            # Return None or a default image URL if no avatar is set
+            return None 
+        except AttributeError:
+            # Handle cases where the Settings model or relationship hasn't been created yet
+            return None
         
         
    
@@ -65,8 +99,6 @@ class UserRegistrationSerializer(serializers.Serializer):
         return user
     
 
-
-User = get_user_model()
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()

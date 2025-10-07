@@ -15,9 +15,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 @permission_classes([])
 def user_detail(request, pk):
     user = User.objects.get ( pk = pk)
-    
     serializer = UserDetailSerializer(user, many= False)
-    
     return JsonResponse(serializer.data, safe = False)
 
 
