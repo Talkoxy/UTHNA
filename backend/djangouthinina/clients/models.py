@@ -34,6 +34,16 @@ class User (AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True ,blank=False)
     username = models.CharField(max_length=255,blank=False)
     
+    # ------------------ PRODUCTION FIXES ----------------------
+    # 1. Must use blank=True, null=True to allow empty values in database/forms
+    # 2. Set a default file path (must be an actual image file in your media storage)
+    user_avatar = models.ImageField(
+        upload_to='avatars/', 
+        blank=True, 
+        null=True, 
+        default='avatars/default_profile.png' # IMPORTANT: Create this file in your MEDIA_ROOT/avatars/
+    )
+    # ----------------------------------------------------------
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -59,24 +69,16 @@ class User (AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    # New method to retrieve the user's avatar URL from the Settings model
-    @property
-    def get_avatar_url(self):
+    def image_url(self):
         """
-        Retrieves the avatar image URL from the related Settings object.
-        Uses try/except to handle cases where the Settings object doesn't exist 
-        or the image field is blank/null.
+        Returns the absolute URL for the user's avatar.
+        This handles both uploaded files (via user_avatar.url) and the default static path.
         """
-        try:
-            # Access the related settings object using the ForeignKey's related_name
-            settings_obj = self.settings.first() 
+        # If user_avatar is not set (i.e., it's null in DB, or uses the default path)
+        if not self.user_avatar or self.user_avatar.name == self.user_avatar.field.default:
+            # Fallback to a static file URL (e.g., /static/images/default_avatar.png)
+            # You must ensure this file exists in your static files directory.
+            return f'{settings.STATIC_URL}images/default_avatar.png'
             
-            if settings_obj and settings_obj.user_avatar:
-                return settings_obj.image_url()
-            else:
-                # Return a path to a default image if no settings or avatar is set
-                return '/static/images/default_avatar.png' 
-                
-        except:
-            # Catch exceptions if the relationship link is broken or access fails
-            return '/static/images/default_avatar.png'
+        # If an actual file is uploaded, use its URL (handled by storage backend like S3/Digital Ocean Spaces)
+        return f'{settings.WEBSITE_URL}{self.user_avatar.url}'
