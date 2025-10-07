@@ -6,6 +6,7 @@ import { ThemeProvider } from './components/ThemeProvider';
 import CreateFeedbackModal from "./components/Modals/CreateFeedbackModal";
 import CreateSettingModal from "./components/Modals/CreateSettingsModal";
 import CreateConnectPostModal from "./components/Modals/CreateConnectPostModal";
+import EditSettingsModal from "./components/Modals/EditSettingsModal";
 
 
 
@@ -43,6 +44,7 @@ export default function RootLayout({
           <CreateConnectPostModal/>
           <CreateFeedbackModal/>
           <CreateSettingModal/>
+          <EditSettingsModal/>
         </ThemeProvider>
       </body>
     </html>

@@ -62,7 +62,7 @@ const CreateSettingModal = () => {
             profileVisibility
         ) {
             try {
-                // ⭐️ START OF FIX: Use FormData for file upload ⭐️
+                
                 const formData = new FormData();
                 
                 formData.append('user_preferred_source_language', userPreferredSourceLanguage);

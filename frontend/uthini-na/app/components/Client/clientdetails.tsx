@@ -23,8 +23,6 @@ export type ClientDetailsProps = {
 };
 
 
-
-
 const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
 
     const [username, setUsername] = useState(user.username);
@@ -51,23 +49,20 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
         }
     };
 
-    
-    
     // Fetch user settings when userId changes                                  
     useEffect(() => {
         if (userId) {
             fetchUserSettings(userId);
-            
         }
     }, [userId]);
 
     return (
         <main className="grid grid-flow-col">
 
-            <div className="grid grid-flow-col gap-2 justify-items-center">
+            <div className="grid grid-flow-col gap-2 justify-items-center pt-30">
 
-                <div className="grid grid-rows-2 place-items-center ">
-                    <div>{username}</div>
+                <div className="grid grid-flow-rows place-items-center gap-10 ">
+                    <div className="label">{username}</div>
                     
                     <div className='p-4 settings-avatar'>
                         <Image
@@ -82,7 +77,7 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
 
                 </div>
 
-                <div className="grid grid-flow-row place-items-center pt-40">
+                <div className="grid grid-flow-row place-items-center pt-25">
 
                     <div className="grid place-items-center">
                         <div className="label">MY SAVED TRANSLATIONS</div>

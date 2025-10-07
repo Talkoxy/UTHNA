@@ -21,8 +21,10 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                         height={200}
                         alt='user profile photo'
                         />
+                        
                     </div>
                     <div className='grid place-items-center pt-6'>
+                        
                         <div>
                             <div className=''>{connectpost.title} </div>
                         </div>

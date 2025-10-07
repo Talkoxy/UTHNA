@@ -5,6 +5,7 @@ import apiService from '@/app/services/apiService';
 import ClientSettingsItem from './clientsettingsitem';
 import { ClientDetailsProps } from '../Client/clientdetails';
 import { get } from 'http';
+import EditSettingsButton from '../Buttons/settings/editSettingsbutton';
 
 
 export type ClientSettingsType= {
@@ -18,15 +19,13 @@ export type ClientSettingsType= {
 }
 
 interface ClientSettingsProps {
-    user_id?: string | null;
+    user_id: string | null;
+    
 }
-const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
+const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id ,}) => {
     const[settings, setSettings] = useState<ClientSettingsType[]>([]);
 
-
-
-
-
+    
     const getSettings = async() => {
         let url = '/api/settings/list';
 
@@ -38,18 +37,22 @@ const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id }) => {
         setSettings(tmpSettings.data);
     }
 
+    
+
 
     useEffect(() => {
         getSettings();
     }, [user_id]);
     return (
         <div className='grid grid-flow-row gap-4 place-items-center'> 
+  
         {settings.length > 0 ? (
             settings.map((setting) => (
                 <div key={setting.id}>
                     <ClientSettingsItem setting={setting} />
                 </div>
             ))
+
         ) : (
             // A message or component to display when no settings are found
             <p>No settings found for this user.</p>

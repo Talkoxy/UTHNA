@@ -4,6 +4,8 @@ from .serializers import SettingsSerializer, SettingsDetailSerializer
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from django.http import JsonResponse
 
 @api_view(['POST','FILES'])
@@ -35,3 +37,21 @@ def list_settings(request):
     return Response({
         'data': serializer.data
     })
+
+
+@api_view(['PUT'])
+@authentication_classes([])  
+@permission_classes([])  
+def update_settings(request, PK):
+    print("Received data:", request.data)
+    
+    settings = get_object_or_404(Settings, pk=PK)
+    
+    serializer = SettingsDetailSerializer(settings, data=request.data, partial=True)
+    
+   
+    if serializer.is_valid():
+        serializer.save()  
+        return JsonResponse({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+    else:
+        return JsonResponse({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

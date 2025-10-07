@@ -12,6 +12,12 @@ export type ConnectPostsType= {
     title: string;
     text: string;
     image: string;
+    author: {
+        id :string;
+        email :string;
+        username: string;
+    }
+    
 }
 
 interface ConnectPostsProps {
