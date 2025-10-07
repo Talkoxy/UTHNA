@@ -3,7 +3,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth import authenticate 
 
 User = get_user_model()
 
@@ -35,8 +35,8 @@ class UserRegistrationSerializer(serializers.Serializer):
     username = None
     username = serializers.CharField(required = True)
     email = serializers.EmailField(required=True)
-    password = serializers.CharField(write_only=True, style={"input_type": "password"})
-    password2 = serializers.CharField(write_only=True, style={"input_type": "password2"})
+    password1 = serializers.CharField(write_only=True, style={"input_type": "password"})
+    password2 = serializers.CharField(write_only=True, style={"input_type": "password"})
     
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
@@ -50,13 +50,13 @@ class UserRegistrationSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        if data["password"] != data["password2"]:
+        if data["password1"] != data["password2"]:
             raise serializers.ValidationError("The two password fields didn't match.")
         return data
     
     def get_cleaned_data(self):
         return {
-            "username": self.validated_data.get("username", ""),
+            "name": self.validated_data.get("name", ""),
             "password1": self.validated_data.get("password1", ""),
             "email": self.validated_data.get("email", ""),
         }
@@ -65,7 +65,7 @@ class UserRegistrationSerializer(serializers.Serializer):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
-        user.username = self.cleaned_data.get("username") 
+        user.name = self.cleaned_data.get("name") 
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         return user

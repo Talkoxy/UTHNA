@@ -16,12 +16,16 @@ const Login = () => {
     
 
     const submitLogin = async () => {
+
+            const formData = {
+            email: email,
+            password: password,
+        }
+
+
         const response = await apiService.postWithoutToken(
             '/api/auth/login/',
-            JSON.stringify({
-                email,
-                password,
-            })
+            formData
         );
 
         if (response.access) {
