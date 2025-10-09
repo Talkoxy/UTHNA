@@ -7,7 +7,6 @@ class SettingsForm(ModelForm):
         fields = [
             'user_preferred_source_language',
             'user_preferred_target_language',
-            'user_avatar',
             'subscription_status',
             'profile_visibility',
         ]

@@ -60,7 +60,6 @@ const EditSettingsModal = () => {
     const submitSettings = async () => {
         // Simple check that required fields are not empty (you can refine this validation)
             const updateData = {
-                
                 user_preferred_source_language: userPrefferedSourceLanguage,
                 user_preferred_target_language: userPrefferedTargetLanguage,
                 subscription_status: subscriptionStatus,

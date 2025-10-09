@@ -4,29 +4,22 @@ import { useEffect, useState,ChangeEvent, useCallback } from "react";
 import Modal from "./Modal";
 import Custombtn from "../Buttons/custombutton";
 import useCreateConnectPostModal from "../Hooks/useCreateConnectPostModal";
-import Image from "next/image";
+// Removed unused 'Image' import
+// import Image from "next/image";
 
 
 const CreateConnectPostModal = () => {
 
     const createConnectPostModal = useCreateConnectPostModal()
-
     
     const [connectTitle, setConnectTitle] = useState('');
     const [connectText, setConnectText] = useState('');
-    const [connectImage, setConnectImage] = useState <File | null>(null);
     
     const autoGrowTextArea = useCallback((element: HTMLTextAreaElement) => {
             element.style.height = 'auto';
             element.style.height = `${element.scrollHeight}px`;
         }, []);
-    const setImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const tmpImage = event.target.files[0];
-
-            setConnectImage(tmpImage);
-        }
-    }
+    
 
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState<string[]>([]);
@@ -37,107 +30,86 @@ const CreateConnectPostModal = () => {
     
      useEffect(() => {
         if (!createConnectPostModal.isOpen) {
-
+            // Reset state when modal is closed
             setConnectTitle('');
             setConnectText('');
-            setConnectImage(null);    
-
-            
-            }else {
-                setErrors([]);
-            }
-
+            setErrors([]); // Also clear errors on close
+            setSuccess([]); // Also clear success on close
+            setIsError(false);
+            setIsSuccess(false);
+        }
         }, [createConnectPostModal.isOpen]);
     
-    // Reset state when modal is closed
+    
     const submitConnectPost = async () => {
-        // Client-side validation to ensure all fields are present
-        if (
-            connectTitle &&
-            connectText &&
-            connectImage
-        ) {
-            try {
-                // ⭐️ START OF FIX: Use FormData for file upload ⭐️
-                const formData = new FormData();
-                
-                formData.append('title', connectTitle);
-                formData.append('text', connectText);
-                formData.append('image', connectImage);
-                
-                
+        setErrors([]); // Clear previous errors
+        setIsError(false);
 
-                
-                const response = await apiService.postset('/api/connect/createpost/', formData);
-                // ⭐️ END OF FIX ⭐️
-
-                if (response.status && response.status >= 200 && response.status < 300) { // Assuming apiService returns status or throws for bad requests
-                    setErrors([]);
-                    setIsError(false);
-                    setSuccess(['Settings submitted successfully']);
-                    setIsSuccess(true);
-
-                    setTimeout(() => {
-                        setIsSuccess(false);
-                        setSuccess([]);
-                        createConnectPostModal.close();
-                    }, 2000); 
-                } else {
-                     // This block may be hit if apiService doesn't throw on error, but returns a failure object.
-                     // The logic here needs to correctly parse the error response structure.
-                     // Assuming errors are inside 'response.errors' or are the response itself.
-                     const responseErrors = response.errors || response;
-                     
-                     // Flatten error values from the server response
-                     const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
-                         // Only display the last error in case of multiple for simplicity
-                         return Array.isArray(error) ? error[0] : error;
-                     }).filter(msg => typeof msg === 'string');
-
-
-                     setErrors(tmpErrors);
-                     setIsError(true); 
-                }
-
-
-            } catch (error: any) {
-                console.error("Error submitting Settings:", error);
-                // Catch network errors or errors thrown by apiService.post (e.g., for 400 status)
-                let errorMessages: string[] = ["An error occurred while submitting the Settings."];
-
-                // Check for the custom error structure thrown by apiService
-                if (error.errors) {
-                    // Pull error messages from the custom error object
-                    errorMessages = Object.values(error.errors).flat().map((e: any) => String(e)).filter(msg => msg.length > 0);
-                } else if (error.message) {
-                    errorMessages = [error.message];
-                }
-                
-                setErrors(errorMessages);
-                setIsError(true); 
-            }
-
-        } else {
-            // Client-side validation failure
-            const tmpErrors: string[] = [];
-            // ... (Your existing client-side error checks) ...
-            if (!connectTitle) {
-                tmpErrors.push('Please enter your preferred target language of Translation');
-            }
-            if (!connectImage) {
-                tmpErrors.push('Profile visibility is required');
-            }
-            if (!connectText) {
-                tmpErrors.push('Subscription status is required');
-            }
-
-            setErrors(tmpErrors);
-            setIsError(true); // Set isError to true to ensure the error block renders
+        // 1. Client-side validation
+        if (!connectTitle || !connectText) {
+            setErrors(['A title and text are required to create a post.']);
+            setIsError(true);
+            return; // Exit if validation fails
         }
 
+        
+        const payload = {
+            title: connectTitle,
+            text: connectText,
+        }
+               
+        try {
+            
+            const response = await apiService.post('/api/connect/createpost/', payload);
+            
+            
+            if (response && (response.success || response.id)) { 
+                
+                setSuccess(['Post created successfully!']);
+                setIsSuccess(true);
+                
+                setTimeout(() => {
+                    setIsSuccess(false);
+                    setSuccess([]);
+                    createConnectPostModal.close();
+                }, 2500); // 2.5 seconds delay allows the user to see the success message
+            } 
+            
+            
+            else {
+                // Assuming server errors are returned directly in the response object
+                const responseErrors = response.errors || response;
+                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
+                     // Attempt to show field name with error
+                    return Array.isArray(error) ? error[0] : String(error);
+                });
+
+                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                setIsError(true);
+            }
+
+
+        } catch (error: any) {
+            // 6. Network/API Service Errors
+            console.error("Error submitting Connect Post:", error);
+            
+            let errorMessages = ["An unexpected network error occurred."];
+
+             if (error.message) {
+                 errorMessages = [error.message];
+            } else if (error.errors) {
+                 // If the error object contains nested server validation errors
+                errorMessages = Object.values(error.errors).flat().map((e: any) => String(e));
+            }
+
+            setErrors(errorMessages);
+            setIsError(true);
+        }
     };
 
-        const content = (
+
+    // The content rendering remains largely the same...
+    const content = (
         <>
             <div className="grid gap-4 modal-card">
 
@@ -160,39 +132,26 @@ const CreateConnectPostModal = () => {
                     />
                 </div>
 
-                <div className="grid gap-2">
-                    <input type="file" accept="image/*" onChange={setImage}/>
-                    <div className=" w-[200px] h-[150px] relative">
-                    <Image 
-                        fill
-                        alt="Uploaded project cover art"
-                        src={connectImage ? URL.createObjectURL(connectImage): '/avatar.png'}
-                        className=" p-2 w-full h-full object-cover rounded-xl"
-                    />
-                </div>
+               <div>
+                  
+                  <Custombtn label='Post to Connect' onClick={submitConnectPost} />
+
+               </div>
                 
-                             
-                
-            </div>
-                <Custombtn label='Post to Connect' onClick={submitConnectPost} />
 
                 {isSuccess && 
-                    <div className="success-message">
+                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
                         {success.map((msg, index) => (
-                            <div key={`success_${index}`} className="success-message">
-                                {msg}
-                            </div>
+                            <div key={`success_${index}`}>{msg}</div>
                         ))}
                     </div>
                 }
             </div>
 
             {errors.length > 0 && (
-                <div className="grid gap-2">
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
                     {errors.map((error, index) => (
-                        <div key={`error_${index}`} className="error-message">
-                            {error}
-                        </div>
+                        <div key={`error_${index}`}>{error}</div>
                     ))}
                 </div>
             )}
@@ -205,7 +164,7 @@ const CreateConnectPostModal = () => {
         <Modal
             isOpen={createConnectPostModal.isOpen}
             close={createConnectPostModal.close}
-            label="Finish Setting up your Profile"
+            label="Create New Connect Post"
             content={content}
         />
     )

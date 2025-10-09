@@ -95,7 +95,7 @@ const CreateFeedbackModal = () => {
                     setIsSuccess(false);
                     setSuccess([]);
                     createFeedbackModal.close();
-                }, 2000); // Close modal after 2 seconds
+                }, 3000); // Close modal after 2 seconds
             }
 
 
@@ -144,7 +144,7 @@ const CreateFeedbackModal = () => {
 
                 <input type="text" value={feedback} onChange={(e) => setFeedback(e.target.value)}  placeholder="Feedback"/>
 
-                <Custombtn label='submit Feedback' onClick={sudmitFeedback}/>
+                <Custombtn label='Submit Feedback' onClick={sudmitFeedback}/>
 
             </div>
 

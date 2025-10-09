@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/feedback/', include('feedback.urls')),
     path('api/settings/', include('settings.urls')),
     path('api/connect/', include('connect.urls')),
+    path('api/avatar/', include('avatar.urls'))
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
     # DRF automatically detects the 'image_url' method on the User model
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'image_url']
+        fields = ['id', 'username', 'email', 'password']
 
     # hide password
         extra_kwargs = {
@@ -19,22 +19,22 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    # This serializer is used for displaying user data (e.g., as nested field in posts)
-    # The 'image_url' field automatically calls the model's image_url method.
+
+    
     class Meta:
         model = User
-        # Include the image_url field
-        fields = ['id', 'username','email', 'image_url']
+        
+        fields = ['id', 'username','email',]
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
-        
    
 class UserRegistrationSerializer(serializers.Serializer):
-    username = None
-    username = serializers.CharField(required = True)
+   
+    username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
+   
     password1 = serializers.CharField(write_only=True, style={"input_type": "password"})
     password2 = serializers.CharField(write_only=True, style={"input_type": "password"})
     
@@ -47,17 +47,20 @@ class UserRegistrationSerializer(serializers.Serializer):
         return email
     
     def validate_password1(self, password):
+        # NOTE: This method name is correct for field-level validation of 'password1'
         return get_adapter().clean_password(password)
 
     def validate(self, data):
+        # Checks if the two password fields match
         if data["password1"] != data["password2"]:
             raise serializers.ValidationError("The two password fields didn't match.")
         return data
     
     def get_cleaned_data(self):
         return {
-            "name": self.validated_data.get("name", ""),
-            "password1": self.validated_data.get("password1", ""),
+            # FIX 1 & 2: Changed "name" to "username"
+            "username": self.validated_data.get("username", ""),
+            "password": self.validated_data.get("password1", ""), 
             "email": self.validated_data.get("email", ""),
         }
         
@@ -65,7 +68,10 @@ class UserRegistrationSerializer(serializers.Serializer):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
-        user.name = self.cleaned_data.get("name") 
+        
+        
+        user.username = self.cleaned_data.get("username") 
+        
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         return user
@@ -88,3 +94,28 @@ class UserLoginSerializer(serializers.Serializer):
         if user and user.check_password(password):
             return {'user': user}
         raise serializers.ValidationError("Invalid credentials")
+    
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        
+        fields = ['id', 'user_avatar',]
+
+
+class UserImageDetailSerializer(serializers.ModelSerializer):
+
+    image_url = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        
+        fields = ['id', 'image_url',]
+        
+
+    def get_image_url(self, obj):
+        """
+        Returns the full URL for the post's main image by calling the model's image_url method.
+        """
+        if obj.user_avatar:
+            return obj.image_url()
+        return None # Return None if no image is uploaded

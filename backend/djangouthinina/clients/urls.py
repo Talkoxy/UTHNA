@@ -12,10 +12,13 @@ urlpatterns = [
     path('register/', CustomRegisterView.as_view(), name='rest_register'),
     path('login/', CustomLoginView.as_view(), name='rest_login'),
     path('logout/', LogoutView.as_view(), name='rest_logout'),
+    
 
     path("<uuid:pk>/update/", api.update_user, name="update_user"),
     path("<uuid:pk>/delete/", api.delete_user, name="delete_user"),
     
     path("<uuid:pk>/", api.user_detail, name="api_user_detail"),
+
+    path('<uuid:pk>/update/image/', api.update_Image, name='rest_update_avatar'),
 
 ]

@@ -6,6 +6,7 @@ import ClientSettingsItem from './clientsettingsitem';
 import { ClientDetailsProps } from '../Client/clientdetails';
 import { get } from 'http';
 import EditSettingsButton from '../Buttons/settings/editSettingsbutton';
+import CreateAvatarButton from '../Buttons/avatar/addAvatarbutton';
 
 
 export type ClientSettingsType= {
@@ -57,6 +58,10 @@ const ClientSettings: React.FC<ClientSettingsProps> = ({ user_id ,}) => {
             // A message or component to display when no settings are found
             <p>No settings found for this user.</p>
         )}
+
+        <div>
+            <CreateAvatarButton/>
+        </div>
 
         </div>
     );

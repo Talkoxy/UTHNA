@@ -95,7 +95,7 @@ const apiService = {
 
 
     postWithoutToken: async function(url: string, data: any): Promise<any> {
-        console.log('post', url, data);
+        console.log('postWithoutToken', url, data);
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
@@ -121,6 +121,36 @@ const apiService = {
 
         } catch (error: any) {
             console.error('API POST without token Error:', error);
+            throw error;
+        }
+    },
+
+        postFormDataWithoutToken: async function(url: string, data: FormData): Promise<any> {
+        console.log('postFormDataWithoutToken', url);
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+                method: 'POST',
+                body: data, // CRITICAL: Pass FormData object directly
+                headers:{
+                    'Accept': 'application/json',
+                },
+            });
+
+            const json = await response.json();
+            console.log('Response:', json);
+            
+            if (!response.ok) {
+                throw {
+                    status: response.status,
+                    message: response.statusText,
+                    errors: json.errors || json,
+                };
+            }
+
+            return json;
+
+        } catch (error: any) {
+            console.error('API POST FormData without token Error:', error);
             throw error;
         }
     },

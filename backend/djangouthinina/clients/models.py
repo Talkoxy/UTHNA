@@ -33,17 +33,14 @@ class User (AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True ,blank=False)
     username = models.CharField(max_length=255,blank=False)
-    
-    # ------------------ PRODUCTION FIXES ----------------------
-    # 1. Must use blank=True, null=True to allow empty values in database/forms
-    # 2. Set a default file path (must be an actual image file in your media storage)
+
     user_avatar = models.ImageField(
         upload_to='avatars/', 
         blank=True, 
         null=True, 
-        default='avatars/default_profile.png' # IMPORTANT: Create this file in your MEDIA_ROOT/avatars/
+        default='avatars/default_profile.png' 
     )
-    # ----------------------------------------------------------
+
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)

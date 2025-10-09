@@ -31,6 +31,7 @@ def list_settings(request):
     user_id = request.GET.get('user_id', '')
     if user_id:
         settings_list = settings_list.filter(client_id=user_id)
+        
 
     serializer = SettingsSerializer(settings_list, many=True)
 

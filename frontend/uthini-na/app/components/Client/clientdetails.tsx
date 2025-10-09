@@ -10,12 +10,14 @@ import TranslationInsights from "../Insights/insights";
 import { ClientSettingsType } from "../ClientSettings/clientsettings";
 import Image from "next/image";
 import AddSettingsButton from "../Buttons/settings/addSettingsbutton";
+import Avatar from "../Avatar/avatar";
 
 
 export type ClientDetailsProps = {
     user: {
         username: string;
         email: string;
+        image_url: string ; 
     };
     userId?: string | null;
 
@@ -65,12 +67,7 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
                     <div className="label">{username}</div>
                     
                     <div className='p-4 settings-avatar'>
-                        <Image
-                        src={setting.image_url}
-                        width={200}
-                        height={200}
-                        alt='user profile photo'
-                        />
+                        <Avatar user_id={userId}/>
                     </div>
                     
                     <div> <TranslationInsights userId={userId} /> </div>

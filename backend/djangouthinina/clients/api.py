@@ -1,11 +1,59 @@
 from django.shortcuts import get_object_or_404
-from .serializers import UserDetailSerializer, UserRegistrationSerializer
+from .serializers import UserDetailSerializer, UserRegistrationSerializer,UserImageSerializer,UserImageDetailSerializer
 from .models import User
+from .forms import AvatarForm
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_Image(request,PK):
+
+    user = get_object_or_404(User, pk=PK)
+    serializer = UserImageDetailSerializer(user, data=request.data, partial=True)
+    
+   
+    if serializer.is_valid():
+        serializer.save()  
+        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+    else:
+        return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+@authentication_classes([])  
+@permission_classes([])      
+def user_image(request):
+
+    user_id = request.GET.get('user_id')
+    
+    if not user_id:
+        return Response(
+            {'error': 'The user_id query parameter is required.'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        user_instance = get_object_or_404(User, id=user_id)
+    except ValueError:
+         # Handle case where user_id is not a valid UUID string
+        return Response(
+            {'error': 'Invalid format for user_id. Must be a valid UUID.'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+    # 3. Serialization: Serialize the single object instance
+    # By passing a single object (user_instance), many=False is correct (or just omitted)
+    serializer = UserImageDetailSerializer(user_instance)
+
+    # 4. Response: Return the serialized data
+    return Response({
+        'data': serializer.data
+    }, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------
@@ -15,10 +63,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 @authentication_classes([])
 @permission_classes([])
 def user_detail(request, pk):
-    """
-    Retrieves a single user's public details (including avatar URL).
-    Uses get_object_or_404 for robust error handling.
-    """
     # Use get_object_or_404 for cleaner handling of missing users
     user = get_object_or_404(User, pk=pk)
     # Use standard DRF Response instead of JsonResponse
@@ -97,12 +141,14 @@ def delete_user(request, pk):
 # POST: User Registration
 # ----------------------------------------------------------------------
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def register_view(request):
-    """
-    Registers a new user account.
-    """
+   
     serializer = UserRegistrationSerializer(data=request.data)
+
     if serializer.is_valid():
+        
         serializer.save(request=request) # Pass request object for allauth adapter
         return Response({"message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

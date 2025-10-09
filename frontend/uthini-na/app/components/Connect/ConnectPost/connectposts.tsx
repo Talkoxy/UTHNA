@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import apiService from '@/app/services/apiService';
 import ConnectPostItem from './connectpostitem';
+import { ClientSettingsType } from '../../ClientSettings/clientsettings';
 
 
 
@@ -11,23 +12,24 @@ export type ConnectPostsType= {
     id: string; 
     title: string;
     text: string;
-    // UPDATED: Changed from 'image' to 'image_url' to match the serializer
-    image_url: string | null; 
+
     author: {
         id :string;
         email :string;
         username: string;
         // NEW: Added author picture field from the UserSerializer
-        author_picture_url: string | null; 
+        user_avatar: string ; 
     }
     
 }
 
 interface ConnectPostsProps {
     user_id?: string | null;
+
 }
 const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     const[connectPosts, setConnectPosts] = useState<ConnectPostsType[]>([]);
+    const[settings, setSettings] = useState<ClientSettingsType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const getConnectPosts = async() => {
@@ -47,12 +49,20 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     }
 
 
+
+   
+
+     
+
+
     useEffect(() => {
         getConnectPosts();
+    
+
     }, []);
 
     return (
-        <div className='scroll grid grid-flow-row gap-4 place-items-center'> 
+        <div className='scroll grid grid-flow-row place-items-center'> 
         {isLoading ? (
             <p className='p-6 text-gray-500'>Loading posts...</p>
         ) : connectPosts.length > 0 ? (

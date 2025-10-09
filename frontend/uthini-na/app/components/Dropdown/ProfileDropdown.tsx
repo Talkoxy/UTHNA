@@ -9,28 +9,26 @@ import useAddSettingsModal from '../Hooks/useCreateSettingsModal';
 import { ClientSettingsType } from '../ClientSettings/clientsettings';
 import Image from 'next/image';
 import apiService from '@/app/services/apiService';
+import { AvatarType } from '../Avatar/avatar';
 
 interface ProfileDropdownProps {
     userId?: string | null;
+
 }
 
 const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [setting, setSetting] = useState<ClientSettingsType>({
+    const[avatar, setAvatar] = useState<AvatarType>({
         id: '',
-        user_preferred_source_language: 'en',
-        user_preferred_target_language: 'en',
-        image_url: '/images/default-profile.png', // Default image
-        subscription_status: 'free',
-        profile_visibility: 'public',
+        image_url: ''
     });
     //functions
 
-    const fetchUserSettings = async (userId: string) => {
+    const getAvatar = async (userId: string) => {
         try {
-            const response = await apiService.get(`/api/settings/list?user_id=${userId}`);
+            const response = await apiService.get(`/api/avatar/get?user_id=${userId}`);
             if (response && response.data && response.data.length > 0) {
-                setSetting(response.data[0]); // Assuming the first setting is the relevant one
+                setAvatar(response.data[0]); // Assuming the first setting is the relevant one
             }
         } catch (error) {
             console.error("Error fetching user settings:", error);
@@ -40,7 +38,7 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
     // Fetch user settings when userId changes                                  
     useEffect(() => {
         if (userId) {
-            fetchUserSettings(userId);
+            getAvatar(userId);
         }
     }, [userId]);
 
@@ -56,7 +54,7 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
             <div onClick={toggleDropdown} className='grid place-items-center' >
                 
                 <Image
-                    src={setting.image_url} // Use a default image if userSettings.image_url is not available
+                    src={avatar?.image_url} // Use a default image if userSettings.image_url is not available
                     alt="User Profile"
                     width={80}
                     height={80}

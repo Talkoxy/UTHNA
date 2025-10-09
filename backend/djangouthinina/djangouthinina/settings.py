@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     'feedback',
     'settings',
     'connect',
+    'avatar',
 
     #Google and Apple Providers
     'allauth.socialaccount.providers.google',

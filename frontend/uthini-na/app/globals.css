@@ -626,6 +626,27 @@ input:focus{
   padding: 1rem;
   border: 1px solid #ccc;
 }
+
+.connect-post{
+  width: 600px;
+  height: 250px;
+  
+  background: var(--connect-post);
+  box-shadow: 10px 10px 30px var(--connect-glow);
+  border-radius: 1rem;
+
+  font-size: 25px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+
+  border: none;
+  transition: all 1.5s ease;
+  
+}
+
+
+
+
 /*Themes*/
 
 html.theme-dark {
@@ -696,13 +717,18 @@ html.theme-light {
   --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
   --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
 
-
+  --connect-glow: #a1ebf7;
 
   --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
   --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
   --upgrade-text: #1B4B17;
   --upgrade-glow:#215f1c;
+
+
+  --connect-post: linear-gradient(311.54deg, #A0FAC6 -0.83%, #A0DEE5 33.38%, #BFF2C9 82.29%, #ABFF89 125.23%);
+  --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
 }
+
 
 
 /* DARK THEME 
@@ -840,3 +866,4 @@ html.theme-light {
     transform: none;
   }
 }
+

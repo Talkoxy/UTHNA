@@ -7,6 +7,7 @@ import CreateFeedbackModal from "./components/Modals/CreateFeedbackModal";
 import CreateSettingModal from "./components/Modals/CreateSettingsModal";
 import CreateConnectPostModal from "./components/Modals/CreateConnectPostModal";
 import EditSettingsModal from "./components/Modals/EditSettingsModal";
+import CreateAvatarModal from "./components/Modals/CreateAvatarModal";
 
 
 
@@ -41,6 +42,7 @@ export default function RootLayout({
           <div className="pt-16">
             {children}
           </div>
+          <CreateAvatarModal/>
           <CreateConnectPostModal/>
           <CreateFeedbackModal/>
           <CreateSettingModal/>

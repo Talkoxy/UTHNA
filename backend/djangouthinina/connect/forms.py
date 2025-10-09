@@ -7,7 +7,6 @@ class ConnectPostForm(ModelForm):
         fields = [
             'title',
             'text',
-            'image',
         ]
 
 class ConnectCommentForm(ModelForm):

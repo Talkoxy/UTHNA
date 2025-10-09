@@ -24,14 +24,6 @@ const ClientSettingsItem: React.FC<ClientSettingsItemProps> =
                     subscriptionStatus={setting.subscription_status}/>
                 </div>
                 <div className='grid grid-flow-row gap-2 place-items-center card p-4'>
-                    <div className='p-4 settings-avatar'>
-                        <Image
-                        src={setting.image_url}
-                        width={200}
-                        height={200}
-                        alt='user profile photo'
-                        />
-                    </div>
                     <div className='grid place-items-center pt-6'>
                         <span className='font-bold text-2xl pb-4'>User Settings</span>
                         <div className='grid grid-cols-2 gap-3'>

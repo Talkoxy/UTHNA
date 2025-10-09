@@ -58,7 +58,7 @@ const CreateSettingModal = () => {
             userPreferredSourceLanguage &&
             userPreferredTargetLanguage &&
             subscriptionStatus &&
-            userAvatar &&
+            
             profileVisibility
         ) {
             try {
@@ -69,15 +69,12 @@ const CreateSettingModal = () => {
                 formData.append('user_preferred_target_language', userPreferredTargetLanguage);
                 formData.append('subscription_status', subscriptionStatus);
                 formData.append('profile_visibility', profileVisibility);
-                formData.append('user_avatar', userAvatar);
-                // Append the file itself
                 
-
                 // Send the FormData object to the API service
                 const response = await apiService.postset('/api/settings/create/', formData);
                 // ⭐️ END OF FIX ⭐️
 
-                if (response.status && response.status >= 200 && response.status < 300) { // Assuming apiService returns status or throws for bad requests
+                if (response && (response.success || response.id)) { // Assuming apiService returns status or throws for bad requests
                     setErrors([]);
                     setIsError(false);
                     setSuccess(['Settings submitted successfully']);
@@ -152,17 +149,7 @@ const CreateSettingModal = () => {
         const content = (
         <>
             <div className="grid gap-4 modal-card">
-                <div className="grid gap-2">
-                    <input type="file" accept="image/*" onChange={setImage}/>
-                    <div className=" w-[200px] h-[150px] relative">
-                    <Image 
-                        fill
-                        alt="Uploaded project cover art"
-                        src={userAvatar ? URL.createObjectURL(userAvatar)
-                             : '/avatar.png'}
-                        className=" p-2 w-full h-full object-cover rounded-xl"
-                    />
-                </div>
+                
 
                 <div className="grid grid-flow-row gap-2 ">
                     <select
@@ -229,7 +216,7 @@ const CreateSettingModal = () => {
                     ))}
                 </div>
             }
-            </div>
+            
 
             {errors.length > 0 && (
                 <div className="grid gap-2">
