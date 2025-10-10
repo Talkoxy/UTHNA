@@ -44,42 +44,42 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
     const defaultAvatar = '/avatar.png'; 
 
     return (
-        <div className='grid place-items-center m-15'>
-            <div className='connect-post grid  place-items-center'>
-                    {/* Username */}
-                    <div className=''>
-                        <div>
+        <div className='grid place-items-center p-6'> 
+        {/* The main post container */}
+        <div className='connect-post'> 
+            {/* Top row for user info and post content */}
+            <div className='post-header'>
+                {/* 1. USER INFO - Column 1 */}
+                <div className='userInfo'>
+                    <div>
+                        {avatar?.image_url && (
                             <Image
-                            src={avatar.image_url}
-                            width={50}
-                            height={50}
-                            alt='user profile photo'
+                                src={avatar.image_url} // You can now safely use the non-optional chain here
+                                height={70}
+                                width={70}
+                                alt="User Avatar"
                             />
-
-                        </div>
-
-                        
+                        )}
                     </div>
-
-
-                    
-            
-                    {/* 3. POST TEXT CONTENT */}
-                    <div className=''>
-                        <div className=''>
-                            {connectpost.title} 
-                        </div>
-                        <div className=''> 
-                            {connectpost.text}
-                        </div>   
-
-                        <div>
-                            
-                        </div> 
+                    <div className='username'>
+                        @{connectpost.author.username}
                     </div>
-                
+                </div>
+
+                {/* 2. POST CONTENT - Column 2 */}
+                <div className='postContent'>
+                    <div className='postTitle'>
+                        {connectpost.title} 
+                    </div>
+                    <div className='postText'> 
+                         {connectpost.text}
+                    </div>
+                </div>
             </div>
+            
         </div>
+    </div>
+
     )
 }
 

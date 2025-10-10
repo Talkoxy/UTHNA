@@ -66,7 +66,7 @@ const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
                 <div className="grid grid-flow-rows place-items-center gap-10 ">
                     <div className="label">{username}</div>
                     
-                    <div className='p-4 settings-avatar'>
+                    <div className='p-4 '>
                         <Avatar user_id={userId}/>
                     </div>
                     

@@ -115,13 +115,14 @@ const CreateConnectPostModal = () => {
 
                 <div className="grid gap-2">
                     <input 
+                    className=""
                     value={connectTitle}
                     onChange={(e) => setConnectTitle(e.target.value)}
                     placeholder="Title"
                     />
 
                     <textarea
-                    className="translation-textarea"
+                    className="post-textarea"
                     placeholder="Type your post"
                     id="originalText"
                     value={connectText}

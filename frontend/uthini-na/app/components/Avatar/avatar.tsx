@@ -45,17 +45,20 @@ const Avatar: React.FC<AvatarProps> = ({ user_id ,}) => {
     return (
         <div className='grid grid-flow-row gap-4 place-items-center'> 
   
-        <Image
-            src={avatar.image_url}
-            height={200}
-            width={200}
-            alt='avatar'
-            />
-
-            <div>
+            {avatar?.image_url ? (
+                // IF TRUE: Display the Image
+                <Image
+                    src={avatar.image_url} 
+                    height={200}
+                    width={200}
+                    alt="User Avatar"
+                />
+            ) : (
+                // ELSE (IF FALSE/null/undefined): Display the Button
                 <CreateAvatarButton/>
-            </div>
+            )}
 
+        
         </div>
 
     );

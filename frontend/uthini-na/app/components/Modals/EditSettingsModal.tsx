@@ -8,48 +8,49 @@ import Custombtn from "../Buttons/custombutton";
 
 const EditSettingsModal = () => {
 
-    // 1. Use the correct store hook
-    const editSettingsModal = useEditSettingsModal();
+  const editSettingsModal = useEditSettingsModal();
 
-    // The modal now only deals with one step: editing settings
-    const [currentStep, setCurrentStep] = useState(1); 
-
-    // 2. Map initial values from the zustand store
-    const initialSourceLang = editSettingsModal.userPrefferedSourceLanguage || '';
-    const initialTargetLang = editSettingsModal.userPrefferedTargetLanguage || '';
-    const initialSubscriptionStatus = editSettingsModal.subscriptionStatus || '';
-    const initialProfileVisibility = editSettingsModal.profileVisibility || '';
-
-    // 3. Set up local state for form inputs
-
-    const [userPrefferedSourceLanguage, setUserPrefferedSourceLanguage] = useState(initialSourceLang);
-    const [userPrefferedTargetLanguage, setUserPrefferedTargetLanguage] = useState(initialTargetLang);
-    const [subscriptionStatus, setSubscriptionStatus] = useState(initialSubscriptionStatus);
-    const [profileVisibility, setProfileVisibility] = useState(initialProfileVisibility);
+    // 1. Initialize local state with empty strings. 
+    // This will be immediately overwritten in the useEffect when the modal opens.
+    const [userPrefferedSourceLanguage, setUserPrefferedSourceLanguage] = useState('');
+    const [userPrefferedTargetLanguage, setUserPrefferedTargetLanguage] = useState('');
+    const [subscriptionStatus, setSubscriptionStatus] = useState('');
+    const [profileVisibility, setProfileVisibility] = useState('');
 
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState<string[]>([]);
-
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     
-    // 4. Reset state and load new data when the modal opens/closes
+    // 2. IMPORTANT FIX: Load values and reset state ONLY when the modal opens.
     useEffect(() => {
-        if (!editSettingsModal.isOpen) {
-            // Reset to initial values from the store (which might have been set by the button)
+        // Check if the modal is opening AND we have data from the store
+        if (editSettingsModal.isOpen && editSettingsModal.settingsId) {
             
+            // Set the local state directly from the updated store values
             setUserPrefferedSourceLanguage(editSettingsModal.userPrefferedSourceLanguage || '');
             setUserPrefferedTargetLanguage(editSettingsModal.userPrefferedTargetLanguage || '');
             setSubscriptionStatus(editSettingsModal.subscriptionStatus || '');
             setProfileVisibility(editSettingsModal.profileVisibility || '');
 
-        } else {
-            // When opening, reset errors
+            // Reset UI feedback
             setErrors([]);
+            setSuccess([]);
             setIsError(false);
+            setIsSuccess(false);
+
+        } else if (!editSettingsModal.isOpen) {
+            // Optional: You can reset all local state to empty when closing, 
+            // but the next open event will overwrite them anyway.
+            // Reset errors/success on close
+            setIsSuccess(false);
+            setSuccess([]);
         }
     }, [
         editSettingsModal.isOpen, 
+        // Dependency array: Re-run this effect whenever the modal opens or 
+        // if the core settings data in the store changes.
+        editSettingsModal.settingsId,
         editSettingsModal.userPrefferedSourceLanguage,
         editSettingsModal.userPrefferedTargetLanguage,
         editSettingsModal.subscriptionStatus,

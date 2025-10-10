@@ -22,14 +22,6 @@ class AvatarSerializer(serializers.ModelSerializer):
             'image',
         ]
 
-class AvatarGerSerializer(serializers.ModelSerializer):
-    # This serializer is likely used for listing or creation/update where full detail isn't needed
-    class Meta:
-        model = Avatar
-        fields = [
-            'id',
-            'image',
-        ]
 
 class AvatarDetailSerializer(serializers.ModelSerializer):
     # 1. Embed the enhanced UserSerializer

@@ -15,7 +15,7 @@ const ClientSettingsItem: React.FC<ClientSettingsItemProps> =
 
     return (
         <div>
-            <div className='grid place-items-center pt-30'>
+            <div className='grid  gap-5 place-items-center pt-30'>
                 <div>
                     <EditSettingsButton settingsId={setting.id} 
                     userPrefferedSourceLanguage={setting.user_preferred_source_language}

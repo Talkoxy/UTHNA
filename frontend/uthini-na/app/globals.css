@@ -137,6 +137,22 @@
   overflow-y: hidden;
 }
 
+.post-textarea {
+  min-height: 200px;
+  min-width: 500px;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid var(--translation-border);
+  background-color: var(--translation-bg);
+  color: var(--translation-text);
+  font-size: 30px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  overflow-y: hidden;
+}
+
 .translation-area{
   background-color: var(--translation-area-bg);
   box-shadow: 1px 1px 20px var(--card-glow-main);
@@ -146,6 +162,20 @@
   transition: all 1.3s ease;
 
   border: none;
+  
+}
+
+.translation-result-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 4rem;
+  border-radius: 2rem;
+
+  transition: all 1.3s ease;
+
+  border: none;
+
+  animation: pulse-glow-result 3s infinite alternate ease-in-out; 
   
 }
 
@@ -221,6 +251,22 @@
   box-shadow: 0 0 20px var(--card-glow);
   min-height: 270px;
   min-width: 740px;
+}
+
+.post-textarea:hover {
+  border-color: var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+  border: 4px solid var(--translation-border);
+}
+
+.post-textarea:focus {
+  outline: none;
+  background: var(--translation-bg-focus);
+  border-color: var(--translation-border-focus);
+  border: 5px solid var(--translation-border);
+  box-shadow: 0 0 20px var(--card-glow);
+  min-height: 200px;
+  min-width: 550px;
 }
 
 .translation-resultarea{
@@ -427,6 +473,23 @@
 
 }
 
+.modal-card input{
+
+  background: var(--card-bg);
+  padding: 10px;
+
+  font-size: 25px;
+  font-family: var(--font-main);
+
+  border-radius: 10px;
+  
+
+}
+
+.modal-card input:focus{
+  background: var(--input-bg-focus);
+}
+
 .settings-avatar {
   border-radius: 10rem;
   padding: 3rem;
@@ -587,7 +650,7 @@ input:focus{
     overflow-x: hidden;
     border-radius: 1.5rem;  
     
-   padding: 2rem;
+   padding: 3rem;
    
     
     /* Scrollbar styling for Firefox */
@@ -628,20 +691,136 @@ input:focus{
 }
 
 .connect-post{
-  width: 600px;
-  height: 250px;
+  width: 500px;
+  /* Reduced height to allow content to dictate size, better for text posts */
+  /* height: 200px; */ 
+  padding: 1.5rem; /* Added padding to give content breathing room */
   
   background: var(--connect-post);
-  box-shadow: 10px 10px 30px var(--connect-glow);
   border-radius: 1rem;
 
-  font-size: 25px;
+  font-size: 20px; /* Reduced base font size for better readability */
   font-family: var(--font-main);
   color: var(--card_bg_text);
 
+  display: flex; /* Makes the post content stack vertically */
+  flex-direction: column;
+  gap: 1rem; /* Space between header and footer */
+
   border: none;
-  transition: all 1.5s ease;
-  
+  transition: all 0.3s ease; /* Faster transition for general use */
+
+   /* --- ADDED FOR ANIMATED GLOW --- */
+  animation: pulse-glow 3.2s infinite alternate ease-in-out; 
+}
+
+/* Container for Avatar and main content */
+.post-header {
+    padding-top: 1rem;
+    display: flex;
+    gap: 1.5rem; /* Space between the user info column and the text column */
+    align-items: flex-start; /* Align content to the top */
+}
+
+/* User Info: Avatar and Username */
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center avatar and username */
+    width: 60px; /* Define a fixed width for the user column */
+    flex-shrink: 0; /* Prevents this column from shrinking */
+    text-align: center;
+}
+
+.avatar {
+    border-radius: 50%; /* Make the avatar round */
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.username {
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 0.4; /* Make the username less prominent than the title */
+}
+
+/* Post Content: Title and Text */
+.postContent {
+  font-size: 1.2rem;
+    flex-grow: 1; /* Allows the content to take up the remaining space */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.postTitle {
+    font-size: 1.25em; /* Larger, bolder title */
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.postText {
+    font-size: 1em;
+    line-height: 1.4;
+    white-space: pre-wrap; /* Ensures text formatting like line breaks is preserved */
+}
+
+/* Post Footer (Metadata like date) */
+.postFooter {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
+}
+
+.postDate {
+    font-size: 0.8em;
+    color: var(--card_bg_text);
+    opacity: 0.6;
+}
+
+
+@keyframes pulse-glow {
+  0% {
+    /* Subtle initial glow */
+    box-shadow: 0 0 5px var(--connect-glow), 0 0 10px var(--connect-glow-2);
+  }
+  50% {
+    /* Max glow state: wider blur and spread, potentially brighter color */
+    box-shadow: 0 0 10px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+
+  }
+  80% {
+    /* Max glow state: wider blur and spread, potentially brighter color */
+    box-shadow: 0 0 15px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 35px var(--connect-glow);  
+  }
+  100% {
+    /* Return to initial state */
+    box-shadow: 0 0 30px var(--connect-glow-4), 0 0 25px var(--connect-glow);
+  }
+}
+
+@keyframes pulse-glow-result {
+  0% {
+    /* Subtle initial glow */
+    box-shadow: 0 0 1cqb var(--connect-glow), 0 0 10px var(--connect-glow);
+  }
+  20% {
+    /* Max glow state: wider blur and spread, potentially brighter color */
+    box-shadow: 0 0 20px var(--connect-glow), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+
+  }
+  50% {
+    /* Max glow state: wider blur and spread, potentially brighter color */
+    box-shadow: 0 0 40px var(--connect-glow), 0 0 40px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+
+  }
+  80% {
+    /* Max glow state: wider blur and spread, potentially brighter color */
+    box-shadow: 0 0 25px var(--connect-glow-2), 0 0 30px var(--connect-glow-6), 0 0 35px var(--connect-glow-3);  
+  }
+  100% {
+    /* Return to initial state */
+    box-shadow: 0 0 10px var(--connect-glow-4), 0 0 25px var(--connect-glow);
+  }
 }
 
 
@@ -718,6 +897,11 @@ html.theme-light {
   --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
 
   --connect-glow: #a1ebf7;
+  --connect-glow-2: #cae6ea;
+  --connect-glow-3: #dee4e5;
+  --connect-glow-4: #a2f5b7;
+  --connect-glow-5: #90e19d;
+  --connect-glow-6: #7befce;
 
   --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
   --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
@@ -725,7 +909,7 @@ html.theme-light {
   --upgrade-glow:#215f1c;
 
 
-  --connect-post: linear-gradient(311.54deg, #A0FAC6 -0.83%, #A0DEE5 33.38%, #BFF2C9 82.29%, #ABFF89 125.23%);
+  --connect-post: linear-gradient(311.54deg, #a0e8fa -0.83%, #A0DEE5 33.38%, #bff2df 82.29%, #ABFF89 125.23%);
   --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
 }
 

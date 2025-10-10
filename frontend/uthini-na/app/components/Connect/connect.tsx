@@ -5,7 +5,7 @@ import ConnectPosts from "./ConnectPost/connectposts";
 
 const Connect = () => {
     return(
-        <main className="grid gap-5 place-items-center fixed inset-0 pt-50">
+        <main className="grid gap-5 place-items-center fixed inset-0 pt-40">
             <div>
                 <CreateConnectPostButton/>
             </div>

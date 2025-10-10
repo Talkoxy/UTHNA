@@ -45,6 +45,10 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLinkClick = () => {
+        setIsOpen(false);
+    };
     
 
 
@@ -53,13 +57,14 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
 
             <div onClick={toggleDropdown} className='grid place-items-center' >
                 
-                <Image
-                    src={avatar?.image_url} // Use a default image if userSettings.image_url is not available
-                    alt="User Profile"
-                    width={80}
-                    height={80}
-                    className="rounded-full cursor-pointer"
-                />
+                {avatar?.image_url && (
+                    <Image
+                        src={avatar.image_url} // You can now safely use the non-optional chain here
+                        height={70}
+                        width={70}
+                        alt="User Avatar"
+                    />
+                )}
             </div>
 
             <div className='grid place-items-center'>
@@ -67,7 +72,7 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
                     <div className="grid justify-center profile-dropdown-menu">
                         <div>
                             <Link href={`/profile/${userId}`}>
-                                <div className="dropdown-item">
+                                <div className="dropdown-item" onClick={handleLinkClick}>
                                     Profile
                                 </div>
                             </Link>
@@ -75,14 +80,14 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
                         </div>
                         <div>
                             <Link href={`/settings/${userId}`}>
-                                <div className="dropdown-item">
+                                <div className="dropdown-item " onClick={handleLinkClick}>
                                     Settings
                                 </div>
                             </Link>
 
                         </div>
 
-                        <div className="dropdown-item">
+                        <div className="dropdown-item" onClick={handleLinkClick}>
                             <LogoutButton />
                         </div>
                     </div>

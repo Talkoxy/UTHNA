@@ -247,22 +247,14 @@ const Translate = () => {
 
                 {/* Translation Result Section */}
                         {isTranslated && (
-                            <div className="grid grid-flow-col gap-8  place-items-center translation-area glow">
-                                <div>
+                            <div className="grid grid-flow-col gap-8  place-items-center translation-result-area ">
+                                <div className=''>
                                     <div className='grid place-items-center gap-8'>
                                         <textarea
                                         className="translation-resultarea"
                                         value={translatedText}
                                         readOnly
                                     />
-
-                                    
-                                        
-                                        <Likebtn
-                                            onClick={handlelikedTranslation}
-                                            disabled={!translatedText}
-                                        />
-                                    
                                     </div> 
                                     
                              
