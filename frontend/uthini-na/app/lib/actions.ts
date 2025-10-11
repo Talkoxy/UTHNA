@@ -6,21 +6,21 @@ export async function handleLogin(userId: string, accessToken: string, refreshTo
     (await cookies()).set('session_userid', userId, {
         httpOnly: true,
         secure: process.env.NODE_ENV == 'production', 
-        maxAge: 60 * 60 * 24 * 7, // 2 days
+        maxAge: 60 * 60 * 24 * 2, // 2 days
         path: '/'
     });
 
     (await cookies()).set('session_access_token', accessToken,{
         httpOnly: true,
         secure: process.env.NODE_ENV == 'production', 
-        maxAge: 60 * 60, // 30 mins 
+        maxAge: 60 * 50, // 50 mins 
         path: '/'
     });
 
     (await cookies()).set('session_refresh_token', refreshToken,{
         httpOnly: true,
         secure: process.env.NODE_ENV == 'production', 
-        maxAge: 60 * 60 * 24 * 7, // 2 days 
+        maxAge: 60 * 60 * 24 * 2, // 2 days 
         path: '/'
     })
 

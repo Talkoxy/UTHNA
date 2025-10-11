@@ -17,12 +17,10 @@ class ConnectPostSerializer(serializers.ModelSerializer):
 
 
 class ConnectCommentSerializer(serializers.ModelSerializer):
-    post = ConnectPostSerializer(read_only=True, many=False)
     class Meta:
         model = ConnectComment
         fields = [
             'id',
-            'post',
             'text',
         ]
 
@@ -32,17 +30,13 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
     # This ensures 'author' object contains 'id', 'username', and 'author_picture_url'
     author = UserSerializer(read_only=True, many=False)
     
-    # 2. Define the image_url field
-    image_url = serializers.SerializerMethodField()
-    
     class Meta:
         model = ConnectPost
         fields = [
             'id',
-            'author', # <-- Now includes the picture URL
+            'author', 
             'title',
-            'text', # <-- FIX: Added comma here
-            'image_url',
+            'text',
         ]
 
     # 3. Implement the method to get the post's main image URL
@@ -58,11 +52,12 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
 class ConnectCommentDetailSerializer(serializers.ModelSerializer):
     # This also embeds the enhanced UserSerializer, so comment author details are included
     created_by = UserSerializer(read_only=True, many=False)
+    post = ConnectPostSerializer(read_only=True, many=False)
     class Meta:
         model = ConnectComment
         fields = [
             'id',
             'post',
-            'created_by', # <-- Now includes the picture URL
+            'created_by', 
             'text',
         ]

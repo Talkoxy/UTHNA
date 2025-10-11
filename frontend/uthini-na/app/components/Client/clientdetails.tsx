@@ -1,5 +1,3 @@
-// your_component_name.tsx
-
 'use client'
 
 import { useState,useEffect } from "react";
@@ -8,8 +6,6 @@ import SavedTranslations from "../Translations/savedtranslations/savedtranslatio
 import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
 import TranslationInsights from "../Insights/insights";
 import { ClientSettingsType } from "../ClientSettings/clientsettings";
-import Image from "next/image";
-import AddSettingsButton from "../Buttons/settings/addSettingsbutton";
 import Avatar from "../Avatar/avatar";
 
 
@@ -17,13 +13,10 @@ export type ClientDetailsProps = {
     user: {
         username: string;
         email: string;
-        image_url: string ; 
+        image_url:string;
     };
     userId?: string | null;
-
-    
 };
-
 
 const ClientDetails = ({ user, userId,}: ClientDetailsProps) => {
 

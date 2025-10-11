@@ -1,8 +1,5 @@
 'use client';
 
-import { on } from "events";
-
-
 interface LikebtnProps{
     onClick?: () => void;
     disabled?: boolean;

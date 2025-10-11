@@ -1,6 +1,6 @@
 "use client"
 import useCreateAvatarModal from "../../Hooks/useCreateAvatarModal"
-import { getUserId } from "@/app/lib/actions"
+
 
 
 const CreateAvatarButton = () =>{

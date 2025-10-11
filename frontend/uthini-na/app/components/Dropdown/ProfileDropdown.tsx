@@ -57,14 +57,21 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
 
             <div onClick={toggleDropdown} className='grid place-items-center' >
                 
-                {avatar?.image_url && (
-                    <Image
-                        src={avatar.image_url} // You can now safely use the non-optional chain here
-                        height={70}
-                        width={70}
-                        alt="User Avatar"
-                    />
-                )}
+            {avatar?.image_url ? (
+                <Image
+                    src={avatar.image_url}
+                    height={70}
+                    width={70}
+                    alt="User Avatar"
+                />
+            ) : (
+                <Image
+                    src='/avatar.png' // Fallback image here
+                    height={70}
+                    width={70}
+                    alt="Default Avatar"
+                />
+            )}
             </div>
 
             <div className='grid place-items-center'>

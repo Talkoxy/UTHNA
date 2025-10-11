@@ -33,14 +33,15 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 
 
 SIMPLE_JWT = {
-     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+
+     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
      "REFRESH_TOKEN_LIFETIME": timedelta(days=2),  
      "ROTATE_REFRESH_TOKEN" : True,
      "BLACKLIST_AFTER_ROTATION": True,
      "UPDATE_LAST_LOGIN" : True,
      "SIGNING_KEY" : config('SECRET_KEY'),
      "ALGORITHM" : "HS256",
-
+     
 }
 
 REST_FRAMEWORK = {

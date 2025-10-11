@@ -18,7 +18,7 @@ const Navbar = () => {
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
             <div className="grid grid-flow-col grid-cols-3 place-items-center justify-center ">
                 <div >
-                    <Link href={'/welcome'} >
+                    <Link href={'/'} >
                         <img src="/images/UthiniNaNavbar.png" width={100} height={100} alt="To home page" />
                     </Link>
                 </div>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import apiService from '@/app/services/apiService';
 import CreateAvatarButton from '../Buttons/avatar/addAvatarbutton';
-import AvatarItem from './avataritems';
+
 
 
 export type AvatarType= {

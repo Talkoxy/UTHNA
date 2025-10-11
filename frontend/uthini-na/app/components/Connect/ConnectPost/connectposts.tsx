@@ -46,7 +46,25 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
+
+
+     useEffect(() => {
+        // 1. Fetch posts immediately upon component mount
+        getConnectPosts();
+
+        // 2. Set up the polling interval (e.g., every 30 seconds = 30000 milliseconds)
+        const intervalId = setInterval(() => {
+            getConnectPosts();
+            // console.log("Polling for new posts..."); // Optional: for debugging
+        }, 20000); // Poll every 30 seconds
+
+        // 3. Cleanup function: IMPORTANT to clear the interval when the component unmounts
+        return () => {
+            clearInterval(intervalId);
+        };
+
+    }, []);
 
 
 
