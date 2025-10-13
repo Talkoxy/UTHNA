@@ -59,6 +59,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://uthna.localhost:44326",
+    'http://167.172.62.178'
 ]
 
 
