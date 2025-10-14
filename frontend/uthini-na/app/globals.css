@@ -838,7 +838,7 @@ input:focus{
 
 
 
-html.theme-light {
+:root.theme-light  {
 
   /* page colors */
   --page_bg: #f0f9fb;
