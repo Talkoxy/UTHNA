@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+
 import  Navbar from "./components/Navbar/navbar";
-import { ThemeProvider } from './components/ThemeProvider';
 import CreateFeedbackModal from "./components/Modals/CreateFeedbackModal";
 import CreateSettingModal from "./components/Modals/CreateSettingsModal";
 import CreateConnectPostModal from "./components/Modals/CreateConnectPostModal";
@@ -36,7 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
+
 
             <Navbar />
           <div className="pt-16">
@@ -47,7 +46,6 @@ export default function RootLayout({
           <CreateFeedbackModal/>
           <CreateSettingModal/>
           <EditSettingsModal/>
-        </ThemeProvider>
       </body>
     </html>
   );

@@ -927,66 +927,6 @@ html.theme-light {
 
 
 
-/* DARK THEME 
-html.theme-dark {
-  --color-main-bg: #F9FFF7;
-  --color-main-bg-nav: #142030;
-  --color-container: #142030;
-  --color-container-accent: #F9EBA8;
-  --color-text: #F9EBA8;
-  --color-text-nav: #082637;
-  --color-btn: #1E3442;
-  --color-btn-text: #d1c0ec;
-  --color-logo: #F9EBA8;
-  --color-logo-hover: #F9EBA8;
-  --color-logo-border-transition: #d1c0ec;
-  --color-logo-glow:#d1c0ecc9;
-  --color-phrase-box-glow-outline: #d1c0ecc3;
-  --color-theme-toggle-hover-outline:#d1c0ec;
-
-  --color-translation-bg: #1E3442;
-  --color-translation-text: #d1c0ec;
-  --color-translation-border: #d1c0ec80;
-  --color-translation-glow: #d1c0ec44;
-
-  --color-translation-result-bg:#082637;
-
-  --color-scrollbar:#d1c0ec;
-
-  --color-language-select-outline: #d1c0ec44;
-
-  
-}
-*/
-
-/* LIGHT THEME 
-html.theme-light {
-  --color-main-bg: #5dad43;
-  --color-container: rgba(242, 247, 214, 0.6);
-  --color-container-accent: #082637;
-  --color-text: #082637;
-  --color-btn: #DBBE78;
-  --color-btn-text: #87281B;
-  --color-logo: #fcf3c7;
-  --color-logo-hover: #F9EBA8;
-  --color-logo-border-transition:#87281bdc;
-  --color-logo-glow:#87281bc5;
-  --color-theme-toggle-hover-outline:#87281B;
-  --color-phrase-box-glow-outline: #681d13;
-
-  --color-translation-bg: #fcf3c7;
-  --color-translation-text: #87281B;
-  --color-translation-border: #87281b80;
-  --color-translation-glow: #87281b44;
-
-  --color-translation-result-bg: #87281b44;
-
-  --color-scrollbar:#87281B;
-
-  --color-language-select-outline: #87281B;
-} 
-*/
-
 .translation-saves {
   width: min(100%, 1200px);
   max-height: 80vh;
