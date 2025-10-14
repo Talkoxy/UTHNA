@@ -32,10 +32,13 @@ const ToProfileButton = () => {
     }
     
     // If userId is found, link to the profile page
-    if (userId) {
+   if (userId) {
         return (
             <Link href={`/profile/${userId}`} >
-                <div className="button"><ProfileDropdown/></div>
+                <div className="button">
+                    {/* 👇 CRITICAL FIX: Pass userId to the dropdown */}
+                    <ProfileDropdown userId={userId} /> 
+                </div>
             </Link>
         );
     }
