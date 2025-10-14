@@ -1,11 +1,10 @@
-"use client"
+'use client'
 import apiService from "@/app/services/apiService";
-import { useEffect, useState,ChangeEvent, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Modal from "./Modal";
 import Custombtn from "../Buttons/custombutton";
 import useCreateConnectPostModal from "../Hooks/useCreateConnectPostModal";
-// Removed unused 'Image' import
-// import Image from "next/image";
+// Removed unused 'ChangeEvent' import
 
 
 const CreateConnectPostModal = () => {
@@ -65,23 +64,34 @@ const CreateConnectPostModal = () => {
             
             if (response && (response.success || response.id)) { 
                 
+                // --- REAL-TIME FIX IMPLEMENTATION ---
+                // 1. Execute the stored refresh callback to update the parent list
+                if (createConnectPostModal.refreshCallback) {
+                    createConnectPostModal.refreshCallback();
+                }
+                // --- END REAL-TIME FIX ---
+
                 setSuccess(['Post created successfully!']);
                 setIsSuccess(true);
                 
+                // Clear inputs after success
+                setConnectTitle('');
+                setConnectText('');
+
                 setTimeout(() => {
                     setIsSuccess(false);
                     setSuccess([]);
-                    createConnectPostModal.close();
-                }, 2500); // 2.5 seconds delay allows the user to see the success message
+                    createConnectPostModal.close(); // Close modal after success
+                }, 2500); 
             } 
             
             
             else {
-                // Assuming server errors are returned directly in the response object
+                // Handle API server-side errors
                 const responseErrors = response.errors || response;
-                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
-                     // Attempt to show field name with error
-                    return Array.isArray(error) ? error[0] : String(error);
+                // Use `unknown` type for safety when mapping server errors
+                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: unknown) => {
+                    return Array.isArray(error) ? String(error[0]) : String(error);
                 });
 
                 setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
@@ -89,18 +99,16 @@ const CreateConnectPostModal = () => {
             }
 
 
-        } catch (error: any) {
-            // 6. Network/API Service Errors
+        } catch (error) { // Catch block cleanup
             console.error("Error submitting Connect Post:", error);
             
             let errorMessages = ["An unexpected network error occurred."];
 
-             if (error.message) {
+             if (error instanceof Error) {
                  errorMessages = [error.message];
-            } else if (error.errors) {
-                 // If the error object contains nested server validation errors
-                errorMessages = Object.values(error.errors).flat().map((e: any) => String(e));
             }
+             // NOTE: We rely on the generic catch for network issues,
+             // specific server errors should be handled in the 'else' block above.
 
             setErrors(errorMessages);
             setIsError(true);
@@ -115,14 +123,14 @@ const CreateConnectPostModal = () => {
 
                 <div className="grid gap-2">
                     <input 
-                    className=""
+                    className="input input-bordered w-full"
                     value={connectTitle}
                     onChange={(e) => setConnectTitle(e.target.value)}
                     placeholder="Title"
                     />
 
                     <textarea
-                    className="post-textarea"
+                    className="post-textarea textarea textarea-bordered w-full resize-none"
                     placeholder="Type your post"
                     id="originalText"
                     value={connectText}
@@ -130,6 +138,7 @@ const CreateConnectPostModal = () => {
                         setConnectText(e.target.value);
                         autoGrowTextArea(e.target);
                     }}
+                    rows={4} // Default rows
                     />
                 </div>
 

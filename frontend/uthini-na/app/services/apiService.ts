@@ -7,6 +7,11 @@ const apiService = {
         console.log ('get', url);
         const token = await getAccessToken();
 
+        // Check for token before making the request
+        if (!token) {
+            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+        }
+
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'GET',
@@ -18,14 +23,13 @@ const apiService = {
             });
 
             if (response.status === 401) {
-                alert("Session expired. Please log in again.");
-                throw new Error("Unauthorized access - Please log in.");
+                throw new Error("401 Unauthorized: Session expired. Please log in again.");
             }
 
             const json = await response.json();
             console.log('Response:', json);
             return json;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API GET Error:', error);
             throw error;
         }
@@ -36,6 +40,11 @@ const apiService = {
         console.log('post', url, data);
 
         const token = await getAccessToken();
+
+        // Check for token before making the request
+        if (!token) {
+            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+        }
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
@@ -48,12 +57,23 @@ const apiService = {
                 },
             });
 
-            // Parse JSON for both success and error responses
-            const json = await response.json();
-            console.log('Response:', json);
+            if (response.status === 401) {
+                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+            }
             
-            // Check for non-successful status codes and throw an error
+            // Check for non-successful status codes first
             if (!response.ok) {
+                let json;
+                try {
+                    // Try to parse the error body as JSON
+                    json = await response.json();
+                } catch (e) {
+                    // If JSON parsing fails (e.g., server returned HTML 500 error page),
+                    // throw a generic error with the status code.
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
+                
+                // If JSON parsing succeeded, throw the structured error
                 throw {
                     status: response.status,
                     message: response.statusText,
@@ -61,36 +81,70 @@ const apiService = {
                 };
             }
 
+            // Parse JSON for successful response
+            const json = await response.json();
+            console.log('Response:', json);
             return json;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API POST Error:', error);
             throw error;
         }
     },
 
+    // Used for file uploads (FormData)
     postset: async function(url: string, data: any): Promise<any> {
-        console.log('post', url, data);
+        console.log('postset (file upload)', url);
 
         const token = await getAccessToken();
 
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        // Check for token before making the request
+        if (!token) {
+            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+        }
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
-                body: data,
+                body: data, // Expects FormData, Blob, or Buffer
                 headers: {
                     'Authorization': `Bearer ${token}`
+                    // Content-Type: multipart/form-data is set automatically by the browser for FormData
                 }
-            })
-                .then(response => response.json())
-                .then((json) => {
-                    console.log('Response:', json);
+            });
 
-                    resolve(json);
-                })
-                .catch((error => {
-                    reject(error);
-                }))
-        })
+            if (response.status === 401) {
+                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+            }
+            
+            // FIX: Improved error handling to catch non-JSON 500 responses
+            if (!response.ok) {
+                let json;
+                try {
+                    // Try to parse the error body as JSON
+                    json = await response.json();
+                } catch (e) {
+                    // If JSON parsing fails (e.g., server returned HTML 500 error page),
+                    // throw a generic error with the status code.
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
+                
+                // If JSON parsing succeeded, throw the structured error
+                throw {
+                    status: response.status,
+                    message: response.statusText,
+                    errors: json.errors || json,
+                };
+            }
+
+            // If the response is OK, parse JSON
+            const json = await response.json();
+            console.log('Response:', json);
+
+            return json;
+        } catch (error: unknown) {
+            console.error('API postset Error:', error);
+            throw error;
+        }
     },
 
 
@@ -106,10 +160,13 @@ const apiService = {
                 },
             });
 
-            const json = await response.json();
-            console.log('Response:', json);
-            
             if (!response.ok) {
+                let json;
+                try {
+                    json = await response.json();
+                } catch (e) {
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
                  throw {
                     status: response.status,
                     message: response.statusText,
@@ -117,39 +174,46 @@ const apiService = {
                 };
             }
 
+            const json = await response.json();
+            console.log('Response:', json);
             return json;
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API POST without token Error:', error);
             throw error;
         }
     },
 
-        postFormDataWithoutToken: async function(url: string, data: FormData): Promise<any> {
+    postFormDataWithoutToken: async function(url: string, data: FormData): Promise<any> {
         console.log('postFormDataWithoutToken', url);
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
                 body: data, // CRITICAL: Pass FormData object directly
                 headers:{
-                    'Accept': 'application/json',
+                    // Content-Type: multipart/form-data is set automatically by the browser
                 },
             });
 
-            const json = await response.json();
-            console.log('Response:', json);
-            
             if (!response.ok) {
+                let json;
+                try {
+                    json = await response.json();
+                } catch (e) {
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
                 throw {
                     status: response.status,
                     message: response.statusText,
                     errors: json.errors || json,
                 };
             }
-
+            
+            const json = await response.json();
+            console.log('Response:', json);
             return json;
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API POST FormData without token Error:', error);
             throw error;
         }
@@ -160,6 +224,11 @@ const apiService = {
         console.log('put', url, data);
 
         const token = await getAccessToken();
+
+        // Check for token before making the request
+        if (!token) {
+            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+        }
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
@@ -172,10 +241,17 @@ const apiService = {
                 },
             });
 
-            const json = await response.json();
-            console.log('Response:', json);
-
+            if (response.status === 401) {
+                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+            }
+            
             if (!response.ok) {
+                let json;
+                try {
+                    json = await response.json();
+                } catch (e) {
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
                 throw {
                     status: response.status,
                     message: response.statusText,
@@ -183,8 +259,11 @@ const apiService = {
                 };
             }
 
+            const json = await response.json();
+            console.log('Response:', json);
+
             return json;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API PUT Error:', error);
             throw error;
         }
@@ -194,6 +273,11 @@ const apiService = {
     delete: async function(url: string): Promise<any> {
         const token = await getAccessToken();
 
+        // Check for token before making the request
+        if (!token) {
+            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+        }
+
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'DELETE',
@@ -202,13 +286,21 @@ const apiService = {
                 },
             });
 
+            if (response.status === 401) {
+                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+            }
+
             if (response.status === 204 || response.status === 200) {
                 return null;
             }
 
-            const json = await response.json();
-            
             if (!response.ok) {
+                let json;
+                try {
+                    json = await response.json();
+                } catch (e) {
+                    throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
+                }
                  throw {
                     status: response.status,
                     message: response.statusText,
@@ -216,8 +308,10 @@ const apiService = {
                 };
             }
 
+            const json = await response.json();
+            
             return json;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('API DELETE Error:', error);
             throw error;
         }

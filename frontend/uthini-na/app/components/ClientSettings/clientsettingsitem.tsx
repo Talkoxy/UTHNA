@@ -1,27 +1,35 @@
-"use client"
+'use client'
+
 import { ClientSettingsType } from './clientsettings';
-import { useState, useEffect} from 'react';
-import { ClientDetailsProps } from '../Client/clientdetails';
-import Image from 'next/image';
+
 import EditSettingsButton from '../Buttons/settings/editSettingsbutton';
 
 
+
+
+// 1. UPDATE INTERFACE to include the change handler function
 interface ClientSettingsItemProps {
     setting: ClientSettingsType;
+    onSettingsChange: () => void; // Function to trigger parent component refresh
 }
 
 const ClientSettingsItem: React.FC<ClientSettingsItemProps> = 
-({setting}) => {
+// 2. DESTRUCTURE the new prop
+({ setting, onSettingsChange }) => {
 
     return (
         <div>
             <div className='grid  gap-5 place-items-center pt-30'>
                 <div>
-                    <EditSettingsButton settingsId={setting.id} 
-                    userPrefferedSourceLanguage={setting.user_preferred_source_language}
-                    userPrefferedTargetLanguage={setting.user_preferred_target_language}
-                    profileVisibility={setting.profile_visibility} 
-                    subscriptionStatus={setting.subscription_status}/>
+                    <EditSettingsButton 
+                        settingsId={setting.id} 
+                        userPrefferedSourceLanguage={setting.user_preferred_source_language}
+                        userPrefferedTargetLanguage={setting.user_preferred_target_language}
+                        profileVisibility={setting.profile_visibility} 
+                        subscriptionStatus={setting.subscription_status}
+                        // 3. PASS THE HANDLER DOWN TO THE EDIT BUTTON
+                        onSettingsChange={onSettingsChange}
+                    />
                 </div>
                 <div className='grid grid-flow-row gap-2 place-items-center card p-4'>
                     <div className='grid place-items-center pt-6'>

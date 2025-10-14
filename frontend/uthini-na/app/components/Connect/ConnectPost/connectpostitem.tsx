@@ -1,8 +1,7 @@
 'use client'
-import { ClientSettingsType } from '../../ClientSettings/clientsettings';
 import { ConnectPostsType } from './connectposts';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react'; // Added useCallback
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
 
@@ -14,31 +13,35 @@ interface ConnectPostsItemProps {
 const ConnectPostItem: React.FC<ConnectPostsItemProps> = 
 ({connectpost}) => {
 
-    const [author,setAuthor] = useState(connectpost.author.id)
+    // REMOVED: const [author, setAuthor] = useState(connectpost.author.id) - Use prop directly
+
     const[avatar, setAvatar] = useState<AvatarType>({
             id: '',
             image_url: ''
         });
 
-    const getAvatar = async (author: string) => {
+    // Wrapped in useCallback for dependency stability
+    const getAvatar = useCallback(async (authorId: string) => {
         try {
-            const response = await apiService.get(`/api/avatar/get?user_id=${author}`);
+            const response = await apiService.get(`/api/avatar/get?user_id=${authorId}`);
             if (response && response.data && response.data.length > 0) {
-                setAvatar(response.data[0]); // Assuming the first setting is the relevant one
+                setAvatar(response.data[0]); 
             }
         } catch (error) {
-            console.error("Error fetching user settings:", error);
+            console.error("Error fetching user avatar:", error);
         }
-    };
+    }, []); // Empty dependency array means this function is stable
 
     useEffect(() => {
-
-        if (author) {
-            getAvatar(author);
+        const authorId = connectpost.author.id;
+        
+        // Call the stable function with the ID from props
+        if (authorId) {
+            getAvatar(authorId);
         }
-    }, [author]);
+    // Dependency array uses the post ID and the stable getAvatar function
+    }, [connectpost.author.id, getAvatar]); 
  
-    
     
     // Use a default avatar image if the URL is missing
     const defaultAvatar = '/avatar.png'; 
@@ -52,12 +55,20 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                 {/* 1. USER INFO - Column 1 */}
                 <div className='userInfo'>
                     <div>
-                        {avatar?.image_url && (
+                        {avatar.image_url ? ( // Check if avatar URL is present
                             <Image
-                                src={avatar.image_url} // You can now safely use the non-optional chain here
+                                src={avatar.image_url}
                                 height={70}
                                 width={70}
-                                alt="User Avatar"
+                                alt={`Avatar for ${connectpost.author.username}`}
+                            />
+                        ) : (
+                            // Display fallback image if avatar URL is missing
+                            <Image
+                                src={defaultAvatar} 
+                                height={70}
+                                width={70}
+                                alt="Default Avatar"
                             />
                         )}
                     </div>

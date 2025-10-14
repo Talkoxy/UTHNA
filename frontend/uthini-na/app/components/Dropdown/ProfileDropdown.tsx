@@ -2,11 +2,11 @@
 
 import { useState,useEffect } from 'react';
 import Link from 'next/link';
-import Custombtn from '../Buttons/custombutton';
+// import Custombtn from '../Buttons/custombutton'; // REMOVED: Unused
 import LogoutButton from '../Buttons/logoutbutton';
-import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from '../Hooks/useCreateSettingsModal';
-import { ClientSettingsType } from '../ClientSettings/clientsettings';
+// import AddSettingsModal from '../Modals/CreateSettingsModal'; // REMOVED: Unused
+// import useAddSettingsModal from '../Hooks/useCreateSettingsModal'; // REMOVED: Unused
+// import { ClientSettingsType } from '../ClientSettings/clientsettings'; // REMOVED: Unused
 import Image from 'next/image';
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../Avatar/avatar';

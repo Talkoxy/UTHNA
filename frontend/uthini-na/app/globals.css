@@ -459,7 +459,19 @@
   transition: all 1.5s ease-in;
 
 }
+.image-input{
+  background-color: var(--translation-area-bg);
+  box-shadow: 0px 0px 10px var(--card-glow-sec);
+  padding: 2rem;
+  border-radius: 1rem;
 
+  font-size: 24px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+
+  border: none;
+  transition: all 2.3s ease;
+}
 .modal-card {
   border-radius: 1rem;
   background: var(--card_bg);

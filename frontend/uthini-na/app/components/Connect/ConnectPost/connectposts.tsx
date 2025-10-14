@@ -1,9 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import apiService from '@/app/services/apiService';
 import ConnectPostItem from './connectpostitem';
-import { ClientSettingsType } from '../../ClientSettings/clientsettings';
+import CreateConnectPostButton from '../../Buttons/connect/addConnectPostbutton';
+// Removed unused import: ClientSettingsType
+// Assuming CreatePostButton is imported here (as it will be needed in the JSX)
 
 
 
@@ -17,7 +19,6 @@ export type ConnectPostsType= {
         id :string;
         email :string;
         username: string;
-        // NEW: Added author picture field from the UserSerializer
         user_avatar: string ; 
     }
     
@@ -27,71 +28,73 @@ interface ConnectPostsProps {
     user_id?: string | null;
 
 }
+
 const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     const[connectPosts, setConnectPosts] = useState<ConnectPostsType[]>([]);
-    const[settings, setSettings] = useState<ClientSettingsType[]>([]);
+    // Removed unused state: settings
     const [isLoading, setIsLoading] = useState(true);
 
-    const getConnectPosts = async() => {
+    
+    // 1. Memoized function to fetch posts (Replaces the old async function)
+    const getConnectPosts = useCallback(async() => {
         setIsLoading(true);
+        // Cleaned up the URL to consistently use the base path if user_id is null
         let url = '/api/connect/connectposts/';
+        
+        // Optionally append user_id filter if needed, though usually posts are global
+        if (user_id) {
+            url += `?user_id=${user_id}`;
+        }
 
         try {
-            const tmpconnectPosts = await apiService.get(url);
-            // Ensure we handle the possibility that the data is nested or directly the list
-            setConnectPosts(tmpconnectPosts.data || tmpconnectPosts); 
+            const response = await apiService.get(url);
+            setConnectPosts(response.data || response); 
+            console.log("Posts refreshed via callback trigger.");
         } catch (error) {
             console.error("Failed to fetch connect posts:", error);
             setConnectPosts([]);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [user_id]); // Dependency on user_id allows filtering changes to trigger a fetch
 
-
-     useEffect(() => {
-        // 1. Fetch posts immediately upon component mount
+    
+    // 2. Define the public handler function to be passed to children (the refresh trigger)
+    const handlePostCreated = useCallback(() => {
+        // This function forces a re-fetch of the post list.
         getConnectPosts();
-
-        // 2. Set up the polling interval (e.g., every 30 seconds = 30000 milliseconds)
-        const intervalId = setInterval(() => {
-            getConnectPosts();
-            // console.log("Polling for new posts..."); // Optional: for debugging
-        }, 20000); // Poll every 30 seconds
-
-        // 3. Cleanup function: IMPORTANT to clear the interval when the component unmounts
-        return () => {
-            clearInterval(intervalId);
-        };
-
-    }, []);
+        console.log("New post creation detected. Refreshing list...");
+    }, [getConnectPosts]);
 
 
-
-   
-
-     
-
-
+    // 3. Initial fetch (using the memoized function and correct dependencies)
     useEffect(() => {
         getConnectPosts();
+        
+        // ❌ REMOVED: Polling logic (setInterval and clearInterval cleanup) ❌
+    }, [getConnectPosts]); // Dependency: getConnectPosts (which changes only if user_id changes)
+
     
-
-    }, []);
-
     return (
-        <div className='scroll grid grid-flow-row place-items-center'> 
+        <div className='scroll grid grid-flow-row place-items-center gap-4'> 
+        
+        {/* ADD POST BUTTON - Pass the refresh handler here */}
+        <div className='w-full flex justify-center p-4'>
+            <CreateConnectPostButton onPostCreated={handlePostCreated} />
+        </div>
+        
+        
         {isLoading ? (
             <p className='p-6 text-gray-500'>Loading posts...</p>
         ) : connectPosts.length > 0 ? (
             connectPosts.map((connectpost) => (
-                <div key={connectpost.id}>
+                <div key={connectpost.id} className="w-full">
                     <ConnectPostItem connectpost={connectpost}/>
                 </div>
             ))
         ) : (
             // A message or component to display when no connectPosts are found
-            <p className='p-6 text-gray-500'>No connect posts found yet.</p>
+            <p className='p-6 text-gray-500'>No connect posts found yet. Be the first to post!</p>
         )}
 
         </div>

@@ -16,32 +16,53 @@ const Login = () => {
     
 
     const submitLogin = async () => {
+        // Clear previous errors
+        setErrors([]); 
 
-            const formData = {
+        const formData = {
             email: email,
             password: password,
-        }
+        };
 
-
-        const response = await apiService.postWithoutToken(
-            '/api/auth/login/',
-            formData
-        );
-
-        if (response.access) {
-            handleLogin(
-                response.user.pk,
-                response.access,
-                response.refresh
+        try {
+            const response = await apiService.postWithoutToken(
+                '/api/auth/login/',
+                formData
             );
 
-            router.push('/translate');
-        } else {
-        const tmpErrors: string[] = Object.values(response).map((error: any) =>{
-            return error;
-        } )
+            if (response.access) {
+                // Success path
+                handleLogin(
+                    response.user.pk,
+                    response.access,
+                    response.refresh
+                );
+                router.push('/translate');
+            } else {
+                // Server-side validation errors or general failure (response object returned but no access token)
+                // We check for a nested 'errors' property but default to mapping the entire response object
+                const responseErrors = response.errors || response;
+                
+                // Map all error values into a flat string array
+                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: unknown) => {
+                    // Handle potential nested arrays from server validation
+                    return Array.isArray(error) ? String(error[0]) : String(error);
+                });
 
-        setErrors(tmpErrors);
+                // Display errors, or a generic message if mapping failed
+                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Login failed due to an unknown server error."]);
+            }
+        } catch (error: unknown) {
+            // Network or unexpected error
+            console.error("Error submitting login:", error);
+            
+            let errorMessages = ["An unexpected network error occurred. Please check your connection."];
+
+            if (error instanceof Error) {
+                errorMessages = [error.message];
+            }
+            
+            setErrors(errorMessages);
         }
     }
 
@@ -91,7 +112,8 @@ const Login = () => {
                 </div>
 
                 <p className="text-center text-subtitle mt-4">
-                    Don't have an account?{" "}
+                    {/* FIX: Replaced ' with &apos; for JSX compatibility */}
+                    Don&apos;t have an account?{" "} 
                     <Link href="/signup" className="text-bg-accent hover:underline">
                         Sign up here
                     </Link>
