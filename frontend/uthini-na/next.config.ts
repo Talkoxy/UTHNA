@@ -12,21 +12,14 @@ const withAutoCert = autoCert({
 const nextConfig: NextConfig = {
   // CONFIGURATION FOR NEXT/IMAGE
   images: {
-    // 1. KEEP YOUR remotePatterns (it's correct)
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '167.172.62.178',
-        port: '',
+        hostname: 'localhost',
+        port: '8000',
         pathname: '/**'
       },
     ],
-    
-    // 2. ADD domains AS A BACKUP
-    domains: [
-        '167.172.62.178', 
-        // Note: You only list hostnames here, no protocol
-    ], 
   },
 
   // CONFIGURATION FOR TURBOPACK WARNING
