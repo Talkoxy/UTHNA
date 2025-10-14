@@ -19,19 +19,18 @@ def create_avatar(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-
 @api_view(['GET'])
 @authentication_classes([])  
 @permission_classes([])      
 def avatar(request):
     avatar = Avatar.objects.all()
     
-
     user_id = request.GET.get('user_id', '')
     if user_id:
         avatar = avatar.filter(client_id=user_id)
 
-    serializer = AvatarGetSerializer(avatar, many=True)
+    # CRITICAL CHANGE: Pass context={'request': request}
+    serializer = AvatarGetSerializer(avatar, many=True, context={'request': request}) 
 
     return Response({
         'data': serializer.data

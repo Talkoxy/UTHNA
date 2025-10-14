@@ -4,14 +4,32 @@ from .models import Avatar
 from clients.serializers import UserSerializer 
 
 
+
 class AvatarGetSerializer(serializers.ModelSerializer):
-    # This serializer is likely used for listing or creation/update where full detail isn't needed
+    # CRITICAL CHANGE: Use SerializerMethodField for image_url
+    image_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = Avatar
         fields = [
             'id',
-            'image_url',
+            'image_url', # This field now calls get_image_url
         ]
+        
+    def get_image_url(self, obj):
+        """
+        Returns the full public URL for the image using the request context.
+        """
+        # 1. Get the request object from the context
+        request = self.context.get('request') 
+        
+        if obj.image and request:
+            # 2. Use request.build_absolute_uri() to prepend the public IP/domain
+            # obj.image.url should be something like /media/clientAvatar/IMG_1239.PNG
+            return request.build_absolute_uri(obj.image.url) 
+            
+        # Fallback if request context is missing or no image
+        return obj.image.url if obj.image else None
 
 class AvatarSerializer(serializers.ModelSerializer):
     # This serializer is likely used for listing or creation/update where full detail isn't needed
