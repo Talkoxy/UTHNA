@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAccessToken } from "../lib/actions";
 
 const apiService = {
@@ -68,7 +68,9 @@ const apiService = {
                 try {
                     // Try to parse the error body as JSON
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) { 
                     // If JSON parsing fails (e.g., server returned HTML 500 error page),
                     // throw a generic error with the status code.
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
@@ -123,7 +125,9 @@ const apiService = {
                 try {
                     // Try to parse the error body as JSON
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) { 
                     // If JSON parsing fails (e.g., server returned HTML 500 error page),
                     // throw a generic error with the status code.
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
@@ -165,7 +169,9 @@ const apiService = {
                 let json;
                 try {
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) {
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
                 }
                  throw {
@@ -200,7 +206,9 @@ const apiService = {
                 let json;
                 try {
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) {
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
                 }
                 throw {
@@ -250,7 +258,9 @@ const apiService = {
                 let json;
                 try {
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) {
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
                 }
                 throw {
@@ -299,7 +309,9 @@ const apiService = {
                 let json;
                 try {
                     json = await response.json();
-                } catch (e) {
+                } 
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ // FIX: Suppress warning for unused '_'
+                catch (_) {
                     throw new Error(`HTTP Error ${response.status}: ${response.statusText}. Server returned non-JSON data.`);
                 }
                  throw {
