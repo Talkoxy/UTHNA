@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { getAccessToken } from "../lib/actions";
 
 const apiService = {
@@ -105,7 +106,7 @@ const apiService = {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
-                body: data, // Expects FormData, Blob, or Buffer
+                body: data,
                 headers: {
                     'Authorization': `Bearer ${token}`
                     // Content-Type: multipart/form-data is set automatically by the browser for FormData

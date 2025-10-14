@@ -34,16 +34,16 @@ const ToProfileButton = () => {
     // If userId is found, link to the profile page
     if (userId) {
         return (
-            <Link href={`/profile/${userId}`} passHref legacyBehavior>
-                <a className="button"><ProfileDropdown/></a>
+            <Link href={`/profile/${userId}`} >
+                <div className="button"><ProfileDropdown/></div>
             </Link>
         );
     }
 
     // If no userId is found (user is logged out or error occurred), show a login button
     return (
-        <Link href="/login" passHref legacyBehavior>
-            <a className="button">Login</a>
+        <Link href="/login">
+            <div className="button">Login</div>
         </Link>
     );
 };
