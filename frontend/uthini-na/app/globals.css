@@ -838,27 +838,6 @@ input:focus{
 
 
 
-/*Themes*/
-
-html.theme-dark {
-  --page_bg: #14285e;
-  --card_bg: linear-gradient(90deg, #112250 0%, #112250 100%);
-  --card_bg_text: #a0dee5;
-  --theme_btn_text: #112250;
-  --theme_btn_bg: #a0dee5;
-  --btn_bg: #112250;
-  --btn_text: #a0dee5;
-  --translation-border: #a0dee5;
-
-  --translation-border-focus: #1B4;
-  --translation-bg: linear-gradient(182.5deg, #A0DEE5 -83.8%, #9ADEE6 27.83%, rgba(157, 222, 230, 0.73) 83.64%, #112250 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #A0DEE5 -83.8%, #9ADEE6 27.83%, #9DDEE6 83.64%, #112250 139.45%);
-
-
-  --translation-text: #112250;
-  --hover_bg: #6ed0db;
-}
-
 html.theme-light {
 
   /* page colors */
