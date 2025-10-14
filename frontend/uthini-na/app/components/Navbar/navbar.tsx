@@ -1,30 +1,33 @@
 'use client'
 
 import ToProfileButton from "../Buttons/navigation/toprofilebutton";
-import Themetoggle from "../Buttons/themetoggle";
+// Removed unused imports: Themetoggle, AddSettingsModal, useAddSettingsModal
 import { ConnectIcon, TranslateIcon } from "../icons";
-import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from "../Hooks/useCreateSettingsModal";
 import NavbarItem from "./navbaritem";
-import { link } from "fs/promises";
+// Removed unused imports: link, ClientSettingsType
 import Link from "next/link";
-import { ClientSettingsType } from '../ClientSettings/clientsettings';
 import { CrownIcon } from "../icons";
-import CreateAvatarButton from "../Buttons/avatar/addAvatarbutton";
+// Removed unused imports: CreateAvatarButton
+import Image from "next/image"; // Added for optimization
 
 const Navbar = () => {
-
     
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
             <div className="grid grid-flow-col grid-cols-3 place-items-center justify-center ">
                 <div >
                     <Link href={'/'} >
-                        <img src="/images/UthiniNaNavbar.png" width={100} height={100} alt="To home page" />
+                        {/* FIX: Replaced <img> with Next.js <Image /> for optimization */}
+                        <Image 
+                            src="/images/UthiniNaNavbar.png" 
+                            width={100} 
+                            height={100} 
+                            alt="To home page" 
+                        />
                     </Link>
                 </div>
 
-                <div className="grid grid-flow-col grid-cols-2  gap-60">
+                <div className="grid grid-flow-col grid-cols-3  gap-20 md:gap-60"> {/* Adjusted grid for 3 items */}
 
                     <div>
                         <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
@@ -32,9 +35,6 @@ const Navbar = () => {
 
                     <div>
                         <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
-                    </div>
-                    <div>
-                        <CreateAvatarButton/>
                     </div>
 
                     <div>

@@ -1,9 +1,9 @@
 "use client";
 
-import Likebtn from '../Buttons/likebutton';
+// Removed unused imports: Likebtn, useEffect
 import apiService from "@/app/services/apiService";
 import { getUserId } from "@/app/lib/actions";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Custombtn from "../Buttons/custombutton";
 import AddFeedbackButton from '../Buttons/feedback/addFeedbackbutton';
 
@@ -12,6 +12,18 @@ interface TranslationResult {
     detectedSourceLanguage: string;
     input: string;
 }
+
+// Define the expected server response structure for translation
+interface TranslationResponse {
+    Clienttranslations?: TranslationResult[];
+}
+
+// Define the expected server response structure for saving/liking
+interface SaveResponse {
+    success?: boolean;
+    message?: string;
+}
+
 
 const Translate = () => {
     // Form states
@@ -25,7 +37,7 @@ const Translate = () => {
     const [success, setSuccess] = useState<string[]>([]);
     const [isSuccess, setIsSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [saved, setSaved] = useState(false);
+    // Removed unused state: [saved, setSaved] 
     const [isTranslated, setIsTranslated] = useState(false);
 
 
@@ -54,7 +66,7 @@ const Translate = () => {
         }
 
         try {
-            const response = await apiService.post(
+            const response: unknown = await apiService.post(
                 '/api/translate/translate/',
                 {
                     original_text: originalText,
@@ -62,13 +74,15 @@ const Translate = () => {
                     source_language: sourceLang,
                 }
             );
-
+            
+            // Safely check and assert the response structure
             if (
-                response.Clienttranslations &&
-                Array.isArray(response.Clienttranslations) &&
-                response.Clienttranslations.length > 0
+                typeof response === 'object' && response !== null &&
+                'Clienttranslations' in response &&
+                Array.isArray((response as TranslationResponse).Clienttranslations) &&
+                (response as TranslationResponse).Clienttranslations!.length > 0
             ) {
-                const translation = response.Clienttranslations[0] as TranslationResult;
+                const translation = (response as TranslationResponse).Clienttranslations![0];
                 setTranslatedText(translation.output);
                 setIsTranslated(true);
                 setIsSuccess(true);
@@ -78,22 +92,31 @@ const Translate = () => {
                 setIsError(true);
                 setIsTranslated(false);
             }
-        } catch (error: any) {
-            setErrors([error.message || 'Translation failed']);
+        } catch (error: unknown) { // FIX: Use unknown instead of any
+            console.error("Translation error:", error);
+            let errorMessage = 'Translation failed due to an unexpected error.';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            setErrors([errorMessage]);
             setIsError(true);
             setIsTranslated(false);
         }
     };
 
-    const handleTranslationFeedback = async () =>{
-        
-    }
+    // Removed unused function: handleTranslationFeedback (L88)
+    // Removed unused function: handlelikedTranslation (L122)
 
     const handleSaveTranslation = async () => {
+        setErrors([]);
+        setIsError(false);
+        setIsSuccess(false);
+
         try {
             const userId = await getUserId();
             if (!userId) {
                 setErrors(['Please log in to save translations']);
+                setIsError(true);
                 return;
             }
 
@@ -104,48 +127,27 @@ const Translate = () => {
                 source_language: sourceLang,
             }; 
 
-            const response = await apiService.post('/api/translate/Clienttranslations/save/', saveData)
+            const response: unknown = await apiService.post('/api/translate/Clienttranslations/save/', saveData);
 
-
-            if (response.success) {
-                setSaved(true);
-                setTimeout(() => setSaved(false), 3000); // Reset saved state after 3 seconds
+            // Safely check and assert the response structure
+            if (typeof response === 'object' && response !== null && (response as SaveResponse).success) {
+                
                 setSuccess(['Translation saved, view it in your profile']);
+                setIsSuccess(true);
+                setTimeout(() => setIsSuccess(false), 3000); 
+                
             } else {
                 setErrors(['Failed to save translation']);
+                setIsError(true);
             }
-        } catch (error: any) {
-            setErrors([error.message || 'Failed to save translation']);
-        }
-    };
-
-    const handlelikedTranslation = async () => {
-        try {
-            const userId = await getUserId();
-            if (!userId) {
-                setErrors(['Please log in to save translations']);
-                return;
+        } catch (error: unknown) { // FIX: Use unknown instead of any
+            console.error("Save error:", error);
+            let errorMessage = 'Failed to save translation due to an unexpected error.';
+            if (error instanceof Error) {
+                errorMessage = error.message;
             }
-
-            const saveData = {
-                original_text: originalText,
-                translated_text: translatedText,
-                target_language: targetLang,
-                source_language: sourceLang,
-            };
-
-            const response = await apiService.post('/api/translate/Clienttranslations/like/', saveData)
-
-
-            if (response.success) {
-                setSaved(true);
-                setTimeout(() => setSaved(false), 3000); // Reset saved state after 3 seconds
-                setSuccess(['Translation liked, view it in your profile']);
-            } else {
-                setErrors(['Failed to save translation']);
-            }
-        } catch (error: any) {
-            setErrors([error.message || 'Failed to save translation']);
+            setErrors([errorMessage]);
+            setIsError(true);
         }
     };
 
@@ -181,7 +183,7 @@ const Translate = () => {
                                 <div className=''>
                                     {/* Success/Error Messages */}
                                         {isSuccess && (
-                                            <div className="success-container">
+                                            <div className="success-container p-2 bg-green-100 text-green-700 rounded-md">
                                                 {success.map((msg, index) => (
                                                     <div key={`success_${index}`} className="success-message">
                                                         {msg}
@@ -191,7 +193,7 @@ const Translate = () => {
                                         )}
 
                                         {isError && (
-                                            <div className="error-container">
+                                            <div className="error-container p-2 bg-red-100 text-red-700 rounded-md">
                                                 {errors.map((error, index) => (
                                                     <div key={`error_${index}`} className="error-message">
                                                         {error}

@@ -1,7 +1,7 @@
 'use client'
 
 import apiService from "@/app/services/apiService";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react"; // Added useCallback
 import SavedTranslationItem from "./savedtranslationitem";
 
 export type TranslationType = {
@@ -24,7 +24,8 @@ interface SavedTranslationsProps {
 const SavedTranslations: React.FC<SavedTranslationsProps> = ({ user_id }) => {
     const [translations, setTranslations] = useState<TranslationType[]>([]);
 
-    const getTranslations = async () => {
+    // FIX: Wrap getTranslations in useCallback
+    const getTranslations = useCallback(async () => {
         let url = '/api/translate/Clienttranslations/saved/list/';
 
         if (user_id) {
@@ -32,12 +33,19 @@ const SavedTranslations: React.FC<SavedTranslationsProps> = ({ user_id }) => {
         }
 
         const tmpTranslations = await apiService.get(url);
-        setTranslations(tmpTranslations.data);
-    }
+        
+        // Safely check that data exists and is an array
+        if (tmpTranslations && Array.isArray(tmpTranslations.data)) {
+            setTranslations(tmpTranslations.data);
+        } else {
+            setTranslations([]);
+        }
+    }, [user_id]); // Dependency for useCallback is user_id
 
+    // FIX: Add getTranslations to the dependency array
     useEffect(() => {
         getTranslations();
-    }, [user_id]); // Add dependency to prevent infinite loop
+    }, [user_id, getTranslations]); 
 
     return (
         <div className="grid grid-flow-row gap-4 place-items-center ">

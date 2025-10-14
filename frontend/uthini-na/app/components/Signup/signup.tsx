@@ -1,12 +1,12 @@
 "use client";
-import { useState, ChangeEvent } from "react";
+import { useState } from "react"; // Removed ChangeEvent since setImage is removed
 import { useRouter } from "next/navigation";
 import apiService from "@/app/services/apiService";
 import { handleLogin } from "@/app/lib/actions";
 import Link from "next/link";
 import Custombtn from "../Buttons/custombutton";
 import useCreateSettingsModal from "../Hooks/useCreateSettingsModal";
-import Image from "next/image";
+// Removed unused Image import
 
 const Signup = () => {
   const router = useRouter();
@@ -17,32 +17,26 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const [userAvatar, setUserAvatar] = useState <File | null>(null);
+  // Removed unused userAvatar state
 
   const [errors, setErrors] = useState<string[]>([]);
 
 
-  //functions
-  const setImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const tmpImage = event.target.files[0];
-
-            setUserAvatar(tmpImage);
-        }
-    }
+  // Removed unused setImage function
 
     const submitSignup = async () => {
-    // ... (Your client-side validation logic remains here)
-
-    // Ensure validation passed before proceeding
-    if (password !== password2 || !username || !email || !password) {
-        // ... (handle errors and return)
-        return; 
-    }
+    // Basic client-side validation
     setErrors([]);
+    if (password !== password2) {
+        setErrors(["Passwords do not match."]);
+        return;
+    }
+    if (!username || !email || !password || !password2) {
+        setErrors(["All fields are required."]);
+        return;
+    }
 
     // 🎯 CRITICAL FIX: CONSTRUCT THE FormData OBJECT 🎯
-    // This correctly packages text fields and the file for the API.
     const formData = new FormData();
     
     formData.append('email', email);
@@ -51,24 +45,35 @@ const Signup = () => {
     formData.append('password2', password2);
     
     try {
-        const response = await apiService.postFormDataWithoutToken('/api/auth/register/', formData); 
+        // Use 'unknown' for the response type for safety
+        const response: unknown = await apiService.postFormDataWithoutToken('/api/auth/register/', formData); 
       
-        if (response.access) {
-            handleLogin(response.user.pk, response.access, response.refresh)
+        // Type guard and assertion
+        if (typeof response === 'object' && response !== null && 'access' in response) {
+            const successResponse = response as { user: { pk: string }, access: string, refresh: string };
+
+            handleLogin(successResponse.user.pk, successResponse.access, successResponse.refresh)
             router.push('/translate')
             createSettingsModal.open();
             
         } else {
-      const tmpErrors: string[] = Object.values(response).map((error: any) => {
-        return Array.isArray(error) ? error[0] : error;
-      })
+            // Handle server-side validation errors
+            // Safely map and flatten the response object (which contains the errors)
+            const tmpErrors: string[] = Object.values(response || {}).flat().map((errorValue: unknown) => {
+                return Array.isArray(errorValue) ? String(errorValue[0]) : String(errorValue);
+            }).filter(msg => msg !== 'undefined' && msg.length > 0); // Filter out empty/undefined strings
 
-      setErrors(tmpErrors);
-    }
+            setErrors(tmpErrors.length > 0 ? tmpErrors : ["Registration failed due to a server error."]);
+        }
 
     } catch (error) {
        console.error("Signup failed:", error);
-        setErrors(["An unexpected error occurred during signup."]);
+       // Use error handling that expects a standard Error object
+       let errorMessages = ["An unexpected error occurred during signup."];
+       if (error instanceof Error) {
+            errorMessages = [error.message];
+       }
+       setErrors(errorMessages);
     }
 };
     
@@ -80,7 +85,7 @@ const Signup = () => {
         
        
             
-            {/* 1. Textual Data Inputs Column (Order depends on screen size) */}
+            {/* 1. Textual Data Inputs Column */}
             <div className="grid gap-2 order-last md:order-first">
                 <input
                     value={username}
@@ -113,7 +118,7 @@ const Signup = () => {
         
         {/* Errors and Button (span both columns) */}
         {errors.length > 0 && (
-          <div className="grid gap-2">
+          <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
             {errors.map((error, index) => (
               <div key={`error_${index}`} className="error-message">
                 {error}

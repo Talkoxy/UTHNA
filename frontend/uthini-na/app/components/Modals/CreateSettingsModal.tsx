@@ -1,32 +1,22 @@
 "use client"
 import apiService from "@/app/services/apiService";
-import { useEffect, useState,ChangeEvent, use } from "react";
+import { useEffect, useState } from "react"; 
 import Modal from "./Modal";
 import Custombtn from "../Buttons/custombutton";
 import useCreateSettingsModal from "../Hooks/useCreateSettingsModal";
-import Image from "next/image";
 
 
 const CreateSettingModal = () => {
 
     const createSettingModal = useCreateSettingsModal()
 
-    const [currentStep, setCurrentStep] = useState(1);
 
-    
     const [userPreferredSourceLanguage, setUserPreferredSourceLanguage] = useState('');
     const [userPreferredTargetLanguage, setUserPreferredTargetLanguage] = useState('');
     const [subscriptionStatus, setSubscriptionStatus] = useState('');
     const [profileVisibility, setProfileVisibility] = useState('');
-    const [userAvatar, setUserAvatar] = useState <File | null>(null);
 
-    const setImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const tmpImage = event.target.files[0];
 
-            setUserAvatar(tmpImage);
-        }
-    }
 
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState<string[]>([]);
@@ -35,30 +25,46 @@ const CreateSettingModal = () => {
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     
+    
+    type ServerResponse = { 
+        success?: boolean; 
+        id?: string; 
+        errors?: Record<string, unknown>;
+        message?: string;
+    };
+
      useEffect(() => {
         if (!createSettingModal.isOpen) {
-            setCurrentStep(1);
+            
 
             setUserPreferredSourceLanguage('');
             setUserPreferredTargetLanguage('');
             setSubscriptionStatus('');
-            setUserAvatar(null);    
+                
 
             
             }else {
                 setErrors([]);
+                setSuccess([]);
+                setIsError(false);
+                setIsSuccess(false);
             }
 
         }, [createSettingModal.isOpen]);
     
     // Reset state when modal is closed
     const sudmitSettings = async () => {
-        // Client-side validation to ensure all fields are present
+        // Reset previous status
+        setErrors([]);
+        setSuccess([]);
+        setIsError(false);
+        setIsSuccess(false);
+
+        
         if (
             userPreferredSourceLanguage &&
             userPreferredTargetLanguage &&
             subscriptionStatus &&
-            
             profileVisibility
         ) {
             try {
@@ -71,49 +77,56 @@ const CreateSettingModal = () => {
                 formData.append('profile_visibility', profileVisibility);
                 
                 // Send the FormData object to the API service
-                const response = await apiService.postset('/api/settings/create/', formData);
-                // ⭐️ END OF FIX ⭐️
+                const response: unknown = await apiService.postset('/api/settings/create/', formData);
 
-                if (response && (response.success || response.id)) { // Assuming apiService returns status or throws for bad requests
-                    setErrors([]);
-                    setIsError(false);
-                    setSuccess(['Settings submitted successfully']);
-                    setIsSuccess(true);
+                // Type guard and assertion
+                if (typeof response === 'object' && response !== null) {
+                    const serverResponse = response as ServerResponse;
 
-                    setTimeout(() => {
-                        setIsSuccess(false);
-                        setSuccess([]);
-                        createSettingModal.close();
-                    }, 2000); 
+                    if (serverResponse.success || serverResponse.id) {
+                        setErrors([]);
+                        setIsError(false);
+                        setSuccess(['Settings submitted successfully']);
+                        setIsSuccess(true);
+
+                        setTimeout(() => {
+                            setIsSuccess(false);
+                            setSuccess([]);
+                            createSettingModal.close();
+                        }, 2000); 
+                    } else {
+                         // This block handles server-side validation or failure without a 'success' flag
+                         const responseErrors = serverResponse.errors || serverResponse;
+                         
+                         // Safely flatten error values from the server response
+                         const tmpErrors: string[] = Object.values(responseErrors).flat().map((errorValue: unknown) => {
+                             // Safely convert to string
+                             return Array.isArray(errorValue) ? String(errorValue[0]) : String(errorValue);
+                         }).filter(msg => msg.length > 0);
+
+
+                         setErrors(tmpErrors.length > 0 ? tmpErrors : ["Submission failed due to a server error."]);
+                         setIsError(true); 
+                    }
                 } else {
-                     // This block may be hit if apiService doesn't throw on error, but returns a failure object.
-                     // The logic here needs to correctly parse the error response structure.
-                     // Assuming errors are inside 'response.errors' or are the response itself.
-                     const responseErrors = response.errors || response;
-                     
-                     // Flatten error values from the server response
-                     const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
-                         // Only display the last error in case of multiple for simplicity
-                         return Array.isArray(error) ? error[0] : error;
-                     }).filter(msg => typeof msg === 'string');
-
-
-                     setErrors(tmpErrors);
-                     setIsError(true); 
+                    setErrors(["Submission failed: Invalid server response format."]);
+                    setIsError(true);
                 }
 
 
-            } catch (error: any) {
+            } catch (error: unknown) { // Use 'unknown' instead of 'any'
                 console.error("Error submitting Settings:", error);
                 // Catch network errors or errors thrown by apiService.post (e.g., for 400 status)
                 let errorMessages: string[] = ["An error occurred while submitting the Settings."];
 
-                // Check for the custom error structure thrown by apiService
-                if (error.errors) {
-                    // Pull error messages from the custom error object
-                    errorMessages = Object.values(error.errors).flat().map((e: any) => String(e)).filter(msg => msg.length > 0);
-                } else if (error.message) {
+                if (error instanceof Error) {
                     errorMessages = [error.message];
+                } else if (typeof error === 'object' && error !== null && 'errors' in error) {
+                    // Safely extract errors from a custom error object
+                    const customError = error as { errors: Record<string, unknown> };
+                    errorMessages = Object.values(customError.errors).flat().map((e: unknown) => String(e)).filter(msg => msg.length > 0);
+                } else {
+                    errorMessages = ["An unknown error occurred during submission."];
                 }
                 
                 setErrors(errorMessages);
@@ -123,16 +136,14 @@ const CreateSettingModal = () => {
         } else {
             // Client-side validation failure
             const tmpErrors: string[] = [];
-            // ... (Your existing client-side error checks) ...
+            
             if (!userPreferredSourceLanguage) {
                 tmpErrors.push('Please enter your preferred source language of Translation');
             }
             if (!userPreferredTargetLanguage) {
                 tmpErrors.push('Please enter your preferred target language of Translation');
             }
-            if (!userAvatar) {
-                tmpErrors.push('User avatar is required');
-            }
+        
             if (!profileVisibility) {
                 tmpErrors.push('Profile visibility is required');
             }
@@ -141,7 +152,7 @@ const CreateSettingModal = () => {
             }
 
             setErrors(tmpErrors);
-            setIsError(true); // Set isError to true to ensure the error block renders
+            setIsError(true); 
         }
 
     };
@@ -200,7 +211,7 @@ const CreateSettingModal = () => {
                     >
                         <option value="">Subscription Type </option>
 
-                        <option value="Beta-Tester">Beta-Tester</option>
+                        <option value="Beta-Tester">Free</option>
                         
                     </select>
                 </div>             
@@ -208,7 +219,7 @@ const CreateSettingModal = () => {
                 </div>
                 <Custombtn label='Save Settings' onClick={sudmitSettings} />
             {isSuccess && 
-                <div className="success-message">
+                <div className="success-message p-3 bg-green-100 text-green-700 rounded-md mt-4">
                     {success.map((msg, index) => (
                         <div key={`success_${index}`} className="success-message">
                             {msg}
@@ -218,8 +229,9 @@ const CreateSettingModal = () => {
             }
             
 
-            {errors.length > 0 && (
-                <div className="grid gap-2">
+            {/* FIX: Using isError for consistency and to remove the warning */}
+            {isError && errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md mt-4">
                     {errors.map((error, index) => (
                         <div key={`error_${index}`} className="error-message">
                             {error}
