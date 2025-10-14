@@ -9,7 +9,6 @@ const CreateFeedbackModal = () => {
 
     const createFeedbackModal = useCreateFeedbackModal()
 
-    // 1. Initialize local state variables (kept from previous revision)
     const [originalTranslation, setOriginalTranslation] = useState('');
     const [correctedTranslation, setCorrectedTranslation] = useState('');
     const [feedback, setFeedback] = useState('');
@@ -23,7 +22,15 @@ const CreateFeedbackModal = () => {
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     
-    // 2. useEffect for loading data and resetting state on open/close (kept from previous revision)
+    // Define the expected structure of a server response object for type safety
+    type ServerResponse = { 
+        success?: boolean; 
+        id?: string; 
+        errors?: Record<string, unknown>; // Use Record<string, unknown> for flexible error bodies
+        message?: string; // Sometimes APIs return a top-level message
+    };
+
+
     useEffect(() => {
         if (createFeedbackModal.isOpen) {
             
@@ -59,7 +66,7 @@ const CreateFeedbackModal = () => {
     ]);
     
     
-    // 3. ADOPTED AND ADJUSTED SUBMISSION LOGIC
+    
     const sudmitFeedback = async () => {
         setErrors([]); // Clear previous errors
         setSuccess([]); // Clear previous success messages
@@ -96,46 +103,61 @@ const CreateFeedbackModal = () => {
                
         try {
             
-            const response = await apiService.post('/api/feedback/create/', saveData);
+            // Use 'unknown' for the response type for safety
+            const response: unknown = await apiService.post('/api/feedback/create/', saveData);
             
-            // B. Server Success/Failure Handling
-            if (response && (response.success || response.id)) { // Check for success or ID (common API success patterns)
-                
-                setSuccess(['Feedback submitted successfully!']);
-                setIsSuccess(true);
-                
-                setTimeout(() => {
-                    setIsSuccess(false);
-                    setSuccess([]);
-                    createFeedbackModal.close();
-                }, 2500); // 2.5 seconds delay allows the user to see the success message
-            } 
-            
-            
-            else {
-                // Handle Server Validation/Other Server Errors
-                const responseErrors = response.errors || response;
-                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
-                     // Attempt to show field name with error, otherwise the string
-                    return Array.isArray(error) ? error[0] : String(error);
-                });
+            // Type guard and assertion
+            if (typeof response === 'object' && response !== null) {
+                const serverResponse = response as ServerResponse;
 
-                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Feedback submission failed due to a server error."]);
+                // B. Server Success/Failure Handling
+                if (serverResponse.success || serverResponse.id) { 
+                    
+                    setSuccess(['Feedback submitted successfully!']);
+                    setIsSuccess(true);
+                    
+                    setTimeout(() => {
+                        setIsSuccess(false);
+                        setSuccess([]);
+                        createFeedbackModal.close();
+                    }, 2500);
+                } 
+                
+                
+                else {
+                    // Handle Server Validation/Other Server Errors
+                    // Check for the 'errors' field, otherwise fallback to the whole response object
+                    const responseErrors = serverResponse.errors || serverResponse;
+                    
+                    // Safely flatten and map errors
+                    const tmpErrors: string[] = Object.values(responseErrors).flat().map((errorValue: unknown) => {
+                         // Safely get the string version of the error
+                        return Array.isArray(errorValue) ? String(errorValue[0]) : String(errorValue);
+                    });
+
+                    setErrors(tmpErrors.length > 0 ? tmpErrors : ["Feedback submission failed due to a server error."]);
+                    setIsError(true);
+                }
+            } else {
+                setErrors(["Feedback submission failed: Invalid server response format."]);
                 setIsError(true);
             }
 
 
-        } catch (error: any) {
+        } catch (error: unknown) { // Use 'unknown' instead of 'any'
             // C. Network/API Service Errors
             console.error("Error submitting feedback:", error);
             
             let errorMessages = ["An unexpected network error occurred."];
 
-             if (error.message) {
+            if (error instanceof Error) {
                  errorMessages = [error.message];
-            } else if (error.errors) {
-                 // If the error object contains nested server validation errors
-                errorMessages = Object.values(error.errors).flat().map((e: any) => String(e));
+            } else if (typeof error === 'object' && error !== null && 'errors' in error) {
+                 // Safely extract errors from a custom error object if the service returns one
+                const customError = error as { errors: Record<string, unknown> };
+                errorMessages = Object.values(customError.errors).flat().map((e: unknown) => String(e));
+            } else {
+                errorMessages = ["An unknown error occurred during submission."];
             }
 
             setErrors(errorMessages);
@@ -144,7 +166,7 @@ const CreateFeedbackModal = () => {
     };
 
 
-    // 4. ADOPTED AND ADJUSTED CONTENT RENDERING (Added success message display)
+    // 4. ADOPTED AND ADJUSTED CONTENT RENDERING
     const content = (
         <>
             <div className="grid gap-4 card">
@@ -168,7 +190,7 @@ const CreateFeedbackModal = () => {
                 <Custombtn label='Submit Feedback' onClick={sudmitFeedback}/>
                 
                 {isSuccess && 
-                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
+                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md mt-4">
                         {success.map((msg, index) => (
                             <div key={`success_${index}`}>{msg}</div>
                         ))}
@@ -177,8 +199,9 @@ const CreateFeedbackModal = () => {
 
             </div>
 
-            {errors.length > 0 && (
-                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
+            {/* FIX: Using isError for consistency and to remove the warning */}
+            {isError && errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md mt-4">
                     {errors.map((error, index) => (
                         <div key={`error_${index}`}>{error}</div>
                     ))}
@@ -193,7 +216,7 @@ const CreateFeedbackModal = () => {
         <Modal
             isOpen={createFeedbackModal.isOpen}
             close={createFeedbackModal.close}
-            label="Feedback"
+            label="Submit Translation Feedback"
             content={content}
         />
     )

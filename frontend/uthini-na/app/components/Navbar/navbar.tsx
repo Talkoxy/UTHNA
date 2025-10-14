@@ -10,6 +10,7 @@ import { link } from "fs/promises";
 import Link from "next/link";
 import { ClientSettingsType } from '../ClientSettings/clientsettings';
 import { CrownIcon } from "../icons";
+import CreateAvatarButton from "../Buttons/avatar/addAvatarbutton";
 
 const Navbar = () => {
 
@@ -31,6 +32,9 @@ const Navbar = () => {
 
                     <div>
                         <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
+                    </div>
+                    <div>
+                        <CreateAvatarButton/>
                     </div>
 
                     <div>

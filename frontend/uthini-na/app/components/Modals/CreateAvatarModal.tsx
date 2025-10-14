@@ -1,6 +1,6 @@
 "use client"
 import apiService from "@/app/services/apiService";
-import { useEffect, useState,ChangeEvent, useCallback } from "react";
+import { useState,ChangeEvent } from "react";
 import Modal from "./Modal";
 import Custombtn from "../Buttons/custombutton";
 import Image from "next/image";
@@ -32,51 +32,73 @@ const CreateAvatarModal = () => {
         if(
             dataImage
         ){
+            // Reset previous status messages
+            setIsError(false);
+            setIsSuccess(false);
+            setErrors([]);
+            setSuccess([]);
+
             const formData = new FormData();
 
             formData.append('image', dataImage)
 
             try{
-                const response = await apiService.postset('/api/avatar/create/', formData);
+                // apiService.postset might return any structure, but we assume it contains
+                // 'success', 'id', or 'errors' properties upon resolution.
+                const response: unknown = await apiService.postset('/api/avatar/create/', formData);
 
-                    if (response && (response.success || response.id)) { 
-                    
-                    setSuccess(['Post created successfully!']);
-                    setIsSuccess(true);
-                    
-                    setTimeout(() => {
-                        setIsSuccess(false);
-                        setSuccess([]);
-                    }, 2500); // 2.5 seconds delay allows the user to see the success message
-                } 
+                // Type guard to check if the response is an object and can be treated as a server response
+                if (typeof response === 'object' && response !== null) {
+                    const serverResponse = response as { success?: boolean; id?: string; errors?: Record<string, unknown> };
+
+                    if (serverResponse.success || serverResponse.id) { 
+                        
+                        setSuccess(['Post created successfully!']);
+                        setIsSuccess(true);
+                        
+                        setTimeout(() => {
+                            setIsSuccess(false);
+                            setSuccess([]);
+                            createAvatarModal.close(); // Optionally close modal on success
+                        }, 2500);
+                    } 
                     else {
-                    // Assuming server errors are returned directly in the response object
-                    const responseErrors = response.errors || response;
-                    const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
-                        // Attempt to show field name with error
-                        return Array.isArray(error) ? error[0] : String(error);
-                    });
+                        // Handle server-side validation or failure without a 'success' flag
+                        const responseErrors = serverResponse.errors || serverResponse;
+                        
+                        // Safely extract and flatten error messages from the object values
+                        const tmpErrors: string[] = Object.values(responseErrors).flat().map((errorValue: unknown) => {
+                            // Ensure the value is a string or cast the first element if it's an array
+                            if (Array.isArray(errorValue)) {
+                                return String(errorValue[0]);
+                            }
+                            return String(errorValue);
+                        });
 
-                    setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                        setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                        setIsError(true);
+                    }
+                } else {
+                    setErrors(["Post failed: Invalid server response format."]);
                     setIsError(true);
                 }
 
-            }catch(error:any){
+            }catch(error: unknown){
 
                 console.error("Error submitting Connect Post:", error);
             
                 let errorMessages = ["An unexpected network error occurred."];
 
-                if (error.message) {
+                if (error instanceof Error) {
                     errorMessages = [error.message];
-                } else if (error.errors) {
-                    // If the error object contains nested server validation errors
-                    errorMessages = Object.values(error.errors).flat().map((e: any) => String(e));
+                } else if (typeof error === 'object' && error !== null && 'errors' in error) {
+                    // Handle custom error objects returned by apiService if they contain an 'errors' property
+                    const customError = error as { errors: Record<string, unknown> };
+                    errorMessages = Object.values(customError.errors).flat().map((e: unknown) => String(e));
                 }
 
                 setErrors(errorMessages);
                 setIsError(true);
-
             }
         }
 
@@ -106,8 +128,9 @@ const CreateAvatarModal = () => {
 
             </div>
 
-            {errors.length > 0 && (
-                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
+            {/* 👇 Use isError to control visibility */}
+            {isError && errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md mt-4">
                     {errors.map((error, index) => (
                         <div key={`error_${index}`}>{error}</div>
                     ))}
@@ -115,16 +138,12 @@ const CreateAvatarModal = () => {
             )}
 
             {isSuccess && 
-                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
+                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md mt-4">
                         {success.map((msg, index) => (
                             <div key={`success_${index}`}>{msg}</div>
                         ))}
                     </div>
                 }
-
-
-
-        
         </>
     );
     
@@ -134,7 +153,7 @@ const CreateAvatarModal = () => {
         <Modal
             isOpen={createAvatarModal.isOpen}
             close={createAvatarModal.close}
-            label="Create New Connect Post"
+            label="Create New Avatar" // Changed modal title to be more specific
             content={content}
         />
     )

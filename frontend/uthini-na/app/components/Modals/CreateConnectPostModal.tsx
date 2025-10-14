@@ -59,43 +59,51 @@ const CreateConnectPostModal = () => {
                
         try {
             
-            const response = await apiService.post('/api/connect/createpost/', payload);
+            const response: unknown = await apiService.post('/api/connect/createpost/', payload);
             
             
-            if (response && (response.success || response.id)) { 
+            // Check if response is a valid object before accessing properties
+            if (typeof response === 'object' && response !== null) {
+                const serverResponse = response as { success?: boolean; id?: string; errors?: Record<string, unknown> };
+
+                if (serverResponse.success || serverResponse.id) { 
+                    
+                    // --- REAL-TIME FIX IMPLEMENTATION ---
+                    // 1. Execute the stored refresh callback to update the parent list
+                    if (createConnectPostModal.refreshCallback) {
+                        createConnectPostModal.refreshCallback();
+                    }
+                    // --- END REAL-TIME FIX ---
+
+                    setSuccess(['Post created successfully!']);
+                    setIsSuccess(true);
+                    
+                    // Clear inputs after success
+                    setConnectTitle('');
+                    setConnectText('');
+
+                    setTimeout(() => {
+                        setIsSuccess(false);
+                        setSuccess([]);
+                        createConnectPostModal.close(); // Close modal after success
+                    }, 2500); 
+                } 
                 
-                // --- REAL-TIME FIX IMPLEMENTATION ---
-                // 1. Execute the stored refresh callback to update the parent list
-                if (createConnectPostModal.refreshCallback) {
-                    createConnectPostModal.refreshCallback();
+                
+                else {
+                    // Handle API server-side errors
+                    const responseErrors = serverResponse.errors || serverResponse;
+                    // Use `unknown` type for safety when mapping server errors
+                    const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: unknown) => {
+                        return Array.isArray(error) ? String(error[0]) : String(error);
+                    });
+
+                    setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                    setIsError(true);
                 }
-                // --- END REAL-TIME FIX ---
-
-                setSuccess(['Post created successfully!']);
-                setIsSuccess(true);
-                
-                // Clear inputs after success
-                setConnectTitle('');
-                setConnectText('');
-
-                setTimeout(() => {
-                    setIsSuccess(false);
-                    setSuccess([]);
-                    createConnectPostModal.close(); // Close modal after success
-                }, 2500); 
-            } 
-            
-            
-            else {
-                // Handle API server-side errors
-                const responseErrors = response.errors || response;
-                // Use `unknown` type for safety when mapping server errors
-                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: unknown) => {
-                    return Array.isArray(error) ? String(error[0]) : String(error);
-                });
-
-                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
-                setIsError(true);
+            } else {
+                 setErrors(["Post failed: Invalid server response format."]);
+                 setIsError(true);
             }
 
 
@@ -106,9 +114,10 @@ const CreateConnectPostModal = () => {
 
              if (error instanceof Error) {
                  errorMessages = [error.message];
+            } else {
+                // Handle non-Error network failures (e.g., from apiService)
+                errorMessages = ["An unexpected error occurred. Check your network connection."];
             }
-             // NOTE: We rely on the generic catch for network issues,
-             // specific server errors should be handled in the 'else' block above.
 
             setErrors(errorMessages);
             setIsError(true);
@@ -136,7 +145,8 @@ const CreateConnectPostModal = () => {
                     value={connectText}
                     onChange={(e) => {
                         setConnectText(e.target.value);
-                        autoGrowTextArea(e.target);
+                        // Auto-grow function is safe to call here
+                        if (e.target) autoGrowTextArea(e.target);
                     }}
                     rows={4} // Default rows
                     />
@@ -150,7 +160,7 @@ const CreateConnectPostModal = () => {
                 
 
                 {isSuccess && 
-                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
+                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md mt-4">
                         {success.map((msg, index) => (
                             <div key={`success_${index}`}>{msg}</div>
                         ))}
@@ -158,8 +168,9 @@ const CreateConnectPostModal = () => {
                 }
             </div>
 
-            {errors.length > 0 && (
-                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
+            {/* FIX: Using isError for consistency and to eliminate the warning */}
+            {isError && errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md mt-4">
                     {errors.map((error, index) => (
                         <div key={`error_${index}`}>{error}</div>
                     ))}
