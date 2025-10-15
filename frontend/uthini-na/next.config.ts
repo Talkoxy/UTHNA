@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '167.172.62.178',
+        protocol: 'https',
+        hostname: 'api.uthinina.app',
         port: '',
         pathname: '/**'
       },
