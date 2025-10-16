@@ -56,22 +56,24 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
         <div className="grid grid-flow-row relative place-items-center justify-center">
 
             <div onClick={toggleDropdown} className='grid place-items-center' >
-                
-            {avatar?.image_url ? (
-                <Image
-                    src={avatar.image_url}
-                    height={70}
-                    width={70}
-                    alt="User Avatar"
-                />
-            ) : (
-                <Image
-                    src='/avatar.png' // Fallback image here
-                    height={70}
-                    width={70}
-                    alt="Default Avatar"
-                />
-            )}
+            
+                {avatar?.image_url ? (
+                    <Image
+                        src={avatar.image_url}
+                        height={50}
+                        width={50}
+                        alt="User Avatar"
+                    />
+                ) : (
+                    <Image
+                        src='/avatar.png' // Fallback image here
+                        height={40}
+                        width={40}
+                        alt="Default Avatar"
+                    />
+                )}
+
+            
             </div>
 
             <div className='grid place-items-center'>

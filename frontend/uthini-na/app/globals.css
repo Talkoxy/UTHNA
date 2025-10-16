@@ -49,6 +49,7 @@
   --btn_border: #c8eaba;
   --btn_border_focus: #7dc6769c;
   --btn-glow:#65d25bc6;
+  --btn_bg_nav:#5bc4e462;
 
   /* translation box colors */
   --translation-border: #BDF9A5;
@@ -112,6 +113,28 @@
     box-shadow: 0 0 30px var(--connect-glow-4), 0 0 25px var(--connect-glow);
   }
 }
+@keyframes pulse-glow-sm {
+  /* 0% (Color 1 - Low Intensity) */
+  0% {
+    /* Subtle glow */
+    box-shadow: 0 0 5px 2px var(--connect-glow-1), 
+                0 0 10px 4px var(--connect-glow-1);
+  }
+  
+  /* 50% (Color 2 - Peak Intensity) */
+  55% { 
+    /* Slightly delayed peak for a more noticeable transition */
+    box-shadow: 0 0 15px 5px var(--connect-glow-6), 
+                0 0 25px 8px var(--connect-glow-6);
+  }
+  
+  /* 100% (Matches 0% for seamless loop) */
+  100% {
+    box-shadow: 0 0 5px 2px var(--connect-glow-4), 
+                0 0 10px 4px var(--connect-glow-1);
+  }
+}
+
 
 @keyframes pulse-glow-result {
   0% {
@@ -208,7 +231,7 @@
 .card {
   border-radius: 1rem;
   background: var(--card_bg);
-  font-size: 30px;
+  font-size: 15px;
   font-family: var(--font-main);
   padding: 5rem;
   color: var(--card_bg_text);
@@ -231,7 +254,7 @@
 
 .saved_translation_card {
   background: linear-gradient(-164deg, #a0dee5 5%, #b5f49a 90%);
-  font-size: 25px;
+  font-size: 18px;
   font-family: var(--font-main);
   padding: 1rem;
   color: var(--card_bg_text);
@@ -242,10 +265,10 @@
 
 .insights_card {
   background: var(--insights_card_bg);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 1rem;
   color: var(--card_bg_text);
-  font-size: 25px;
+  font-size: 15px;
   font-family: var(--font-main);
   font-weight: 900;
   letter-spacing: 0%;
@@ -287,7 +310,7 @@
 }
 
 .upgrade-text{
-  font-size: 20px;
+  font-size: 15px;
   color: var(--upgrade-text);
 }
 
@@ -297,7 +320,7 @@
   padding: 1.5rem;
   background: var(--connect-post);
   border-radius: 1rem;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   display: flex;
@@ -351,7 +374,7 @@
 }
 
 .postText {
-    font-size: 1em;
+    font-size: 1rem;
     line-height: 1.4;
     white-space: pre-wrap;
 }
@@ -385,11 +408,13 @@
 
 .translation-area{
   background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 4rem;
+  box-shadow: 1px 1px 30px var(--card-glow-main);
+  padding: 3rem;
   border-radius: 2rem;
   transition: all 1.3s ease;
   border: none;
+
+  animation: pulse-glow-sm 3s  infinite ease-in-out;
 }
 
 
@@ -404,8 +429,8 @@
 }
 
 .translation-textarea {
-  min-height: 250px;
-  min-width: 600px;
+  min-height: 220px;
+  min-width: 400px;
   height: auto;
   width: 100%;
   padding: 1rem;
@@ -413,7 +438,7 @@
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
-  font-size: 25px;
+  font-size: 18px;
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
@@ -431,8 +456,8 @@
   border-color: var(--translation-border-focus);
   border: 5px solid var(--translation-border);
   box-shadow: 0 0 20px var(--card-glow);
-  min-height: 270px;
-  min-width: 640px;
+  min-height: 230px;
+  min-width: 430px;
 }
 
 .post-textarea {
@@ -445,7 +470,7 @@
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
-  font-size: 30px;
+  font-size: 20px;
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
@@ -473,7 +498,7 @@
   border: 3px solid var(--translation-border);
   background: var(--translation-bg-focus);
   color: var(--translation-text);
-  font-size: 30px;
+  font-size: 20px;
   font-family: var(--font-main);
   text-align: center;
   transition: all 1.3s ease;
@@ -486,7 +511,7 @@
   box-shadow: 0px 0px 10px var(--card-glow-sec);
   padding: 2rem;
   border-radius: 1rem;
-  font-size: 24px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   border: none;
@@ -505,7 +530,7 @@ input:focus{
   box-shadow: 1px 1px 25px var(--card-glow-sec);
   padding: 4rem;
   border-radius: 1rem;
-  font-size: 30px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   border: none;
@@ -527,7 +552,7 @@ input:focus{
   box-shadow: 1px 1px 25px var(--card-glow-sec);
   padding: 4rem;
   border-radius: 1rem;
-  font-size: 30px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   border: none;
@@ -547,7 +572,7 @@ input:focus{
 .modal-card input{
   background: var(--card-bg);
   padding: 10px;
-  font-size: 25px;
+  font-size: 20px;
   font-family: var(--font-main);
   border-radius: 10px;
 }
@@ -568,7 +593,20 @@ input:focus{
   border-radius: 0.8rem;
   border: 2px solid var(--btn_border);
   padding: 1rem 2rem;
-  font-size: 25px;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  transition: all 1s;
+  outline: none;
+  border: none;
+}
+
+.btn-nav {
+  background: var(--btn_bg_nav);
+  border-radius: 0.8rem;
+  border: 2px solid var(--btn_border);
+  padding: 1rem 2rem ;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
   transition: all 1s;
@@ -585,7 +623,7 @@ input:focus{
   border-radius: 0.8rem;
   border: 1px solid var(--btn_text);
   padding: 1rem 2rem;
-  font-size: 25px;
+  font-size: 20px;
   font-family: var(--font-secondary);
   color: var(--btn_text);
   outline: none;
@@ -658,14 +696,14 @@ input:focus{
 }
 
 .likebtn {
-  font-size: 25px;
+  font-size: 20px;
   color: var(--btn_text);
 }
 
 .label {
   background: var(--btn_bg);
   border-radius: 0.8rem;
-  font-size: 25px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--btn_text);
   padding: 0.6rem 0.5rem 0.6rem;
@@ -702,7 +740,7 @@ input:focus{
 
 .navbar-item{
   cursor: pointer;
-  font-size: 22px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
 }
@@ -720,7 +758,7 @@ input:focus{
   text-align: center;
   padding: 1rem 2rem;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   transition: all 1.3s ease;
   outline: none;
@@ -739,7 +777,7 @@ input:focus{
 
 .profile-dropdown-menu {
   position: absolute;
-  margin-top: 22rem;
+  margin-top: 18rem;
   background-color: var(--dropdown-bg);
   border-radius: 0.8rem;
   padding: 3rem;
@@ -757,7 +795,7 @@ input:focus{
 .dropdown-item {
   padding: 0.5rem 1rem;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
 }
@@ -792,7 +830,7 @@ input:focus{
 .error-message {
   color: #5e2d2dce;
   font-family: var(--font-secondary);
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   padding: 0.5rem;
   transition: all 1.3s ease;
@@ -819,7 +857,7 @@ input:focus{
 .success-message {
   color: #3d8448ce;
   font-family: var(--font-secondary);
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   padding: 0.5rem;
 }

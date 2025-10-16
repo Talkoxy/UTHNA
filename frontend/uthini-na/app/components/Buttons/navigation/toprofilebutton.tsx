@@ -24,7 +24,7 @@ const ToProfileButton = () => {
     // Fetch the ID once on component mount
     useEffect(() => {
         fetchUserId();
-    }, []);
+    }, [userId]);
 
     // Show a loading state or nothing while the ID is being fetched
     if (isLoading) {
@@ -34,19 +34,15 @@ const ToProfileButton = () => {
     // If userId is found, link to the profile page
    if (userId) {
         return (
-            <Link href={`/profile/${userId}`} >
                 <div className="button">
-                    {/* 👇 CRITICAL FIX: Pass userId to the dropdown */}
                     <ProfileDropdown userId={userId} /> 
                 </div>
-            </Link>
         );
     }
 
-    // If no userId is found (user is logged out or error occurred), show a login button
     return (
         <Link href="/login">
-            <div className="button">Login</div>
+            <div className="btn-nav">Login</div>
         </Link>
     );
 };

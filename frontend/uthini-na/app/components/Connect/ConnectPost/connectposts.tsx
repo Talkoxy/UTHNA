@@ -71,8 +71,7 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     useEffect(() => {
         getConnectPosts();
         
-        // ❌ REMOVED: Polling logic (setInterval and clearInterval cleanup) ❌
-    }, [getConnectPosts]); // Dependency: getConnectPosts (which changes only if user_id changes)
+    }, [getConnectPosts]); 
 
     
     return (
