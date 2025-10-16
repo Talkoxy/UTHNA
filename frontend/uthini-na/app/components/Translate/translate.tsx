@@ -154,10 +154,31 @@ const Translate = () => {
 
     return (
         <main className="grid place-items-center fixed inset-0">
-            <div className="grid grid-flow-row gap-5">
+            <div className="scroll grid grid-flow-row gap-5">
+                <div className=''>
+                    {/* Success/Error Messages */}
+                        {isSuccess && (
+                            <div className="success-container p-2 bg-green-100 text-green-700 rounded-md">
+                                {success.map((msg, index) => (
+                                    <div key={`success_${index}`} className="success-message">
+                                        {msg}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
+                        {isError && (
+                            <div className="error-container p-2 bg-red-100 text-red-700 rounded-md">
+                                {errors.map((error, index) => (
+                                    <div key={`error_${index}`} className="error-message">
+                                        {error}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                </div>
                 {/* Translation Input Section */}
-                <div className="grid grid-flow-row gap-6 translation-area">
+                <div className="grid grid-flow-row gap-10 translation-area">
                     <div className="grid grid-flow-col gap-6">
                         <div className="grid grid-flow-row gap-8 place-items-center">
                             <textarea
@@ -171,7 +192,7 @@ const Translate = () => {
                                 }}
                             />
 
-                            <div className='grid grid-cols-2 place-items-center gap-20 justify-items-center'>
+                            <div className='grid place-items-center gap-20 justify-items-center'>
                                 <div className=''>
                                     <Custombtn
                                         label="Translate"
@@ -180,28 +201,7 @@ const Translate = () => {
                                     />
                                 </div>
 
-                                <div className=''>
-                                    {/* Success/Error Messages */}
-                                        {isSuccess && (
-                                            <div className="success-container p-2 bg-green-100 text-green-700 rounded-md">
-                                                {success.map((msg, index) => (
-                                                    <div key={`success_${index}`} className="success-message">
-                                                        {msg}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-
-                                        {isError && (
-                                            <div className="error-container p-2 bg-red-100 text-red-700 rounded-md">
-                                                {errors.map((error, index) => (
-                                                    <div key={`error_${index}`} className="error-message">
-                                                        {error}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                </div>
+                                
                                 
                             
                             </div>

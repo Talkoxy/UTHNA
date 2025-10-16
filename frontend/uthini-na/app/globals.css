@@ -1,3 +1,10 @@
+/*
+|--------------------------------------------------------------------------
+| 1. BASE CONFIGURATION & FONT DEFINITIONS
+|--------------------------------------------------------------------------
+| Includes Tailwind imports, custom font definitions, and global CSS font variables.
+*/
+
 @import "tailwindcss";
 
 @theme {
@@ -15,103 +22,358 @@
   src: url('/fonts/Radlush-ExtraBold.otf') format('opentype');
 }
 
-.profile-image {
-  border-radius: 5rem;
-  border: 5px solid var(--btn_border);
-  transition: all 1.3s ease;
+/*
+|--------------------------------------------------------------------------
+| 2. THEME VARIABLES (LIGHT MODE)
+|--------------------------------------------------------------------------
+| Defines all custom properties for the 'theme-light' variant.
+*/
 
+:root.theme-light  {
+
+  /* page colors */
+  --page_bg: #f0f9fb;
+
+  /* card colors */
+  --card_bg: linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
+  --card_focus: linear-gradient(90deg, #A0DEE5 0%, #BDF9A5 100%);
+  --card_bg_text: #112250;
+
+  --insights_card_bg: linear-gradient(177.28deg, #97dae296 -64.79%, #a0dee5a8 22.36%, #7cf44de7 230.53%);
+  --insights_card_focus: linear-gradient(177.28deg, #97DBE2 -64.79%, #A0DEE5 22.36%, #5bfc16 230.53%);
+
+  /* button colors */
+  --theme_btn_text: #112250;
+  --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7BE2EE 116.12%);
+  --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
+  --btn_border: #c8eaba;
+  --btn_border_focus: #7dc6769c;
+  --btn-glow:#65d25bc6;
+
+  /* translation box colors */
+  --translation-border: #BDF9A5;
+  --translation-border-focus: #91eb889c;
+  --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
+  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
+  --translation-text: #112250;
+  --translation-area-bg:#9bdce3;
+
+  --translation-result-border: #BDF9A5;
+  --translation-result-border-focus: #91eb889c;
+  --translation-result-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
+  --translation-result-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
+  --translation-result-text: #112250;
+
+  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%);
+  --dropdown-bg: #a0dee5;
+  --hover_bg: #28334f;
+
+  --card-glow: #c3ebeb;
+  --card-glow-main:  #8bd5f3;
+  --card-glow-sec:#98f4f3;
+
+  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
+  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
+
+  --connect-glow: #a1ebf7;
+  --connect-glow-2: #cae6ea;
+  --connect-glow-3: #dee4e5;
+  --connect-glow-4: #a2f5b7;
+  --connect-glow-5: #90e19d;
+  --connect-glow-6: #7befce;
+
+  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
+  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
+  --upgrade-text: #1B4B17;
+  --upgrade-glow:#215f1c;
+
+  --connect-post: linear-gradient(311.54deg, #a0e8fa -0.83%, #A0DEE5 33.38%, #bff2df 82.29%, #ABFF89 125.23%);
+  --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
 }
 
+/*
+|--------------------------------------------------------------------------
+| 3. ANIMATIONS
+|--------------------------------------------------------------------------
+| Defines CSS keyframe animations.
+*/
 
-.translate_btn {
-  background-color: var(--btn_bg);
-  border-radius: 0.8rem;
-  border: 1px solid var(--btn_text);
-  padding: 1rem 2rem;
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px var(--connect-glow), 0 0 10px var(--connect-glow-2);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+  }
+  80% {
+    box-shadow: 0 0 15px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 35px var(--connect-glow);
+  }
+  100% {
+    box-shadow: 0 0 30px var(--connect-glow-4), 0 0 25px var(--connect-glow);
+  }
+}
+
+@keyframes pulse-glow-result {
+  0% {
+    box-shadow: 0 0 1cqb var(--connect-glow), 0 0 10px var(--connect-glow);
+  }
+  20% {
+    box-shadow: 0 0 20px var(--connect-glow), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--connect-glow), 0 0 40px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+  }
+  80% {
+    box-shadow: 0 0 25px var(--connect-glow-2), 0 0 30px var(--connect-glow-6), 0 0 35px var(--connect-glow-3);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--connect-glow-4), 0 0 25px var(--connect-glow);
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| 4. BASE LAYOUT & UTILITIES
+|--------------------------------------------------------------------------
+| Styles for page background, general positioning, and scrolling utilities.
+*/
+
+.page_bg {
+  background: var(--page_bg);
+  color: var(--color-text);
+  position: fixed;
+  inset: 0;
+  padding: 2rem;
+  transition: all 2s ease;
+  overflow: hidden;
+}
+
+.landing-bg {
+  background: linear-gradient(#a0dee5 20%, #acdf76 100%);
+  overflow: hidden;
+}
+
+.lightmode-nav {
+  background: #a0dee5;
+}
+
+.glow {
+  box-shadow: 1 1 8px var(--card-glow);
+  border-radius: 2rem;
+  padding: 1rem;
+}
+
+.scroll {
+    width: min(100%, 1200px);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    padding: 3rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
+
+    transition: all 0.7s ease-in-out;
+}
+
+.scroll-translation {
+    width: min(100%, 1200px);
+    max-height: 35vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    padding: 2rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
+
+    transition: all 0.7s ease-in-out;
+}
+
+.content-scroller {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 5. CARDS & CONTAINERS (Non-Input)
+|--------------------------------------------------------------------------
+| Styles for general UI boxes, modals, and specialized content cards.
+*/
+
+.card {
+  border-radius: 1rem;
+  background: var(--card_bg);
   font-size: 30px;
-  font-family: var(--font-secondary);
-  color: var(--btn_text);
-  outline: none;
-
-  transition: all 1.3s ease;
+  font-family: var(--font-main);
+  padding: 5rem;
+  color: var(--card_bg_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+  border: none;
+  transition: all 1.5s ease-in;
 }
 
-
-.translate_btn:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 15px var(--card-glow);
-
+.modal-card {
+  border-radius: 1rem;
+  background: var(--card_bg);
+  font-family: var(--font-main);
+  padding: 4rem;
+  color: var(--card_bg_text);
+  letter-spacing: 0%;
+  border: none;
+  transition: all 1.5s ease-in;
 }
 
-.translate_btn:hover {
-  background: var(--btn_bg-focus);
-  box-shadow: 0 0 10px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);  
-}
-
-.feedback_btn {
-  background: var(--btn_bg);
-  border-radius: 0.8rem;
-  border: 1px solid var(--btn_text);
-  padding: 1rem 2rem;
-  font-size: 25px;
-  font-family: var(--font-secondary);
-  color: var(--btn_text);
-  outline: none;
-
-  transition: all 1.5s ease;
-}
-
-.feedback_btn:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 10px var(--card-glow);
-
-}
-
-.feedback_btn:hover {
-  background: var(--btn_bg-focus);
-  box-shadow: 0 0 5px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);  
-}
-
-
-.profile-btn {
-  border: 2px solid var(--btn_text);
-  padding: 0.5rem;
-  color: var(--btn_text);
-}
-
-.dropmenu {
-  background: var(--btn_bg);
-  color: var(--btn_text);
-  /* Changed from var(--color-translation-text) */
-  border: 2px solid var(--btn_border);
-  border-radius: 0.5rem;
-  text-align: center;
-  padding: 1rem 2rem;
-  cursor: pointer;
+.saved_translation_card {
+  background: linear-gradient(-164deg, #a0dee5 5%, #b5f49a 90%);
   font-size: 25px;
   font-family: var(--font-main);
-
-  transition: all 1.3s ease;
-  outline: none;
+  padding: 1rem;
+  color: var(--card_bg_text);
+  letter-spacing: 0%;
+  border: 0.1rem solid var(--card_bg_text);
+  border-radius: 0.8rem;
 }
 
-.dropmenu:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 15px var(--card-glow);
-
+.insights_card {
+  background: var(--insights_card_bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  color: var(--card_bg_text);
+  font-size: 25px;
+  font-family: var(--font-main);
+  font-weight: 900;
+  letter-spacing: 0%;
+  transition: all 2s ease;
 }
 
-.dropmenu:hover {
-  box-shadow: 0 0 10px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);  
+.insights_card:hover {
+  background: var(--insights_card_focus);
 }
 
-/* Translation Area Styles */
+.premium-card{
+  border-radius: 1rem;
+  background: var(--premium-card);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  font-size: 35px;
+  font-family: var(--font-main);
+  padding: 5rem;
+  color: var(--card_bg_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+  cursor: pointer;
+  border: none;
+  transition: all 1.5s ease-in;
+}
+
+.free-card{
+  border-radius: 1rem;
+  background: var(--free-card);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  font-size: 35px;
+  font-family: var(--font-main);
+  padding: 5rem;
+  color: var(--card_bg_text);
+  font-weight: 900;
+  letter-spacing: 0%;
+  cursor: pointer;
+  border: none;
+  transition: all 1.5s ease-in;
+}
+
+.upgrade-text{
+  font-size: 20px;
+  color: var(--upgrade-text);
+}
+
+/* Social Post Component */
+.connect-post{
+  width: 500px;
+  padding: 1.5rem;
+  background: var(--connect-post);
+  border-radius: 1rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: none;
+  transition: all 0.3s ease;
+  animation: pulse-glow 3.2s infinite alternate ease-in-out;
+}
+
+.post-header {
+    padding-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.username {
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 0.4;
+}
+
+.postContent {
+  font-size: 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.postTitle {
+    font-size: 1.25em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.postText {
+    font-size: 1em;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.postFooter {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.postDate {
+    font-size: 0.8em;
+    color: var(--card_bg_text);
+    opacity: 0.6;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 6. INPUTS, TEXTAREAS, & FORM AREAS
+|--------------------------------------------------------------------------
+| Styles for all form controls and their containing areas.
+*/
+
 .translation-container {
   display: flex;
   flex-direction: column;
@@ -121,9 +383,29 @@
   margin: 0 auto;
 }
 
+.translation-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 4rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
+}
+
+
+.translation-result-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 4rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
+  animation: pulse-glow-result 2s infinite alternate ease-in-out;
+}
+
 .translation-textarea {
   min-height: 250px;
-  min-width: 700px;
+  min-width: 600px;
   height: auto;
   width: 100%;
   padding: 1rem;
@@ -131,10 +413,26 @@
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
-  font-size: 30px;
+  font-size: 25px;
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
+}
+
+.translation-textarea:hover {
+  border-color: var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+  border: 4px solid var(--translation-border);
+}
+
+.translation-textarea:focus {
+  outline: none;
+  background: var(--translation-bg-focus);
+  border-color: var(--translation-border-focus);
+  border: 5px solid var(--translation-border);
+  box-shadow: 0 0 20px var(--card-glow);
+  min-height: 270px;
+  min-width: 640px;
 }
 
 .post-textarea {
@@ -151,106 +449,6 @@
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
-}
-
-.translation-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 4rem;
-  border-radius: 2rem;
-
-  transition: all 1.3s ease;
-
-  border: none;
-  
-}
-
-.translation-result-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 4rem;
-  border-radius: 2rem;
-
-  transition: all 1.3s ease;
-
-  border: none;
-
-  animation: pulse-glow-result 3s infinite alternate ease-in-out; 
-  
-}
-
-.login{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  padding: 4rem;
-  border-radius: 1rem;
-
-  font-size: 30px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-
-  border: none;
-  transition: all 2.3s ease;
-  
-}
-
-.login input{
-
-  background: var(--card-bg);
-  padding: 10px;
-
-  border-radius: 10px;
-  
-}
-
-.login input:focus{
-  background: var(--input-bg-focus);
-}
-
-.signup{
-  background: var(--translation-area-bg);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  padding: 4rem;
-  border-radius: 1rem;
-
-  font-size: 30px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-
-  border: none;
-  transition: all 1.5s ease;
-  
-}
-
-.signup input{
-
-  background: var(--card-bg);
-  padding: 10px;
-
-  border-radius: 10px;
-  
-
-
-}
-
-.signup input:focus{
-  background: var(--input-bg-focus);
-}
-
-.translation-textarea:hover {
-  border-color: var(--translation-border);
-  box-shadow: 0 0 15px var(--card-glow);
-  border: 4px solid var(--translation-border);
-}
-
-.translation-textarea:focus {
-  outline: none;
-  background: var(--translation-bg-focus);
-  border-color: var(--translation-border-focus);
-  border: 5px solid var(--translation-border);
-  box-shadow: 0 0 20px var(--card-glow);
-  min-height: 270px;
-  min-width: 740px;
 }
 
 .post-textarea:hover {
@@ -272,112 +470,107 @@
 .translation-resultarea{
   border-radius: 2rem;
   padding: 2rem;
-  
   border: 3px solid var(--translation-border);
-
   background: var(--translation-bg-focus);
-
-
   color: var(--translation-text);
   font-size: 30px;
   font-family: var(--font-main);
   text-align: center;
-
-
   transition: all 1.3s ease;
   overflow-y: hidden;
   outline: none;
 }
 
-
-
-/* Error Container Styles */
-.error-container {
-  width: 100%;
-  max-width: 700px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 2rem;
-  background: linear-gradient(to left,
-      rgba(107, 255, 250, 0.136),
-      rgba(137, 255, 73, 0.31));
-  border: 1px solid rgba(255, 107, 107, 0.663);
-  transition: all 2.5s ease;
-
-  box-shadow: 0 0 4px rgba(255, 107, 107, 0.5);
+.image-input{
+  background-color: var(--translation-area-bg);
+  box-shadow: 0px 0px 10px var(--card-glow-sec);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 24px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 2.3s ease;
 }
 
-.error-message {
-  color: #5e2d2dce;
-  font-family: var(--font-secondary);
-  font-size: 22px;
-  text-align: center;
-  padding: 0.5rem;
-
-  transition: all 1.3s ease;
+/* General Input Focus Override */
+input:focus{
+ outline: #5bfc16;
+ outline-width: 10rem;
 }
 
-.error-container:hover {
-  box-shadow: 0 0 10px rgba(255, 107, 107, 0.553);
-  max-width: 720px;
+/* Login/Signup Forms */
+.login{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+  font-size: 30px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 2.3s ease;
 }
 
-
-/* Error Container Styles */
-.success-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 4rem;
-  background: linear-gradient(to left,
-      rgba(107, 255, 250, 0.136),
-      rgba(137, 255, 73, 0.31));
-  transition: all 1.3s ease;
-
-  box-shadow: 0 0 4px rgba(107, 255, 110, 0.5);
+.login input{
+  background: var(--card-bg);
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.success-message {
-  color: #3d8448ce;
-  font-family: var(--font-secondary);
-  font-size: 22px;
-  text-align: center;
-  padding: 0.5rem;
+.login input:focus{
+  background: var(--input-bg-focus);
 }
 
-.success-container:hover {
-  box-shadow: 0 0 10px rgba(107, 255, 171, 0.553);
-  max-width: 420px;
+.signup{
+  background: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+  font-size: 30px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 1.5s ease;
 }
 
-
-
-
-/* end of textarea styles */
-
-
-
-.landing-bg {
-  background: linear-gradient(#a0dee5 20%, #acdf76 100%);
-  overflow: hidden;
+.signup input{
+  background: var(--card-bg);
+  padding: 10px;
+  border-radius: 10px;
 }
 
-
-
-.lightmode-nav {
-  background: #a0dee5;
+.signup input:focus{
+  background: var(--input-bg-focus);
 }
+
+.modal-card input{
+  background: var(--card-bg);
+  padding: 10px;
+  font-size: 25px;
+  font-family: var(--font-main);
+  border-radius: 10px;
+}
+
+.modal-card input:focus{
+  background: var(--input-bg-focus);
+}
+
+/*
+|--------------------------------------------------------------------------
+| 7. BUTTONS & CONTROLS
+|--------------------------------------------------------------------------
+| Styles for all buttons, toggles, and interactive elements.
+*/
 
 .btn {
   background: var(--btn_bg);
   border-radius: 0.8rem;
   border: 2px solid var(--btn_border);
   padding: 1rem 2rem;
-  font-size: 30px;
+  font-size: 25px;
   font-family: var(--font-main);
   color: var(--btn_text);
-
   transition: all 1s;
   outline: none;
   border: none;
@@ -385,22 +578,54 @@
 
 .btn:hover {
   box-shadow: 0 0 25px var(--btn-glow);
-   
 }
 
-.likebtn {
+.translate_btn {
+  background-color: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--btn_text);
+  padding: 1rem 2rem;
   font-size: 25px;
+  font-family: var(--font-secondary);
   color: var(--btn_text);
+  outline: none;
+  transition: all 1.3s ease;
 }
 
-.page_bg {
-  background: linear-gradient(#a0dee5 20%, #acdf76 100%);
-  color: var(--color-text);
-  position: fixed;
-  inset: 0;
-  padding: 2rem;
-  transition: all 2s ease;
-    /* equivalent to Tailwind's p-10 */
+.translate_btn:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 15px var(--card-glow);
+}
+
+.translate_btn:hover {
+  background: var(--btn_bg-focus);
+  box-shadow: 0 0 10px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);
+}
+
+.feedback_btn {
+  background: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--btn_text);
+  padding: 1rem 2rem;
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  color: var(--btn_text);
+  outline: none;
+  transition: all 1.5s ease;
+}
+
+.feedback_btn:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 10px var(--card-glow);
+}
+
+.feedback_btn:hover {
+  background: var(--btn_bg-focus);
+  box-shadow: 0 0 5px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);
 }
 
 .pttbtn {
@@ -408,7 +633,6 @@
   background: transparent;
   border-radius: 0.8rem;
   padding: 1rem 4rem;
-
 }
 
 .pttbtn-text {
@@ -423,18 +647,6 @@
   height: 50px;
 }
 
-
-
-
-
-
-.page_bg {
-  background: var(--page_bg);
-  overflow: hidden;
-  padding: 2rem
-    /* equivalent to Tailwind's p-10 */
-}
-
 .theme-toggle {
   cursor: pointer;
   background: var(--theme_btn_bg);
@@ -445,76 +657,85 @@
   padding: 0.75rem 1rem;
 }
 
-.card {
-  border-radius: 1rem;
-  background: var(--card_bg);
-  font-size: 30px;
-  font-family: var(--font-main);
-  padding: 5rem;
-  color: var(--card_bg_text);
-  font-weight: 900;
-  letter-spacing: 0%;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
-}
-.image-input{
-  background-color: var(--translation-area-bg);
-  box-shadow: 0px 0px 10px var(--card-glow-sec);
-  padding: 2rem;
-  border-radius: 1rem;
-
-  font-size: 24px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-
-  border: none;
-  transition: all 2.3s ease;
-}
-.modal-card {
-  border-radius: 1rem;
-  background: var(--card_bg);
-  font-family: var(--font-main);
-  padding: 4rem;
-  color: var(--card_bg_text);
-  letter-spacing: 0%;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
+.likebtn {
+  font-size: 25px;
+  color: var(--btn_text);
 }
 
-.modal-card input{
-
-  background: var(--card-bg);
-  padding: 10px;
-
+.label {
+  background: var(--btn_bg);
+  border-radius: 0.8rem;
   font-size: 25px;
   font-family: var(--font-main);
-
-  border-radius: 10px;
-  
-
+  color: var(--btn_text);
+  padding: 0.6rem 0.5rem 0.6rem;
 }
 
-.modal-card input:focus{
-  background: var(--input-bg-focus);
+/*
+|--------------------------------------------------------------------------
+| 8. NAVIGATION, PROFILE & DROPDOWNS
+|--------------------------------------------------------------------------
+| Styles for avatars, menu items, and profile drop-down functionality.
+*/
+
+.profile-image {
+  border-radius: 5rem;
+  border: 5px solid var(--btn_border);
+  transition: all 1.3s ease;
+}
+
+.profile-btn {
+  border: 2px solid var(--btn_text);
+  padding: 0.5rem;
+  color: var(--btn_text);
 }
 
 .settings-avatar {
   border-radius: 10rem;
   padding: 3rem;
   background: var(--settings-item-bg);
-
   font-weight: 900;
   letter-spacing: 0%;
-
   border: none;
   transition: all 1.5s ease-in;
-
 }
 
+.navbar-item{
+  cursor: pointer;
+  font-size: 22px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+}
+.Navbar-Icon{
+  cursor: pointer;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+}
+
+.dropmenu {
+  background: var(--btn_bg);
+  color: var(--btn_text);
+  border: 2px solid var(--btn_border);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  outline: none;
+}
+
+.dropmenu:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 15px var(--card-glow);
+}
+
+.dropmenu:hover {
+  box-shadow: 0 0 10px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);
+}
 
 .profile-dropdown-menu {
   position: absolute;
@@ -536,375 +757,85 @@
 .dropdown-item {
   padding: 0.5rem 1rem;
   cursor: pointer;
-  font-size: 25px;
+  font-size: 20px;
   font-family: var(--font-main);
   color: var(--btn_text);
 }
-
-
 
 .full-width {
   width: 100%;
   text-align: left;
 }
 
-.label {
-  background: var(--btn_bg);
-  border-radius: 0.8rem;
-  font-size: 25px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  padding: 0.6rem 0.5rem 0.6rem;
-}
 
-.saved_translation_card {
-  background: linear-gradient(-164deg, #a0dee5 5%, #b5f49a 90%);
-  font-size: 25px;
-  font-family: var(--font-main);
+/*
+|--------------------------------------------------------------------------
+| 9. MESSAGES & ALERTS
+|--------------------------------------------------------------------------
+| Styles for error and success notifications.
+*/
+
+.error-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem auto;
   padding: 1rem;
-  color: var(--card_bg_text);
-
-  letter-spacing: 0%;
-
-  border: 0.1rem solid var(--card_bg_text);
-  border-radius: 0.8rem;
-}
-
-.insights_card {
-
-  background: var(--insights_card_bg);
-
-
-  padding: 2rem;
-  border-radius: 1rem;
-  color: var(--card_bg_text);
-  font-size: 25px;
-  font-family: var(--font-main);
-  font-weight: 900;
-  letter-spacing: 0%;
-  transition: all 2s ease;
-}
-
-
-input:focus{
- outline: #5bfc16;
- outline-width: 10rem;
-}
-
-.insights_card:hover {
-  background: var(--insights_card_focus);
-}
-
-.glow {
-  box-shadow: 1 1 8px var(--card-glow);
   border-radius: 2rem;
-  padding: 1rem;
-} 
-
-
-.navbar-item{
-  cursor: pointer;
-  font-size: 25px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-}
-.Navbar-Icon{
-  cursor: pointer;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  
+  background: linear-gradient(to left,
+      rgba(107, 255, 250, 0.136),
+      rgba(137, 255, 73, 0.31));
+  border: 1px solid rgba(255, 107, 107, 0.663);
+  transition: all 2.5s ease;
+  box-shadow: 0 0 4px rgba(255, 107, 107, 0.5);
 }
 
-.premium-card{
-  border-radius: 1rem;
-  background: var(--premium-card);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
-  font-family: var(--font-main);
-  padding: 5rem;
-  color: var(--card_bg_text);
-  font-weight: 900;
-  letter-spacing: 0%;
-  cursor: pointer;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
-}
-
-.free-card{
-  border-radius: 1rem;
-  background: var(--free-card);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
-  font-family: var(--font-main);
-  padding: 5rem;
-  color: var(--card_bg_text);
-  font-weight: 900;
-  letter-spacing: 0%;
-
-  cursor: pointer;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
-}
-
-.upgrade-text{
+.error-message {
+  color: #5e2d2dce;
+  font-family: var(--font-secondary);
   font-size: 20px;
-  color: var(--upgrade-text);
+  text-align: center;
+  padding: 0.5rem;
+  transition: all 1.3s ease;
 }
 
-.scroll {
-    width: min(100%, 1200px);
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 1.5rem;  
-    
-   padding: 3rem;
-   
-    
-    /* Scrollbar styling for Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-scrollbar) var(--color-container);
-    
-    /* Add smooth transition */
-    transition: all 0.7s ease-in-out;
+.error-container:hover {
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.553);
+  max-width: 720px;
 }
 
-
-.scroll-translation {
-    width: min(100%, 1200px);
-    max-height: 35vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 1.5rem;  
-    
-   padding: 2rem;
-   
-    
-    /* Scrollbar styling for Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-scrollbar) var(--color-container);
-    
-    /* Add smooth transition */
-    transition: all 0.7s ease-in-out;
-}
-
-.content-scroller {
-  /* This is the function/mixin concept */
-
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* You could also add padding or border styling here */
+.success-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto;
   padding: 1rem;
-  border: 1px solid #ccc;
+  border-radius: 4rem;
+  background: linear-gradient(to left,
+      rgba(107, 255, 250, 0.136),
+      rgba(137, 255, 73, 0.31));
+  transition: all 1.3s ease;
+  box-shadow: 0 0 4px rgba(107, 255, 110, 0.5);
 }
 
-.connect-post{
-  width: 500px;
-  /* Reduced height to allow content to dictate size, better for text posts */
-  /* height: 200px; */ 
-  padding: 1.5rem; /* Added padding to give content breathing room */
-  
-  background: var(--connect-post);
-  border-radius: 1rem;
-
-  font-size: 20px; /* Reduced base font size for better readability */
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-
-  display: flex; /* Makes the post content stack vertically */
-  flex-direction: column;
-  gap: 1rem; /* Space between header and footer */
-
-  border: none;
-  transition: all 0.3s ease; /* Faster transition for general use */
-
-   /* --- ADDED FOR ANIMATED GLOW --- */
-  animation: pulse-glow 3.2s infinite alternate ease-in-out; 
+.success-message {
+  color: #3d8448ce;
+  font-family: var(--font-secondary);
+  font-size: 20px;
+  text-align: center;
+  padding: 0.5rem;
 }
 
-/* Container for Avatar and main content */
-.post-header {
-    padding-top: 1rem;
-    display: flex;
-    gap: 1.5rem; /* Space between the user info column and the text column */
-    align-items: flex-start; /* Align content to the top */
-}
-
-/* User Info: Avatar and Username */
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center avatar and username */
-    width: 60px; /* Define a fixed width for the user column */
-    flex-shrink: 0; /* Prevents this column from shrinking */
-    text-align: center;
-}
-
-.avatar {
-    border-radius: 50%; /* Make the avatar round */
-    object-fit: cover;
-    margin-bottom: 0.5rem;
-}
-
-.username {
-    font-size: 0.9em;
-    font-weight: 500;
-    opacity: 0.4; /* Make the username less prominent than the title */
-}
-
-/* Post Content: Title and Text */
-.postContent {
-  font-size: 1.2rem;
-    flex-grow: 1; /* Allows the content to take up the remaining space */
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.postTitle {
-    font-size: 1.25em; /* Larger, bolder title */
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-.postText {
-    font-size: 1em;
-    line-height: 1.4;
-    white-space: pre-wrap; /* Ensures text formatting like line breaks is preserved */
-}
-
-/* Post Footer (Metadata like date) */
-.postFooter {
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
-}
-
-.postDate {
-    font-size: 0.8em;
-    color: var(--card_bg_text);
-    opacity: 0.6;
+.success-container:hover {
+  box-shadow: 0 0 10px rgba(107, 255, 171, 0.553);
+  max-width: 420px;
 }
 
 
-@keyframes pulse-glow {
-  0% {
-    /* Subtle initial glow */
-    box-shadow: 0 0 5px var(--connect-glow), 0 0 10px var(--connect-glow-2);
-  }
-  50% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 10px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
-
-  }
-  80% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 15px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 35px var(--connect-glow);  
-  }
-  100% {
-    /* Return to initial state */
-    box-shadow: 0 0 30px var(--connect-glow-4), 0 0 25px var(--connect-glow);
-  }
-}
-
-@keyframes pulse-glow-result {
-  0% {
-    /* Subtle initial glow */
-    box-shadow: 0 0 1cqb var(--connect-glow), 0 0 10px var(--connect-glow);
-  }
-  20% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 20px var(--connect-glow), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
-
-  }
-  50% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 40px var(--connect-glow), 0 0 40px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
-
-  }
-  80% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 25px var(--connect-glow-2), 0 0 30px var(--connect-glow-6), 0 0 35px var(--connect-glow-3);  
-  }
-  100% {
-    /* Return to initial state */
-    box-shadow: 0 0 10px var(--connect-glow-4), 0 0 25px var(--connect-glow);
-  }
-}
-
-
-
-
-:root.theme-light  {
-
-  /* page colors */
-  --page_bg: #f0f9fb;
-
-  /* card colors */
-  --card_bg: linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
-  --card_focus: linear-gradient(90deg, #A0DEE5 0%, #BDF9A5 100%);
-  --card_bg_text: #112250;
-
-  --insights_card_bg: linear-gradient(177.28deg, #97dae296 -64.79%, #a0dee5a8 22.36%, #7cf44de7 230.53%);
-  --insights_card_focus: linear-gradient(177.28deg, #97DBE2 -64.79%, #A0DEE5 22.36%, #5bfc16 230.53%);
-
-  /* button colors */
-  --theme_btn_text: #a0dee5;
-  --theme_btn_text: #112250;
-  --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7BE2EE 116.12%);
-  --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
-  --btn_border: #c8eaba;
-  --btn_border_focus: #7dc6769c;
-  --btn-glow:#65d25bc6;
-  /* translation box colors */
-  --translation-border: #BDF9A5;
-  --translation-border-focus: #91eb889c;
-  --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-  --translation-text: #112250;
-
-  --translation-area-bg:#9bdce3;
-
-  --translation-result-border: #BDF9A5;
-  --translation-result-border-focus: #91eb889c;
-  --translation-result-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-result-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-  --translation-result-text: #112250;
-
-  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%);
-
-  --dropdown-bg: #a0dee5;
-  --hover_bg: #28334f;
-
-  --card-glow: #c3ebeb;
-  --card-glow-main:  #8bd5f3;
-  --card-glow-sec:#98f4f3;
-
-
-  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
-  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-
-  --connect-glow: #a1ebf7;
-  --connect-glow-2: #cae6ea;
-  --connect-glow-3: #dee4e5;
-  --connect-glow-4: #a2f5b7;
-  --connect-glow-5: #90e19d;
-  --connect-glow-6: #7befce;
-
-  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
-  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
-  --upgrade-text: #1B4B17;
-  --upgrade-glow:#215f1c;
-
-
-  --connect-post: linear-gradient(311.54deg, #a0e8fa -0.83%, #A0DEE5 33.38%, #bff2df 82.29%, #ABFF89 125.23%);
-  --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
-}
-
-
+/*
+|--------------------------------------------------------------------------
+| 10. SPECIFIC SCROLLBAR OVERRIDES (translation-saves)
+|--------------------------------------------------------------------------
+| Custom scrollbar styling for the translation-saves container.
+*/
 
 .translation-saves {
   width: min(100%, 1200px);
@@ -981,4 +912,4 @@ input:focus{
     transform: none;
   }
 }
-
+ 
