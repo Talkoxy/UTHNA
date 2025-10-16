@@ -5,7 +5,7 @@ const Upgrade = () =>{
         <div className="grid place-items-center fixed inset-0">
             <div className="grid grid-flow-col gap-10">
                 <div className="grid gap-2 place-items-center grid-flow-row premium-card">
-                    <div>R100/month</div>
+                    <div>R45/month</div>
                     <div className=" grid gap-3 place-items-center upgrade-text ">  
                         <div>Unlimited text translation</div>
                         <div>Unlimited Speech Translation</div>
