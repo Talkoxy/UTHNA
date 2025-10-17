@@ -155,38 +155,6 @@ const Translate = () => {
     return (
         <main className="grid place-items-center fixed inset-0">
             <div className="scroll grid grid-flow-row gap-5">
-
-                {/* Translation Result Section */}
-                        {isTranslated && (
-                            <div className="grid grid-flow-col gap-8  place-items-center translation-result-area ">
-                                <div className=''>
-                                    <div className='grid place-items-center gap-8'>
-                                        <textarea
-                                        className="translation-resultarea"
-                                        value={translatedText}
-                                        readOnly
-                                    />
-                                    </div> 
-                                    
-                                </div>
-                                <div>
-                                    <div className="grid place-items-center gap-8">
-                                    <Custombtn
-                                            label="Save Translation"
-                                            onClick={handleSaveTranslation}
-                                            disabled={!translatedText}
-                                    />
-                                        
-                                    <AddFeedbackButton 
-                                        original_translation={translatedText} 
-                                        translated_from={sourceLang} 
-                                        translated_to={targetLang}
-                                    />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
                 <div className=''>
                     {/* Success/Error Messages */}
                         {isSuccess && (
@@ -209,6 +177,37 @@ const Translate = () => {
                             </div>
                         )}
                 </div>
+
+        {/* Translation Result Section */}
+                {isTranslated && (
+                    <div className="grid grid-flow-col gap-8  place-items-center translation-result-area ">
+                        <div className=''>
+                            <div className='grid place-items-center gap-8'>
+                                <textarea
+                                className="translation-resultarea"
+                                value={translatedText}
+                                readOnly
+                            />
+                            </div> 
+                            
+                        </div>
+                        <div>
+                            <div className="grid place-items-center gap-8">
+                            <Custombtn
+                                    label="Save Translation"
+                                    onClick={handleSaveTranslation}
+                                    disabled={!translatedText}
+                            />
+                                
+                            <AddFeedbackButton 
+                                original_translation={translatedText} 
+                                translated_from={sourceLang} 
+                                translated_to={targetLang}
+                            />
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {/* Translation Input Section */}
                 <div className="grid grid-flow-row gap-10 translation-area">
                     <div className="grid grid-flow-col gap-6">
