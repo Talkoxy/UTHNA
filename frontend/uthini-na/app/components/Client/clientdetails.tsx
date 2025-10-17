@@ -136,95 +136,32 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
         }
     }, [userId]);
 
-    // --- JSX Render ---
-    
+
     return (
-        <main className="grid grid-flow-col">
+        <main className="scroll grid place-items-center">
+                <div className="grid grid-flow-col ">
 
-            <div className="grid grid-flow-col gap-2 justify-items-center pt-30">
-
-                <div className="grid grid-flow-rows place-items-center gap-10 ">
-                    
-                    {/* Username Display and Edit Logic */}
-                    <div className="label">
-                        
-                        {isEditing ? (
-                            // Edit Form
-                            <form onSubmit={handleUpdateUsername} className="flex flex-col items-center">
-                                <input
-                                    type="text"
-                                    value={newUsername}
-                                    onChange={(e) => setNewUsername(e.target.value)}
-                                    disabled={isLoading}
-                                    className="" 
-                                />
-                                <div className="mt-2 flex gap-2">
-                                    <button type="submit" disabled={isLoading} className="button-small">
-                                        {isLoading ? 'Saving...' : 'Save'}
-                                    </button>
-                                    <button type="button" onClick={() => { setIsEditing(false); setNewUsername(username); }} className="button-small-secondary">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        ) : (
-                            // Display Mode
-                            <div className="flex items-center gap-2">
-                                <span className="text-2xl font-bold">{username}</span>
-                                
-                                {/* Assuming the profile ID must match the logged-in user ID to edit */}
-                                {userId === user.username && ( 
-                                    <button onClick={() => setIsEditing(true)} className="button-icon">
-                                        ✏️ 
-                                    </button>
-                                )}
+                    <div className="grid  gap-2 pt-25">
+                            <div className='p-4 '>
+                                <Avatar user_id={userId}/>
+                            </div>   
+                            <div> 
+                                <TranslationInsights userId={userId} /> 
                             </div>
-                        )}
-                        
                     </div>
-                    
-                    {/* --- FEEDBACK MESSAGE PLACEMENT --- */}
-                    {isSuccess && 
-                        <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
-                            {success.map((msg, index) => (
-                                <div key={`success_${index}`}>{msg}</div>
-                            ))}
+                    <div className="grid grid-flow-row pt-25">
+                        <div className="grid place-items-center">
+                            <div className="label">MY SAVED TRANSLATIONS</div>
+                            <div className="scroll-translation" ><SavedTranslations user_id={userId} /></div>
                         </div>
-                    }
-                    
-                    {isError && (
-                        <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
-                            {errors.map((error, index) => (
-                                <div key={`error_${index}`}>{error}</div>
-                            ))}
+
+                        <div className="grid place-items-center">
+                            <div className="label">MY LIKED POSTS</div>
+                            <div className="scroll-translation"><LikedTranslations user_id={userId} /></div>
                         </div>
-                    )}
-                    {/* --- END FEEDBACK MESSAGE PLACEMENT --- */}
-
-
-                    <div className='p-4 '>
-                        <Avatar user_id={userId}/>
-                    </div>
-                    
-                    <div> <TranslationInsights userId={userId} /> </div>
-
-                </div>
-
-                <div className="grid grid-flow-row place-items-center pt-25">
-
-                    <div className="grid place-items-center">
-                        <div className="label">MY SAVED TRANSLATIONS</div>
-                        <div className="scroll-translation" ><SavedTranslations user_id={userId} /></div>
-                    </div>
-
-                    <div className="grid place-items-center">
-                        <div className="label">MY LIKED TRANSLATIONS</div>
-                        <div className="scroll-translation"><LikedTranslations user_id={userId} /></div>
                     </div>
 
                 </div>
-
-            </div>
         </main>
     );
 };
