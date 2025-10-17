@@ -8,7 +8,7 @@ import NavbarItem from "./navbaritem";
 import Link from "next/link";
 import { CrownIcon } from "../icons";
 
-import Image from "next/image"; // Added for optimization
+import Image from "next/image"; 
 
 const Navbar = () => {
 
@@ -42,7 +42,6 @@ const Navbar = () => {
                     </div>
 
                 </div>
-
 
                 <div className="grid place-items-center justify-center">
                     <ToProfileButton />

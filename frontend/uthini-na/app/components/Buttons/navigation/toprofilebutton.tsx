@@ -21,7 +21,7 @@ const ToProfileButton = () => {
         }
     };
 
-    // Fetch the ID once on component mount
+
     useEffect(() => {
         fetchUserId();
     }, [userId]);

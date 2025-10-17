@@ -4,13 +4,12 @@ import { useEffect, useState, useCallback } from 'react';
 import apiService from '@/app/services/apiService';
 import ConnectPostItem from './connectpostitem';
 import CreateConnectPostButton from '../../Buttons/connect/addConnectPostbutton';
-// Removed unused import: ClientSettingsType
-// Assuming CreatePostButton is imported here (as it will be needed in the JSX)
+
 
 
 
 export type ConnectPostsType= {
-// connectPosts fields here
+
     id: string; 
     title: string;
     text: string;
@@ -31,17 +30,15 @@ interface ConnectPostsProps {
 
 const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     const[connectPosts, setConnectPosts] = useState<ConnectPostsType[]>([]);
-    // Removed unused state: settings
     const [isLoading, setIsLoading] = useState(true);
 
     
-    // 1. Memoized function to fetch posts (Replaces the old async function)
     const getConnectPosts = useCallback(async() => {
         setIsLoading(true);
-        // Cleaned up the URL to consistently use the base path if user_id is null
+   
         let url = '/api/connect/connectposts/';
         
-        // Optionally append user_id filter if needed, though usually posts are global
+
         if (user_id) {
             url += `?user_id=${user_id}`;
         }
