@@ -10,7 +10,7 @@ const apiService = {
 
         // Check for token before making the request
         if (!token) {
-            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+            throw new Error("Please log in to procced");
         }
 
         try {
@@ -24,7 +24,7 @@ const apiService = {
             });
 
             if (response.status === 401) {
-                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+                throw new Error("Session expired. Please log in again.");
             }
 
             const json = await response.json();
@@ -44,7 +44,7 @@ const apiService = {
 
         // Check for token before making the request
         if (!token) {
-            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+            throw new Error("Please log in to procced");
         }
 
         try {
@@ -100,7 +100,7 @@ const apiService = {
 
         // Check for token before making the request
         if (!token) {
-            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+            throw new Error("Please log in to proceed");
         }
 
         try {
@@ -114,7 +114,7 @@ const apiService = {
             });
 
             if (response.status === 401) {
-                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+                throw new Error(" Session expired. Please log in again.");
             }
             
             // FIX: Improved error handling to catch non-JSON 500 responses
@@ -228,7 +228,7 @@ const apiService = {
 
         // Check for token before making the request
         if (!token) {
-            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+            throw new Error("Please log in tp procced");
         }
 
         try {
@@ -243,7 +243,7 @@ const apiService = {
             });
 
             if (response.status === 401) {
-                throw new Error("401 Unauthorized: Session expired. Please log in again.");
+                throw new Error("Session expired. Please log in again.");
             }
             
             if (!response.ok) {
@@ -276,7 +276,7 @@ const apiService = {
 
         // Check for token before making the request
         if (!token) {
-            throw new Error("401 Authentication Error: No valid access token found. Please log in.");
+            throw new Error(" Please log in to procced");
         }
 
         try {

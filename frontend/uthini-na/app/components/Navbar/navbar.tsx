@@ -1,7 +1,3 @@
-'use client'
-
-import ToProfileButton from "../Buttons/navigation/toprofilebutton";
-
 import { ConnectIcon, TranslateIcon } from "../icons";
 import NavbarItem from "./navbaritem";
 
@@ -9,8 +5,13 @@ import Link from "next/link";
 import { CrownIcon } from "../icons";
 
 import Image from "next/image"; 
+import UserNav from "./usernav";
+import { getUserId } from "@/app/lib/actions";
 
-const Navbar = () => {
+
+const Navbar = async () => {
+
+    const user_id = await getUserId()
     
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4 ">
@@ -42,11 +43,9 @@ const Navbar = () => {
                     </div>
 
                 </div>
-
-                <div className="grid place-items-center justify-center">
-                    <ToProfileButton />
+                <div>
+                    <UserNav userId={user_id}/>
                 </div>
-
 
             </div>
 

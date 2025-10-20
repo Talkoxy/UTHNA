@@ -60,9 +60,10 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
                 {avatar?.image_url ? (
                     <Image
                         src={avatar.image_url}
-                        height={50}
-                        width={50}
+                        height={40}
+                        width={40}
                         alt="User Avatar"
+                        className='avatar'
                     />
                 ) : (
                     <Image

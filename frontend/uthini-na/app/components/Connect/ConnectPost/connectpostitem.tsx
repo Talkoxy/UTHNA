@@ -47,27 +47,28 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
     const defaultAvatar = '/avatar.png'; 
 
     return (
-        <div className='grid place-items-center p-6'> 
+        <div className='grid grid-cols-1 place-items-center p-6'> 
         {/* The main post container */}
-        <div className='connect-post'> 
+        <div className='grid connect-post'> 
             {/* Top row for user info and post content */}
             <div className='post-header'>
                 {/* 1. USER INFO - Column 1 */}
-                <div className='userInfo'>
+                <div className='place-items-center gap-2 userInfo'>
                     <div>
                         {avatar.image_url ? ( // Check if avatar URL is present
                             <Image
                                 src={avatar.image_url}
-                                height={70}
-                                width={70}
+                                height={50}
+                                width={50}
                                 alt={`Avatar for ${connectpost.author.username}`}
+                                
                             />
                         ) : (
                             // Display fallback image if avatar URL is missing
                             <Image
                                 src={defaultAvatar} 
-                                height={70}
-                                width={70}
+                                height={50}
+                                width={50}
                                 alt="Default Avatar"
                             />
                         )}
@@ -78,7 +79,7 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                 </div>
 
                 {/* 2. POST CONTENT - Column 2 */}
-                <div className='postContent'>
+                <div className='grid place-items-center postContent'>
                     <div className='postTitle'>
                         {connectpost.title} 
                     </div>

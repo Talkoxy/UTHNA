@@ -72,28 +72,27 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
 
     
     return (
-        <div className='grid grid-flow-row place-items-center gap-4'> 
-        
-        <div className='flex justify-center'>
-            <CreateConnectPostButton onPostCreated={handlePostCreated} />
-        </div>
-        
-        <div className='scroll'>
+        <div className='grid grid-cols-1 place-items-center  gap-4'>
 
-                {isLoading ? (
-                <p className='p-6 text-gray-500'>Loading posts...</p>
-            ) : connectPosts.length > 0 ? (
-                connectPosts.map((connectpost) => (
-                    <div key={connectpost.id} className="w-full">
-                        <ConnectPostItem connectpost={connectpost}/>
-                    </div>
-                ))
-            ) : (
-                // A message or component to display when no connectPosts are found
-                <p className='p-6 text-gray-500'>No connect posts found yet. Be the first to post!</p>
-            )}
+            <div className='grid '>
+                <CreateConnectPostButton onPostCreated={handlePostCreated} />
+            </div>
+            
+            <div className='grid scroll '>
+                    {isLoading ? (
+                    <p className='p-6 text-gray-500'>Loading posts...</p>
+                ) : connectPosts.length > 0 ? (
+                    connectPosts.map((connectpost) => (
+                        <div key={connectpost.id} className="">
+                            <ConnectPostItem connectpost={connectpost}/>
+                        </div>
+                    ))
+                ) : (
+                    // A message or component to display when no connectPosts are found
+                    <p className='p-6 text-gray-500'>No connect posts found yet. Log in to post!</p>
+                )}
 
-        </div>
+            </div>
         
 
         </div>

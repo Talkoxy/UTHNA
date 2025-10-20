@@ -52,6 +52,7 @@ const Avatar: React.FC<AvatarProps> = ({ user_id ,}) => {
                     height={200}
                     width={200}
                     alt="User Avatar"
+                    className='avatar'
                 />
             ) : (
                 // ELSE (IF FALSE/null/undefined): Display the Button
