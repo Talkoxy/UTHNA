@@ -153,9 +153,9 @@ const Translate = () => {
 
 
     return (
-        <main className="grid place-items-center fixed inset-0">
-            <div className="scroll grid grid-flow-row gap-5">
-                <div className=''>
+        <main className="grid grid-col-1 place-items-center fixed inset-0">
+            <div className="scroll grid place-items-center grid-flow-row gap-5">
+                <div className=' grid '>
                     {/* Success/Error Messages */}
                         {isSuccess && (
                             <div className="success-container p-2 bg-green-100 text-green-700 rounded-md">
@@ -180,9 +180,9 @@ const Translate = () => {
 
         {/* Translation Result Section */}
                 {isTranslated && (
-                    <div className="grid grid-flow-col gap-8  place-items-center translation-result-area ">
-                        <div className=''>
-                            <div className='grid place-items-center gap-8'>
+                    <div className="grid gap-8 md:grid-flow-col translation-result-area">
+                        <div className="grid md:grid-flow-col gap-6">
+                            <div className='grid md:grid-flow-row gap-8 place-items-center'>
                                 <textarea
                                 className="translation-resultarea"
                                 value={translatedText}
@@ -209,9 +209,9 @@ const Translate = () => {
                     </div>
                 )}
                 {/* Translation Input Section */}
-                <div className="grid grid-flow-row gap-10 translation-area">
-                    <div className="grid grid-flow-col gap-6">
-                        <div className="grid grid-flow-row gap-8 place-items-center">
+                <div className="grid gap-10 translation-area">
+                    <div className="grid md:grid-flow-col gap-6">
+                        <div className="grid md:grid-flow-row  gap-8 place-items-center">
                             <textarea
                                 className="translation-textarea"
                                 placeholder="Enter text to translate"
@@ -223,26 +223,14 @@ const Translate = () => {
                                 }}
                             />
 
-                            <div className='grid place-items-center gap-20 justify-items-center'>
-                                <div className=''>
-                                    <Custombtn
-                                        label="Translate"
-                                        onClick={submitTranslate}
-                                        disabled={!originalText.trim() || !targetLang}
-                                    />
-                                </div>
-
-                                
-                                
-                            
-                            </div>
+                           
 
                             
                         </div>
 
                         {/* Language Selection */}
-                        <div className="grid grid-flow-row place-items-center pb-40">
-                            <div className="grid place-items-center gap-8">
+                        <div className="grid grid-flow-row place-items-center gap-10">
+                            <div className="grid place-items-center gap-5">
                                 <select
                                     className="dropmenu"
                                     value={sourceLang}
@@ -268,9 +256,25 @@ const Translate = () => {
                                     <option value="af">Afrikaans</option>
                                 </select>
                             </div>
+
+                            <div className='grid place-items-center gap-20 justify-items-center'>
+                                <div className='grid place-items-center'>
+                                    <Custombtn
+                                        label="Translate"
+                                        onClick={submitTranslate}
+                                        disabled={!originalText.trim() || !targetLang}
+                                    />
+                                </div>
+
+                                
+                                
+                            
+                            </div>
                             
                             
                         </div>
+
+                        
 
                         
                     </div>

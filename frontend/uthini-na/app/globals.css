@@ -427,7 +427,7 @@
 .translation-result-area{
   background-color: var(--translation-area-bg);
   box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 4rem;
+  padding: 3rem;
   border-radius: 2rem;
   transition: all 1.3s ease;
   border: none;
@@ -435,8 +435,6 @@
 }
 
 .translation-textarea {
-  min-height: 220px;
-  min-width: 400px;
   height: auto;
   width: 100%;
   padding: 1rem;
@@ -446,7 +444,7 @@
   color: var(--translation-text);
   font-size: 18px;
   font-family: var(--font-main);
-  transition: all 1.3s ease;
+  transition: all 1s ease;
   overflow-y: hidden;
 }
 
@@ -462,8 +460,7 @@
   border-color: var(--translation-border-focus);
   border: 5px solid var(--translation-border);
   box-shadow: 0 0 20px var(--card-glow);
-  min-height: 230px;
-  min-width: 430px;
+  padding: 1rem;
 }
 
 .post-textarea {
@@ -499,15 +496,16 @@
 }
 
 .translation-resultarea{
-  border-radius: 2rem;
-  padding: 2rem;
+  height: auto;
+  padding: 1rem;
+  border-radius: 15px;
   border: 3px solid var(--translation-border);
   background: var(--translation-bg-focus);
   color: var(--translation-text);
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   text-align: center;
-  transition: all 1.3s ease;
+  transition: all 1s ease-in-out;
   overflow-y: hidden;
   outline: none;
 }
@@ -972,6 +970,46 @@ input:focus{
     font-size :14px;
     padding: 2rem;
     border-radius: 0.5rem;
+  }
+
+  .success-container {
+  max-width: 200px;
+  
+  }
+  .success-message{
+    font-size: 13px;
+    border-radius: 1rem;
+    padding: 5px ;
+  }
+
+  .error-container{
+    max-width: 200px;
+    padding: auto;
+  }
+
+  .error-message {
+    font-size: 11px;
+    border-radius: 1rem;
+    padding: 5px ;
+  }
+
+  .translation-textarea {
+    min-height: 120px;
+    min-width: 200px;
+  }
+
+  .translation-textarea:focus{
+    min-height: 125px;
+    min-width: 205px;
+  }
+
+  .translation-resultarea{
+    height: auto;
+  }
+
+  .btn{
+    font-size: 16px;
+    text-align: center;
   }
 }
 
