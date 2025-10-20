@@ -178,6 +178,7 @@
 
 .lightmode-nav {
   background: #a0dee5;
+
 }
 
 .glow {
@@ -186,6 +187,11 @@
   padding: 1rem;
 }
 
+.NavCenter{
+
+  font-family: var(--font-main);
+
+}
 .scroll {
     width: min(100%, 1200px);
     max-height: 80vh;
@@ -591,12 +597,13 @@ input:focus{
 .btn {
   background: var(--btn_bg);
   border-radius: 0.8rem;
+  box-shadow: 0 0 5px 2px var(--btn-glow);
   border: 2px solid var(--btn_border);
   padding: 1rem 2rem;
   font-size: 20px;
   font-family: var(--font-main);
   color: var(--btn_text);
-  transition: all 1s;
+  transition: all 1s ease-in-out;
   outline: none;
   border: none;
 }
@@ -609,13 +616,13 @@ input:focus{
   font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
-  transition: all 1s;
+  transition: all 1s ease-in-out;
   outline: none;
   border: none;
 }
 
 .btn:hover {
-  box-shadow: 0 0 25px var(--btn-glow);
+  box-shadow: 0 0 10px 5px var(--btn-glow);
 }
 
 .translate_btn {
@@ -738,12 +745,18 @@ input:focus{
   transition: all 1.5s ease-in;
 }
 
+.nav-logo{
+  height: 60px;
+  width: 60px;
+}
+
 .navbar-item{
   cursor: pointer;
   font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
 }
+
 .Navbar-Icon{
   cursor: pointer;
   font-family: var(--font-main);
@@ -935,6 +948,31 @@ input:focus{
     padding: 1rem;
     max-height: 70vh;
   }
+
+  .btn-nav {
+    font-size: 12px;
+    padding: 0.5rem 1rem ;
+    border-radius: 10px;
+  }
+
+   .navbar-item{
+    font-size: 13px;
+  }
+
+  .Navbar-Icon{
+    font-size: 13px
+  }
+
+  .nav-logo{
+    height: 50px;
+    width: 50px;
+  }
+
+  .login{
+    font-size :14px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -942,6 +980,8 @@ input:focus{
     max-height: 60vh;
     border-radius: 1rem;
   }
+
+
 }
 
 /* Prevent scroll issues on mobile */

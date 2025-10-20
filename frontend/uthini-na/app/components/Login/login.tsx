@@ -67,7 +67,7 @@ const Login = () => {
     }
 
     return (
-        <div className="grid place-items-center fixed inset-0 p-50">
+        <div className="grid grid-cols-1 place-items-center fixed inset-0 p-50">
                 <div className="grid gap-8 login">
                     <div className="grid gap-5">
                         <input
@@ -111,8 +111,8 @@ const Login = () => {
 
                 </div>
 
-                <p className="text-center text-subtitle mt-4">
-                    {/* FIX: Replaced ' with &apos; for JSX compatibility */}
+                <p className="md:text-center text-xs md:text-md text-subtitle mt-4">
+                   
                     Don&apos;t have an account?{" "} 
                     <Link href="/signup" className="text-bg-accent hover:underline">
                         Sign up here
