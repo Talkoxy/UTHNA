@@ -36,7 +36,7 @@ const Signup = () => {
         return;
     }
 
-    // 🎯 CRITICAL FIX: CONSTRUCT THE FormData OBJECT 🎯
+    
     const formData = new FormData();
     
     formData.append('email', email);
@@ -45,7 +45,7 @@ const Signup = () => {
     formData.append('password2', password2);
     
     try {
-        // Use 'unknown' for the response type for safety
+        
         const response: unknown = await apiService.postFormDataWithoutToken('/api/auth/register/', formData); 
       
         // Type guard and assertion
@@ -68,7 +68,6 @@ const Signup = () => {
 
     } catch (error) {
        console.error("Signup failed:", error);
-       // Use error handling that expects a standard Error object
        let errorMessages = ["An unexpected error occurred during signup."];
        if (error instanceof Error) {
             errorMessages = [error.message];
@@ -76,8 +75,7 @@ const Signup = () => {
        setErrors(errorMessages);
     }
 };
-    
-
+  
 
   return (
     <div className="grid place-items-center fixed inset-0 p-50">
@@ -131,6 +129,7 @@ const Signup = () => {
           label='Sign-up'
           onClick={submitSignup}
         />
+
       </div>
 
 

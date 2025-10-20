@@ -41,6 +41,7 @@ const LikedTranslations: React.FC<LikedTranslationsProps> = ({ user_id }) => {
 
     return (
         <div className="grid grid-flow-row gap-4 place-items-center">
+            
             {translations.map((translation) => (
                 <div 
                     key={translation.id}

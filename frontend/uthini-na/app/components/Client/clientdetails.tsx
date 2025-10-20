@@ -138,10 +138,9 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
 
     return (
-        <main className="scroll grid place-items-center">
-                <div className="grid grid-flow-col ">
-
-                    <div className="grid  gap-2 pt-25">
+        <main className="grid place-items-center">
+                <div className="scroll grid md:grid-flow-col ">
+                    <div className="grid gap-2 pt-25">
                             <div className='p-4 '>
                                 <Avatar user_id={userId}/>
                             </div>   
@@ -149,16 +148,15 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
                                 <TranslationInsights userId={userId} /> 
                             </div>
                     </div>
-                    <div className="grid grid-flow-row pt-25">
-                        <div className="grid place-items-center">
-                            <div className="label">MY SAVED TRANSLATIONS</div>
-                            <div className="scroll-translation" ><SavedTranslations user_id={userId} /></div>
-                        </div>
+
+                    <div className="grid place-items-center grid-flow-row ">
 
                         <div className="grid place-items-center">
-                            <div className="label">MY LIKED POSTS</div>
-                            <div className="scroll-translation"><LikedTranslations user_id={userId} /></div>
+                             <div className="label">MY SAVED TRANSLATIONS</div>
+                            <div className="scroll-translation" ><SavedTranslations user_id={userId} /></div>
                         </div>
+                           
+
                     </div>
 
                 </div>

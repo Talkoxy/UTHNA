@@ -15,15 +15,15 @@ SECRET_KEY = config('SECRET_KEY')
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "creds/g_creds.json"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost:3000','api.uthinina.app','uthinina.app']
 
 SITE_ID = 1
 
 AUTH_USER_MODEL = 'clients.User'
 
 
-WEBSITE_URL ='http://localhost:8000'
+
+WEBSITE_URL ='api.uthinina.app'
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
@@ -41,7 +41,7 @@ SIMPLE_JWT = {
      "UPDATE_LAST_LOGIN" : True,
      "SIGNING_KEY" : config('SECRET_KEY'),
      "ALGORITHM" : "HS256",
-     
+
 }
 
 REST_FRAMEWORK = {
@@ -54,16 +54,11 @@ REST_FRAMEWORK = {
 }
 
 
-# CORS Configuration
 CORS_ALLOWED_ORIGINS = [
-
-    "http://localhost:3000",
+    "http://localhost:3000",  
     "http://127.0.0.1:3000",
-    "https://uthna.localhost:44326",
-    # 💡 ADD YOUR PUBLIC IP HERE (without a port if using default Nginx port 80)
-    "http://167.172.62.178", 
-]
-
+    "https://uthinina.app",
+   ]
 
 
 CORS_ALLOW_CREDENTIALS = True
@@ -73,7 +68,6 @@ REST_AUTH = {
     "JWT_HTTPONLY": False,
 
 }
-
 
 # Application definition
 
@@ -93,7 +87,7 @@ INSTALLED_APPS = [
     'connect',
     'avatar',
 
-    #Google and Apple Providers
+    #Google Account Providers
     'allauth.socialaccount.providers.google',
     
     
@@ -122,7 +116,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'APP': {
             'client_id': config('GOOGLE_CLIENT_ID'),
             'secret': config('GOOGLE_SECRET_KEY'),
-            'key': '',  # Key is not typically needed for Google
+
         },
         'SCOPE': [
             'profile',
@@ -136,8 +130,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Must be first
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -185,7 +180,6 @@ DATABASES = {
 
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -228,3 +222,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400 
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 26214400 
+

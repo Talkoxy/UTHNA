@@ -8,6 +8,7 @@ const LikedTranslationItem: React.FC<TranslationProps> =
     return (
         <div className="saved_translation_card">
             <div className="grid place-items-center">
+                
                 <div className="grid gap-2 place-items-center">
                     <div className=""> Original Text: {translation.original_text}</div>
                     <div className=""> Translated Text: {translation.translated_text}</div>

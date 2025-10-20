@@ -11,7 +11,6 @@ import { CrownIcon } from "../icons";
 import Image from "next/image"; 
 
 const Navbar = () => {
-
     
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
