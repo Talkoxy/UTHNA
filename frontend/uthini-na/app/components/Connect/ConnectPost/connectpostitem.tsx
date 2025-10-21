@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useEffect, useState, useCallback } from 'react'; // Added useCallback
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
+import { CommentIcon } from '../../icons';
+import Likebtn from '../../Buttons/likebutton';
 
 
 interface ConnectPostsItemProps {
@@ -87,6 +89,12 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                          {connectpost.text}
                     </div>
                 </div>
+            </div>
+            <div className='place-items-center ml-80 post-actions grid grid-flow-col'>
+                <div>
+                    <CommentIcon/>
+                </div>
+                
             </div>
             
         </div>
