@@ -8,12 +8,12 @@ import Image from "next/image";
 import UserNav from "./usernav";
 import { getUserId } from "@/app/lib/actions";
 
-import { unstable_noStore as noStore } from 'next/cache';
+import { connection } from 'next/server'
 
 
 const Navbar = async () => {
 
-    noStore();
+    await connection()
 
     const user_id = await getUserId()
     

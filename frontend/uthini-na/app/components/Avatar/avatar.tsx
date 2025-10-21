@@ -49,8 +49,8 @@ const Avatar: React.FC<AvatarProps> = ({ user_id ,}) => {
                 // IF TRUE: Display the Image
                 <Image
                     src={avatar.image_url} 
-                    height={250}
-                    width={250}
+                    height={200}
+                    width={200}
                     alt="User Avatar"
                     className='rounded-full object-cover'
                 />
