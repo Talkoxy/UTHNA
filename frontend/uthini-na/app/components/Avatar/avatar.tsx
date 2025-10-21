@@ -49,10 +49,10 @@ const Avatar: React.FC<AvatarProps> = ({ user_id ,}) => {
                 // IF TRUE: Display the Image
                 <Image
                     src={avatar.image_url} 
-                    height={200}
-                    width={200}
+                    height={250}
+                    width={250}
                     alt="User Avatar"
-                    className='avatar'
+                    className='rounded-full object-cover'
                 />
             ) : (
                 // ELSE (IF FALSE/null/undefined): Display the Button
