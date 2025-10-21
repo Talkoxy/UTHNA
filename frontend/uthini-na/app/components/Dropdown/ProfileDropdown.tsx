@@ -22,7 +22,9 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
         id: '',
         image_url: ''
     });
-    //functions
+    
+
+    
 
     const getAvatar = async (userId: string) => {
         try {
