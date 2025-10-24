@@ -1,12 +1,9 @@
 // next.config.js or next.config.ts
 
 import type { NextConfig } from "next";
-import autoCert from "anchor-pki/auto-cert/integrations/next";
 
 
-const withAutoCert = autoCert({
-  enabledEnv: "development",
-});
+
 
 // 1. Define the core Next.js configuration object with all properties
 const nextConfig: NextConfig = {
@@ -47,4 +44,4 @@ const nextConfig: NextConfig = {
 };
 
 // 2. Export the final configuration after applying the wrapper
-export default withAutoCert(nextConfig);
+export default nextConfig;
