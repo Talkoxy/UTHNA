@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useEffect, useState, useCallback } from 'react'; // Added useCallback
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
+import { CommentIcon } from '../../icons';
+import ConnectComments from '../ConnectComment/connectcomments';
 
 
 interface ConnectPostsItemProps {
@@ -31,8 +33,7 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
   return date.toLocaleString(undefined, options); 
 }
 
-    // REMOVED: const [author, setAuthor] = useState(connectpost.author.id) - Use prop directly
-
+    const [author,setAuthor] = useState(connectpost.author.id)
     const[avatar, setAvatar] = useState<AvatarType>({
             id: '',
             image_url: ''
@@ -126,6 +127,27 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                     
                 </div>
             </div>
+            <div className='place-items-center ml-80 post-actions grid grid-flow-col'>
+                <div>
+                    <CommentIcon/>
+                </div>
+                
+            </div>
+            <div className='line rounded'/>
+                <div>
+                    {isCommentsOpen && (
+                        <div 
+                            id={`comments-section-${connectpost.id}`}
+                            className='p-4 comments-section'
+                        >
+                            
+                            <p className='text-gray-500'>Comments section for post ID: {connectpost.id} (to be implemented)</p>
+                            <div>
+                                <ConnectComments postId={connectpost.id} />
+                            </div>
+                        </div>
+                    )}
+                </div>
             
         </div>
     </div>
