@@ -1,5 +1,5 @@
 'use server'
-
+import { revalidatePath } from 'next/cache';
 import { cookies } from "next/headers";
 
 export async function handleLogin(userId: string, accessToken: string, refreshToken: string) {
@@ -22,19 +22,28 @@ export async function handleLogin(userId: string, accessToken: string, refreshTo
         secure: process.env.NODE_ENV == 'production', 
         maxAge: 60 * 60 * 24 * 2, // 2 days 
         path: '/'
-    })
+    });
+
+    revalidatePath('/');
 
 }
 
 export async function resetAuthCookies() {
     (await cookies()).set('session_userid', '');
     (await cookies()).set('session_access_token', '');
-    (await cookies()).set('session_refresh_token', '')
+    (await cookies()).set('session_refresh_token', '');
+
+    revalidatePath('/');
 }
 
 export async function getUserId(){
     const userId = (await cookies()).get('session_userid')?.value
     return userId ? userId : null;
+}
+
+export async function isUserLoggedIn() {
+    const userId = await getUserId();
+    return !!userId; 
 }
 
 export async function getAccessToken(){

@@ -5,6 +5,7 @@ import { TranslateIcon } from "../icons";
 
 
 const Landing = () => {
+
     return (
         <div className="grid grid-flow-col col-span-4 justify-items-center items-center">
             <div>

@@ -11,7 +11,6 @@ const LogoutButton = () => {
     const router= useRouter();
 
     const submitLogout = async () => {
-
         resetAuthCookies();
         router.push('/')
     }

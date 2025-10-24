@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ConnectPost, ConnectComment
+from .models import ConnectPost, ConnectComment,Comment
 # Assuming the imported UserSerializer now includes 'username' and 'author_picture_url'
 from clients.serializers import UserSerializer 
 
@@ -17,11 +17,16 @@ class ConnectPostSerializer(serializers.ModelSerializer):
 
 
 class ConnectCommentSerializer(serializers.ModelSerializer):
+    connect = serializers.PrimaryKeyRelatedField(
+        queryset=ConnectPost.objects.all(), # Ensures the ID is valid
+        required=True # Makes the post ID mandatory for creation
+    )
     class Meta:
-        model = ConnectComment
+        model = Comment
         fields = [
             'id',
             'text',
+            'connect',
         ]
 
 
@@ -37,6 +42,7 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
             'author', 
             'title',
             'text',
+            'created_at',
         ]
 
     # 3. Implement the method to get the post's main image URL
@@ -49,15 +55,17 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
         return None # Return None if no image is uploaded
 
 
-class ConnectCommentDetailSerializer(serializers.ModelSerializer):
+class CommentDetailSerializer(serializers.ModelSerializer):
     # This also embeds the enhanced UserSerializer, so comment author details are included
-    created_by = UserSerializer(read_only=True, many=False)
-    post = ConnectPostSerializer(read_only=True, many=False)
+    author = UserSerializer(read_only=True, many=False)
+    connect = ConnectPostSerializer(read_only=True, many=False)
     class Meta:
         model = ConnectComment
         fields = [
             'id',
-            'post',
-            'created_by', 
+            'connect',
+            'author',
             'text',
+            'created_at',
+           
         ]

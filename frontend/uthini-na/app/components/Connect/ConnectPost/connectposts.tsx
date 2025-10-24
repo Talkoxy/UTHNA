@@ -5,13 +5,12 @@ import apiService from '@/app/services/apiService';
 import ConnectPostItem from './connectpostitem';
 import { ClientSettingsType } from '../../ClientSettings/clientsettings';
 
-
-
 export type ConnectPostsType= {
 // connectPosts fields here
     id: string; 
     title: string;
     text: string;
+    created_at: string;
 
     author: {
         id :string;
@@ -22,6 +21,7 @@ export type ConnectPostsType= {
     }
     
 }
+
 
 interface ConnectPostsProps {
     user_id?: string | null;
@@ -52,27 +52,11 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
      useEffect(() => {
         // 1. Fetch posts immediately upon component mount
         getConnectPosts();
-
-        // 2. Set up the polling interval (e.g., every 30 seconds = 30000 milliseconds)
-        const intervalId = setInterval(() => {
-            getConnectPosts();
-            // console.log("Polling for new posts..."); // Optional: for debugging
-        }, 20000); // Poll every 30 seconds
-
-        // 3. Cleanup function: IMPORTANT to clear the interval when the component unmounts
-        return () => {
-            clearInterval(intervalId);
-        };
-
-    }, []);
+        console.log("New post creation detected. Refreshing list...");
+    }, [getConnectPosts]);
 
 
-
-   
-
-     
-
-
+    // 3. Initial fetch (using the memoized function and correct dependencies)
     useEffect(() => {
         getConnectPosts();
     

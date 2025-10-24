@@ -1,29 +1,38 @@
-'use client'
-
-import ToProfileButton from "../Buttons/navigation/toprofilebutton";
-import Themetoggle from "../Buttons/themetoggle";
 import { ConnectIcon, TranslateIcon } from "../icons";
-import AddSettingsModal from '../Modals/CreateSettingsModal';
-import useAddSettingsModal from "../Hooks/useCreateSettingsModal";
 import NavbarItem from "./navbaritem";
-import { link } from "fs/promises";
+
 import Link from "next/link";
-import { ClientSettingsType } from '../ClientSettings/clientsettings';
 import { CrownIcon } from "../icons";
 
-const Navbar = () => {
+import Image from "next/image"; 
+import UserNav from "./usernav";
+import { getUserId } from "@/app/lib/actions";
 
+import { connection } from 'next/server'
+
+
+const Navbar = async () => {
+
+    await connection()
+
+    const user_id = await getUserId()
     
     return (
-        <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4">
-            <div className="grid grid-flow-col grid-cols-3 place-items-center justify-center ">
-                <div >
+        <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4 ">
+            <div className="grid grid-flow-col place-items-center md:gap-50">
+                <div>
                     <Link href={'/'} >
-                        <img src="/images/UthiniNaNavbar.png" width={100} height={100} alt="To home page" />
+                        <Image 
+                            src="/images/UthiniNaNavbar.png" 
+                            width={60} 
+                            height={60} 
+                            alt="To home page" 
+                            className="nav-logo"
+                        />
                     </Link>
                 </div>
 
-                <div className="grid grid-flow-col grid-cols-2  gap-60">
+                <div className="grid grid-cols-3 md:gap-20 "> {/* Adjusted grid for 3 items */}
 
                     <div>
                         <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
@@ -38,12 +47,9 @@ const Navbar = () => {
                     </div>
 
                 </div>
-
-
-                <div className="grid place-items-center justify-center">
-                    <ToProfileButton />
+                <div>
+                    <UserNav userId={user_id}/>
                 </div>
-
 
             </div>
 

@@ -376,31 +376,20 @@
   padding: 1rem 2rem;
   font-size: 30px;
   font-family: var(--font-main);
-  color: var(--btn_text);
 
-  transition: all 1s;
-  outline: none;
-  border: none;
 }
+.scroll {
+    width: min(100%, 1200px);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    padding: 3rem;
 
-.btn:hover {
-  box-shadow: 0 0 25px var(--btn-glow);
-   
-}
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
 
-.likebtn {
-  font-size: 25px;
-  color: var(--btn_text);
-}
-
-.page_bg {
-  background: linear-gradient(#a0dee5 20%, #acdf76 100%);
-  color: var(--color-text);
-  position: fixed;
-  inset: 0;
-  padding: 2rem;
-  transition: all 2s ease;
-    /* equivalent to Tailwind's p-10 */
+    transition: all 0.7s ease-in-out;
 }
 
 .pttbtn {
@@ -714,12 +703,52 @@ input:focus{
   animation: pulse-glow 3.2s infinite alternate ease-in-out; 
 }
 
-/* Container for Avatar and main content */
 .post-header {
     padding-top: 1rem;
     display: flex;
-    gap: 1.5rem; /* Space between the user info column and the text column */
-    align-items: flex-start; /* Align content to the top */
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.post-interactions{
+    background: #bbffd51c;
+    border-radius: 12px;
+    padding: 0.9rem;
+    margin-left: 20rem;
+   
+}
+
+.comment-textarea{
+  min-height: 100px;
+  min-width: 400px;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid var(--translation-border);
+  background-color: var(--translation-bg);
+  color: var(--translation-text);
+  font-size: 20px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  overflow-y: hidden;
+  outline: none;
+}
+
+.comment-textarea:hover {
+  border-color: var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+  border: 4px solid var(--translation-border);
+}
+
+.comment-textarea:focus {
+  outline: none;
+  background: var(--translation-bg-focus);
+  border-color: var(--translation-border-focus);
+  border: 5px solid var(--translation-border);
+  box-shadow: 0 0 20px var(--card-glow);
+  min-height: 110px;
+  min-width: 410px;
 }
 
 /* User Info: Avatar and Username */
@@ -746,23 +775,43 @@ input:focus{
 
 /* Post Content: Title and Text */
 .postContent {
-  font-size: 1.2rem;
-    flex-grow: 1; /* Allows the content to take up the remaining space */
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  height: auto;
+  width: auto;
+  padding: 1rem;
 }
 
 .postTitle {
-    font-size: 1.25em; /* Larger, bolder title */
+    font-size: 20px;
     font-weight: bold;
+    text-align: center;
     line-height: 1.2;
 }
 
 .postText {
-    font-size: 1em;
-    line-height: 1.4;
-    white-space: pre-wrap; /* Ensures text formatting like line breaks is preserved */
+    max-width: 400px;
+  max-height: 350px;
+  padding: 1rem;
+  border-radius: 1rem; /* Reduced: 3rem is too rounded for multi-line text */
+  border: 3px solid var(--translation-border);
+  background: var(--translation-bg-focus);
+  color: var(--translation-text);
+  font-size: 16px;
+  font-family: var(--font-main);
+  /* CHANGE 1: Align text left for better readability (unless posts are always short) */
+  text-align: left; 
+  transition: all 1s ease-in-out;
+  /* CHANGE 2: REMOVE or change this to 'auto' */
+  overflow-y: auto;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  /* ADD: Word-break property to handle extremely long URLs or words */
+  
+  outline: none;
+}
+
+.comments-section{
+  background: #e9f7ec14;
+  border-radius: 13px;
 }
 
 /* Post Footer (Metadata like date) */
@@ -777,140 +826,341 @@ input:focus{
     opacity: 0.6;
 }
 
+/*
+|--------------------------------------------------------------------------
+| 6. INPUTS, TEXTAREAS, & FORM AREAS
+|--------------------------------------------------------------------------
+| Styles for all form controls and their containing areas.
+*/
 
-@keyframes pulse-glow {
-  0% {
-    /* Subtle initial glow */
-    box-shadow: 0 0 5px var(--connect-glow), 0 0 10px var(--connect-glow-2);
-  }
-  50% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 10px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
-
-  }
-  80% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 15px var(--connect-glow-2), 0 0 20px var(--connect-glow-3), 0 0 35px var(--connect-glow);  
-  }
-  100% {
-    /* Return to initial state */
-    box-shadow: 0 0 30px var(--connect-glow-4), 0 0 25px var(--connect-glow);
-  }
+.translation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-@keyframes pulse-glow-result {
-  0% {
-    /* Subtle initial glow */
-    box-shadow: 0 0 1cqb var(--connect-glow), 0 0 10px var(--connect-glow);
-  }
-  20% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 20px var(--connect-glow), 0 0 20px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
+.translation-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 30px var(--card-glow-main);
+  padding: 3rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
 
-  }
-  50% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 40px var(--connect-glow), 0 0 40px var(--connect-glow-3), 0 0 45px var(--connect-glow-2);
-
-  }
-  80% {
-    /* Max glow state: wider blur and spread, potentially brighter color */
-    box-shadow: 0 0 25px var(--connect-glow-2), 0 0 30px var(--connect-glow-6), 0 0 35px var(--connect-glow-3);  
-  }
-  100% {
-    /* Return to initial state */
-    box-shadow: 0 0 10px var(--connect-glow-4), 0 0 25px var(--connect-glow);
-  }
+  animation: pulse-glow-sm 3s  infinite ease-in-out;
 }
 
 
-
-
-/*Themes*/
-
-html.theme-dark {
-  --page_bg: #14285e;
-  --card_bg: linear-gradient(90deg, #112250 0%, #112250 100%);
-  --card_bg_text: #a0dee5;
-  --theme_btn_text: #112250;
-  --theme_btn_bg: #a0dee5;
-  --btn_bg: #112250;
-  --btn_text: #a0dee5;
-  --translation-border: #a0dee5;
-
-  --translation-border-focus: #1B4;
-  --translation-bg: linear-gradient(182.5deg, #A0DEE5 -83.8%, #9ADEE6 27.83%, rgba(157, 222, 230, 0.73) 83.64%, #112250 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #A0DEE5 -83.8%, #9ADEE6 27.83%, #9DDEE6 83.64%, #112250 139.45%);
-
-
-  --translation-text: #112250;
-  --hover_bg: #6ed0db;
+.translation-result-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 3rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
+  animation: pulse-glow-result 2s infinite alternate ease-in-out;
 }
 
-html.theme-light {
+.translation-textarea {
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid var(--translation-border);
+  background-color: var(--translation-bg);
+  color: var(--translation-text);
+  font-size: 18px;
+  font-family: var(--font-main);
+  transition: all 1s ease;
+  overflow-y: hidden;
+}
 
-  /* page colors */
-  --page_bg: #f0f9fb;
+.translation-textarea:hover {
+  border-color: var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+  border: 4px solid var(--translation-border);
+}
 
-  /* card colors */
-  --card_bg: linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
-  --card_focus: linear-gradient(90deg, #A0DEE5 0%, #BDF9A5 100%);
-  --card_bg_text: #112250;
+.translation-textarea:focus {
+  outline: none;
+  background: var(--translation-bg-focus);
+  border-color: var(--translation-border-focus);
+  border: 5px solid var(--translation-border);
+  box-shadow: 0 0 20px var(--card-glow);
+  padding: 1rem;
+}
 
-  --insights_card_bg: linear-gradient(177.28deg, #97dae296 -64.79%, #a0dee5a8 22.36%, #7cf44de7 230.53%);
-  --insights_card_focus: linear-gradient(177.28deg, #97DBE2 -64.79%, #A0DEE5 22.36%, #5bfc16 230.53%);
+.post-textarea {
+  min-height: 200px;
+  min-width: 500px;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid var(--translation-border);
+  background-color: var(--translation-bg);
+  color: var(--translation-text);
+  font-size: 20px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  overflow-y: hidden;
+}
 
-  /* button colors */
-  --theme_btn_text: #a0dee5;
-  --theme_btn_text: #112250;
-  --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7BE2EE 116.12%);
-  --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
-  --btn_border: #c8eaba;
-  --btn_border_focus: #7dc6769c;
-  --btn-glow:#65d25bc6;
-  /* translation box colors */
-  --translation-border: #BDF9A5;
-  --translation-border-focus: #91eb889c;
-  --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-  --translation-text: #112250;
+.post-textarea:hover {
+  border-color: var(--translation-border);
+  box-shadow: 0 0 15px var(--card-glow);
+  border: 4px solid var(--translation-border);
+}
 
-  --translation-area-bg:#9bdce3;
+.post-textarea:focus {
+  outline: none;
+  background: var(--translation-bg-focus);
+  border-color: var(--translation-border-focus);
+  border: 5px solid var(--translation-border);
+  box-shadow: 0 0 20px var(--card-glow);
+  min-height: 200px;
+  min-width: 550px;
+}
 
-  --translation-result-border: #BDF9A5;
-  --translation-result-border-focus: #91eb889c;
-  --translation-result-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-result-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-  --translation-result-text: #112250;
+.translation-resultarea{
+  height: auto;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid var(--translation-border);
+  background: var(--translation-bg-focus);
+  color: var(--translation-text);
+  font-size: 18px;
+  font-family: var(--font-main);
+  text-align: center;
+  transition: all 1s ease-in-out;
+  overflow-y: hidden;
+  outline: none;
+}
 
-  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%);
+.image-input{
+  background-color: var(--translation-area-bg);
+  box-shadow: 0px 0px 10px var(--card-glow-sec);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 2.3s ease;
+}
 
-  --dropdown-bg: #a0dee5;
-  --hover_bg: #28334f;
+/* General Input Focus Override */
+input:focus{
+ outline: #5bfc16;
+ outline-width: 10rem;
+}
 
-  --card-glow: #c3ebeb;
-  --card-glow-main:  #8bd5f3;
-  --card-glow-sec:#98f4f3;
+/* Login/Signup Forms */
+.login{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 2.3s ease;
+}
 
+.login input{
+  background: var(--card-bg);
+  padding: 10px;
+  border-radius: 10px;
+}
 
-  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
-  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
+.login input:focus{
+  background: var(--input-bg-focus);
+}
 
-  --connect-glow: #a1ebf7;
-  --connect-glow-2: #cae6ea;
-  --connect-glow-3: #dee4e5;
-  --connect-glow-4: #a2f5b7;
-  --connect-glow-5: #90e19d;
-  --connect-glow-6: #7befce;
+.signup{
+  background: var(--translation-area-bg);
+  box-shadow: 1px 1px 25px var(--card-glow-sec);
+  padding: 4rem;
+  border-radius: 1rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+  border: none;
+  transition: all 1.5s ease;
+}
 
-  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
-  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
-  --upgrade-text: #1B4B17;
-  --upgrade-glow:#215f1c;
+.signup input{
+  background: var(--card-bg);
+  padding: 10px;
+  border-radius: 10px;
+}
 
+.signup input:focus{
+  background: var(--input-bg-focus);
+}
 
-  --connect-post: linear-gradient(311.54deg, #a0e8fa -0.83%, #A0DEE5 33.38%, #bff2df 82.29%, #ABFF89 125.23%);
-  --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
+.modal-card input{
+  background: var(--card-bg);
+  padding: 10px;
+  font-size: 20px;
+  font-family: var(--font-main);
+  border-radius: 10px;
+}
+
+.modal-card input:focus{
+  background: var(--input-bg-focus);
+}
+
+/*
+|--------------------------------------------------------------------------
+| 7. BUTTONS & CONTROLS
+|--------------------------------------------------------------------------
+| Styles for all buttons, toggles, and interactive elements.
+*/
+
+.btn {
+  background: var(--btn_bg);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 5px 2px var(--btn-glow);
+  border: 2px solid var(--btn_border);
+  padding: 1rem 2rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  transition: all 1s ease-in-out;
+  outline: none;
+  border: none;
+}
+
+.btn-nav {
+  background: var(--btn_bg_nav);
+  border-radius: 0.8rem;
+  border: 2px solid var(--btn_border);
+  padding: 1rem 2rem ;
+  font-size: 18px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  transition: all 1s ease-in-out;
+  outline: none;
+  border: none;
+}
+
+.btn:hover {
+  box-shadow: 0 0 10px 5px var(--btn-glow);
+}
+
+.translate_btn {
+  background-color: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--btn_text);
+  padding: 1rem 2rem;
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  color: var(--btn_text);
+  outline: none;
+  transition: all 1.3s ease;
+}
+
+.translate_btn:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 15px var(--card-glow);
+}
+
+.translate_btn:hover {
+  background: var(--btn_bg-focus);
+  box-shadow: 0 0 10px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);
+}
+
+.feedback_btn {
+  background: var(--btn_bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--btn_text);
+  padding: 1rem 2rem;
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  color: var(--btn_text);
+  outline: none;
+  transition: all 1.5s ease;
+}
+
+.feedback_btn:focus {
+  background: var(--btn_bg-focus);
+  border: 3px solid var(--btn_border_focus);
+  box-shadow: 0 0 10px var(--card-glow);
+}
+
+.feedback_btn:hover {
+  background: var(--btn_bg-focus);
+  box-shadow: 0 0 5px var(--card-glow);
+  border: 2px solid var(--btn_border_focus);
+}
+
+.pttbtn {
+  border: #112250 solid 0.3rem;
+  background: transparent;
+  border-radius: 0.8rem;
+  padding: 1rem 4rem;
+}
+
+.pttbtn-text {
+  font-size: 54px;
+  font-family: var(--font-main);
+  color: #112250;
+  font-weight: 900;
+  letter-spacing: 0%;
+}
+
+.pttbtn-icon {
+  height: 50px;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  background: var(--theme_btn_bg);
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--theme_btn_text);
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+.likebtn {
+  font-size: 20px;
+  color: var(--btn_text);
+}
+
+.label {
+  background: var(--btn_bg);
+  border-radius: 0.8rem;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: var(--btn_text);
+  padding: 0.6rem 0.5rem 0.6rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 8. NAVIGATION, PROFILE & DROPDOWNS
+|--------------------------------------------------------------------------
+| Styles for avatars, menu items, and profile drop-down functionality.
+*/
+
+.profile-image {
+  border-radius: 5rem;
+  border: 5px solid var(--btn_border);
+  transition: all 1.3s ease;
+}
+
+.profile-btn {
+  border: 2px solid var(--btn_text);
+  padding: 0.5rem;
+  color: var(--btn_text);
 }
 
 

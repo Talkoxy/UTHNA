@@ -130,6 +130,7 @@ const CreateConnectPostModal = () => {
                         setConnectText(e.target.value);
                         autoGrowTextArea(e.target);
                     }}
+                    
                     />
                 </div>
 
