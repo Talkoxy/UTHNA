@@ -28,6 +28,29 @@ class ConnectComment(models.Model):
     
 
     text = models.TextField() 
+
+    
     
     def __str__(self):
         return f"Comment by {self.created_by.username} on {self.post.title[:20]}"
+    
+
+
+
+class Comment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    connect = models.ForeignKey(ConnectPost, related_name='connect_comments', on_delete=models.CASCADE)
+    
+    author = models.ForeignKey(
+        User,
+        related_name='connect_comments',
+        on_delete=models.CASCADE,
+        
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    text = models.TextField() 
+    
+    def __str__(self):
+        
+        return f"Comment by {self.author.username} on {self.post.title[:20]}"

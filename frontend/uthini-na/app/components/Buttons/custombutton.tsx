@@ -6,7 +6,7 @@ interface CustombtnProps{
     label?: string | React.ReactNode;
     icon?: React.ReactNode;
     className?: string;
-    onClick?: () => void;
+    onClick?: () => void ;
     disabled?: boolean;
 }
 

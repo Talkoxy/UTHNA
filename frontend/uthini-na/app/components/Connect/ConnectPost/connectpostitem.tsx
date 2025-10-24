@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { useEffect, useState, useCallback } from 'react'; // Added useCallback
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
-import { CommentIcon } from '../../icons';
-import Likebtn from '../../Buttons/likebutton';
 
 
 interface ConnectPostsItemProps {
@@ -15,12 +13,41 @@ interface ConnectPostsItemProps {
 const ConnectPostItem: React.FC<ConnectPostsItemProps> = 
 ({connectpost}) => {
 
+    const formatTimeAgo = (isoString: string): string => {
+  const date = new Date(isoString);
+  
+  // Use a relative time formatter for a user-friendly display (e.g., "5 minutes ago")
+  // Or, use a simple date formatter if you prefer:
+  
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  
+  // Using toLocaleString for a local/user-friendly time display
+  return date.toLocaleString(undefined, options); 
+}
+
     // REMOVED: const [author, setAuthor] = useState(connectpost.author.id) - Use prop directly
 
     const[avatar, setAvatar] = useState<AvatarType>({
             id: '',
             image_url: ''
         });
+    const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+    const formattedDate = formatTimeAgo(connectpost.created_at);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    
+
+    const handleToggleComments = () => {
+        setIsCommentsOpen(prev => !prev);
+    };
+    
 
     // Wrapped in useCallback for dependency stability
     const getAvatar = useCallback(async (authorId: string) => {
@@ -53,7 +80,7 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
         {/* The main post container */}
         <div className='grid connect-post'> 
             {/* Top row for user info and post content */}
-            <div className='post-header'>
+            <div className='grid grid-flow-row place-items-center'>
                 {/* 1. USER INFO - Column 1 */}
                 <div className='place-items-center gap-2 userInfo'>
                     <div>
@@ -76,8 +103,12 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                         )}
                     </div>
                     <div className='username'>
-                        @{connectpost.author.username}
+                        {connectpost.author.username}
                     </div>
+                    <div className='pl-30'>
+                        <small className='text-gray-500 text-xs'>{formattedDate}</small>
+                    </div>
+
                 </div>
 
                 {/* 2. POST CONTENT - Column 2 */}
@@ -88,13 +119,12 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                     <div className='postText'> 
                          {connectpost.text}
                     </div>
+                    
                 </div>
-            </div>
-            <div className='place-items-center ml-80 post-actions grid grid-flow-col'>
-                <div>
-                    <CommentIcon/>
+
+                <div className='post-interactions grid grid-flow-col place-items-center gap-4'>
+                    
                 </div>
-                
             </div>
             
         </div>

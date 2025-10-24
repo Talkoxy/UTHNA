@@ -6,13 +6,12 @@ import ConnectPostItem from './connectpostitem';
 import CreateConnectPostButton from '../../Buttons/connect/addConnectPostbutton';
 
 
-
-
 export type ConnectPostsType= {
 
     id: string; 
     title: string;
     text: string;
+    created_at: string;
 
     author: {
         id :string;
@@ -22,6 +21,7 @@ export type ConnectPostsType= {
     }
     
 }
+
 
 interface ConnectPostsProps {
     user_id?: string | null;

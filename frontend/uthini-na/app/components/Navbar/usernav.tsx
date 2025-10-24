@@ -7,7 +7,6 @@ interface NavProps {
 }
 
 const UserNav:React.FC <NavProps>= ({userId}) => {
-
     return(
         <>
         {userId ?(

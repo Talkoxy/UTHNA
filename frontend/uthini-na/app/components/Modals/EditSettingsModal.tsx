@@ -106,38 +106,61 @@ const EditSettingsModal = () => {
             <div className="grid gap-4 card">
 
                 {/* Language Fields */}
-                <input
-                    type="text"
+                <div className="grid grid-flow-row gap-2 ">
+                    <select
+                    className="dropmenu"
                     value={userPrefferedSourceLanguage}
                     onChange={(e) => setUserPrefferedSourceLanguage(e.target.value)}
-                    placeholder="Preferred Source Language"
-                    className="input input-bordered"
-                />
+                >
+                    <option value="">I like translating From</option>
+        
+                    <option value="Xhosa">Xhosa</option>
+                    <option value="English">English</option>
+                    <option value="Afrikaans">Afrikaans</option>
+                    
+                </select>
 
-                <input
-                    type="text"
+                <select
+                    className="dropmenu"
                     value={userPrefferedTargetLanguage}
                     onChange={(e) => setUserPrefferedTargetLanguage(e.target.value)}
-                    placeholder="Preferred Target Language"
-                    className="input input-bordered"
-                />
+                >
+                   <option value="">I like translating To</option>
+        
+                    <option value="Xhosa">Xhosa</option>
+                    <option value="English">English</option>
+                    <option value="Afrikaans">Afrikaans</option>
+                    
+                </select>
+
+                    
+                </div>
+
 
                 {/* Status/Visibility Fields (could be dropdowns in a real app) */}
-                <input
-                    type="text"
-                    value={subscriptionStatus}
-                    onChange={(e) => setSubscriptionStatus(e.target.value)}
-                    placeholder="Subscription Status"
-                    className="input input-bordered"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                    <select
+                        className="dropmenu"
+                        value={profileVisibility}
+                        onChange={(e) => setProfileVisibility(e.target.value)}
+                    >
+                        <option value="">Profile visibility </option>
+                        <option value="Private">Private</option>
+                        <option value="Public">Public</option>
+                        
+                    </select>
 
-                <input
-                    type="text"
-                    value={profileVisibility}
-                    onChange={(e) => setProfileVisibility(e.target.value)}
-                    placeholder="Profile Visibility"
-                    className="input input-bordered"
-                />
+                    <select
+                        className="dropmenu"
+                        value={subscriptionStatus}
+                        onChange={(e) => setSubscriptionStatus(e.target.value)}
+                    >
+                        <option value="">Subscription Type </option>
+
+                        <option value="Beta-Tester">Free</option>
+                        
+                    </select>
+                </div>
 
                 <Custombtn label='Save Settings' onClick={submitSettings}/>
 

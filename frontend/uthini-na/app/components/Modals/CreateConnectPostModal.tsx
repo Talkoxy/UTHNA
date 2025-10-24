@@ -1,10 +1,11 @@
-'use client'
+"use client"
 import apiService from "@/app/services/apiService";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState,ChangeEvent, useCallback } from "react";
 import Modal from "./Modal";
 import Custombtn from "../Buttons/custombutton";
 import useCreateConnectPostModal from "../Hooks/useCreateConnectPostModal";
-// Removed unused 'ChangeEvent' import
+// Removed unused 'Image' import
+// import Image from "next/image";
 
 
 const CreateConnectPostModal = () => {
@@ -59,64 +60,46 @@ const CreateConnectPostModal = () => {
                
         try {
             
-            const response: unknown = await apiService.post('/api/connect/createpost/', payload);
+            const response = await apiService.post('/api/connect/createpost/', payload);
             
             
-            // Check if response is a valid object before accessing properties
-            if (typeof response === 'object' && response !== null) {
-                const serverResponse = response as { success?: boolean; id?: string; errors?: Record<string, unknown> };
-
-                if (serverResponse.success || serverResponse.id) { 
-                    
-                    // --- REAL-TIME FIX IMPLEMENTATION ---
-                    // 1. Execute the stored refresh callback to update the parent list
-                    if (createConnectPostModal.refreshCallback) {
-                        createConnectPostModal.refreshCallback();
-                    }
-                    // --- END REAL-TIME FIX ---
-
-                    setSuccess(['Post created successfully!']);
-                    setIsSuccess(true);
-                    
-                    // Clear inputs after success
-                    setConnectTitle('');
-                    setConnectText('');
-
-                    setTimeout(() => {
-                        setIsSuccess(false);
-                        setSuccess([]);
-                        createConnectPostModal.close(); // Close modal after success
-                    }, 2500); 
-                } 
+            if (response && (response.success || response.id)) { 
                 
+                setSuccess(['Post created successfully!']);
+                setIsSuccess(true);
                 
-                else {
-                    // Handle API server-side errors
-                    const responseErrors = serverResponse.errors || serverResponse;
-                    // Use `unknown` type for safety when mapping server errors
-                    const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: unknown) => {
-                        return Array.isArray(error) ? String(error[0]) : String(error);
-                    });
+                setTimeout(() => {
+                    setIsSuccess(false);
+                    setSuccess([]);
+                    createConnectPostModal.close();
+                }, 2500); // 2.5 seconds delay allows the user to see the success message
+            } 
+            
+            
+            else {
+                // Assuming server errors are returned directly in the response object
+                const responseErrors = response.errors || response;
+                const tmpErrors: string[] = Object.values(responseErrors).flat().map((error: any) => {
+                     // Attempt to show field name with error
+                    return Array.isArray(error) ? error[0] : String(error);
+                });
 
-                    setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
-                    setIsError(true);
-                }
-            } else {
-                 setErrors(["Post failed: Invalid server response format."]);
-                 setIsError(true);
+                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                setIsError(true);
             }
 
 
-        } catch (error) { // Catch block cleanup
+        } catch (error: any) {
+            // 6. Network/API Service Errors
             console.error("Error submitting Connect Post:", error);
             
             let errorMessages = ["An unexpected network error occurred."];
 
-             if (error instanceof Error) {
+             if (error.message) {
                  errorMessages = [error.message];
-            } else {
-                // Handle non-Error network failures (e.g., from apiService)
-                errorMessages = ["An unexpected error occurred. Check your network connection."];
+            } else if (error.errors) {
+                 // If the error object contains nested server validation errors
+                errorMessages = Object.values(error.errors).flat().map((e: any) => String(e));
             }
 
             setErrors(errorMessages);
@@ -132,23 +115,22 @@ const CreateConnectPostModal = () => {
 
                 <div className="grid gap-2">
                     <input 
-                    className="input input-bordered w-full"
+                    className=""
                     value={connectTitle}
                     onChange={(e) => setConnectTitle(e.target.value)}
                     placeholder="Title"
                     />
 
                     <textarea
-                    className="post-textarea textarea textarea-bordered w-full resize-none"
+                    className="post-textarea"
                     placeholder="Type your post"
                     id="originalText"
                     value={connectText}
                     onChange={(e) => {
                         setConnectText(e.target.value);
-                        // Auto-grow function is safe to call here
-                        if (e.target) autoGrowTextArea(e.target);
+                        autoGrowTextArea(e.target);
                     }}
-                    rows={4} // Default rows
+                    
                     />
                 </div>
 
@@ -160,7 +142,7 @@ const CreateConnectPostModal = () => {
                 
 
                 {isSuccess && 
-                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md mt-4">
+                    <div className="success-message p-3 bg-green-100 text-green-700 rounded-md">
                         {success.map((msg, index) => (
                             <div key={`success_${index}`}>{msg}</div>
                         ))}
@@ -168,9 +150,8 @@ const CreateConnectPostModal = () => {
                 }
             </div>
 
-            {/* FIX: Using isError for consistency and to eliminate the warning */}
-            {isError && errors.length > 0 && (
-                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md mt-4">
+            {errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
                     {errors.map((error, index) => (
                         <div key={`error_${index}`}>{error}</div>
                     ))}
