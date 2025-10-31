@@ -40,6 +40,7 @@ class UserRegistrationSerializer(serializers.Serializer):
     
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
+
         if email and User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
                 "A user is already registered with this e-mail address. backend"
@@ -87,13 +88,32 @@ class UserLoginSerializer(serializers.Serializer):
         password = data.get('password')
         
         if not email or not password:
-            raise serializers.ValidationError("Both email and password are required")
+            # Error 1: Missing field(s) (can be handled by default fields if preferred)
+            # Keeping for explicit check
+            raise serializers.ValidationError(
+                {"detail": "Both email and password are required"}, 
+                code="REQUIRED_FIELDS_MISSING"
+            )
+
         
         user = User.objects.filter(email=email).first()
         
-        if user and user.check_password(password):
-            return {'user': user}
-        raise serializers.ValidationError("Invalid credentials")
+        if not user:
+            # Error 2: Account not registered (User not found)
+            # This directly addresses your suspicion of an unregistered account
+            raise serializers.ValidationError(
+                {"detail": "No account found with that email address."},
+                code="USER_NOT_FOUND"
+            )
+
+        if not user.check_password(password):
+            # Error 3: Wrong password
+            raise serializers.ValidationError(
+                {"detail": "The password entered is incorrect."},
+                code="INVALID_PASSWORD"
+            )
+
+
     
 class UserImageSerializer(serializers.ModelSerializer):
     class Meta:

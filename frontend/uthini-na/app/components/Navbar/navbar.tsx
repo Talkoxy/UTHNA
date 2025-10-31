@@ -19,7 +19,7 @@ const Navbar = async () => {
     
     return (
         <nav className="lightmode-nav w-full fixed top-0 left-0 z-10 p-4 ">
-            <div className="grid grid-flow-col place-items-center md:gap-50">
+            <div className="grid grid-cols-3 place-items-center md:gap-50">
                 <div>
                     <Link href={'/'} >
                         <Image 
@@ -32,7 +32,7 @@ const Navbar = async () => {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-3 md:gap-20 "> {/* Adjusted grid for 3 items */}
+                <div className="grid grid-cols-3 place-items-center md:gap-20 "> {/* Adjusted grid for 3 items */}
 
                     <div>
                         <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
@@ -47,7 +47,8 @@ const Navbar = async () => {
                     </div>
 
                 </div>
-                <div>
+
+                <div className="place-items-center">
                     <UserNav userId={user_id}/>
                 </div>
 

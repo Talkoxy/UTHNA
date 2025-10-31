@@ -19,6 +19,19 @@ const Login = () => {
         // Clear previous errors
         setErrors([]); 
 
+
+        
+
+        if ( !email ) {
+        setErrors(["Email is required."]);
+        return;
+        }
+
+        if ( !password ) {
+        setErrors(["Password is required."]);
+        return;
+        }
+
         const formData = {
             email: email,
             password: password,
@@ -56,7 +69,7 @@ const Login = () => {
             // Network or unexpected error
             console.error("Error submitting login:", error);
             
-            let errorMessages = ["An unexpected network error occurred. Please check your connection."];
+            let errorMessages = ["Unable to find this user, please check login details."];
 
             if (error instanceof Error) {
                 errorMessages = [error.message];
@@ -67,58 +80,61 @@ const Login = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 place-items-center fixed inset-0 p-50">
-                <div className="grid gap-8 login">
-                    <div className="grid gap-5">
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email"
-                        />
+        
+    <div className="grid h-screen place-items-center">
+    {/* Outer Container: Grid fills the viewport height (h-screen) and centers everything within it. */}
 
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Password"
-                        />
+    <div className="grid login">
 
-                        <div className="p-2">
-                            {errors.length > 0 && (
-                            <div className="grid gap-2">
-                                {errors.map((error, index) => (
-                                    <div key={`error_${index}`} className="error-message">
-                                    {error}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-
-
+        {/* Error Message Display Area */}
+            <div className="p-2">
+                {/* min-h- to prevent layout shift when errors appear/disappear */}
+                {errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
+                    {errors.map((error, index) => (
+                        <div key={`error_${index}`} className="text-sm">
+                            {error}
                         </div>
-
-
-                        
-
-                        <Custombtn
-                            label='Log-in'
-                            onClick={submitLogin}
-                            
-                        />
-                    </div>
-
+                    ))}
                 </div>
-
-                <p className="md:text-center text-xs md:text-md text-subtitle mt-4">
-                   
-                    Don&apos;t have an account?{" "} 
-                    <Link href="/signup" className="text-bg-accent hover:underline">
-                        Sign up here
-                    </Link>
-                </p>
+            )}
             </div>
+        {/* Main Login Form Content: Vertically stacked elements */}
+        
+        <div className="grid place-items-center gap-2 p-2 pb-4">
+            {/* Input Fields */}
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                
+            />
+
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                
+            />
+        </div>
+
+        {/* Login Button */}
+                <Custombtn
+                    label='Log-in'
+                    onClick={submitLogin}
+                />
+        
+        {/* Link to Signup */}
+        <p className="text-center text-sm text-gray-600 mt-2">
+            Don&apos;t have an account?{" "} 
+            <Link href="/signup" className="text-blue-600 hover:underline">
+                Sign up here
+            </Link>
+        </p>
+    </div>
+</div>
     );
 };
 

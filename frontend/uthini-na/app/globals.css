@@ -44,11 +44,11 @@
 
   /* button colors */
   --theme_btn_text: #112250;
-  --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7BE2EE 116.12%);
+  --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7be2ee50 116.12%);
   --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
   --btn_border: #c8eaba;
   --btn_border_focus: #7dc6769c;
-  --btn-glow:#65d25bc6;
+  --btn-glow:#1c3c1a4d;
   --btn_bg_nav:#5bc4e462;
 
   /* translation box colors */
@@ -57,7 +57,7 @@
   --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
   --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
   --translation-text: #112250;
-  --translation-area-bg:#9bdce3;
+  --translation-area-bg:#9bdce3f8;
 
   --translation-result-border: #BDF9A5;
   --translation-result-border-focus: #91eb889c;
@@ -560,7 +560,7 @@ input:focus{
   box-shadow: 1px 1px 25px var(--card-glow-sec);
   padding: 4rem;
   border-radius: 1rem;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   border: none;
@@ -599,10 +599,9 @@ input:focus{
 .btn {
   background: var(--btn_bg);
   border-radius: 0.8rem;
-  box-shadow: 0 0 5px 2px var(--btn-glow);
-  border: 2px solid var(--btn_border);
+  box-shadow: 0 0 15px 2px var(--btn-glow);
   padding: 1rem 2rem;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--btn_text);
   transition: all 1s ease-in-out;
@@ -613,9 +612,8 @@ input:focus{
 .btn-nav {
   background: var(--btn_bg_nav);
   border-radius: 0.8rem;
-  border: 2px solid var(--btn_border);
-  padding: 1rem 2rem ;
-  font-size: 18px;
+  padding: 1rem  ;
+  font-size: 15px;
   font-family: var(--font-main);
   color: var(--btn_text);
   transition: all 1s ease-in-out;
@@ -631,7 +629,7 @@ input:focus{
     padding: 3rem;
 }
 .btn :hover {
-  box-shadow: 0 0 10px 5px var(--btn-glow);
+  box-shadow: 0 0 15px 5px var(--btn-glow);
 }
 
 .translate_btn {
@@ -761,7 +759,7 @@ input:focus{
 
 .navbar-item{
   cursor: pointer;
-  font-size: 18px;
+  font-size: 13px;
   font-family: var(--font-main);
   color: var(--btn_text);
 }
@@ -1506,6 +1504,9 @@ html.theme-dark {
 }
 
 .error-message {
+
+  max-width: 300px;
+  overflow: hidden;
   color: #5e2d2dce;
   font-family: var(--font-secondary);
   font-size: 18px;
@@ -1608,6 +1609,10 @@ html.theme-dark {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .signup, .login {
+    padding: 2rem;
+    font-size: 13px;
+  }
   .translation-saves {
     width: 95vw;
     padding: 1rem;

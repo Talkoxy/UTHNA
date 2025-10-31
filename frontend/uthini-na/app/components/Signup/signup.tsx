@@ -31,6 +31,10 @@ const Signup = () => {
         setErrors(["Passwords do not match."]);
         return;
     }
+    if (password.length < 8 && password.length > 1) {
+        setErrors(["Password must be at least 8 characters long. with one uppercase letter, one lowercase letter, one number, and one special character."]);
+        return;
+    }
     if (!username || !email || !password || !password2) {
         setErrors(["All fields are required."]);
         return;
@@ -46,7 +50,7 @@ const Signup = () => {
     
     try {
         
-        const response: unknown = await apiService.postFormDataWithoutToken('/api/auth/register/', formData); 
+        const response = await apiService.postFormDataWithoutToken('/api/auth/register/', formData); 
       
         // Type guard and assertion
         if (typeof response === 'object' && response !== null && 'access' in response) {
@@ -57,11 +61,10 @@ const Signup = () => {
             createSettingsModal.open();
             
         } else {
-            // Handle server-side validation errors
-            // Safely map and flatten the response object (which contains the errors)
-            const tmpErrors: string[] = Object.values(response || {}).flat().map((errorValue: unknown) => {
-                return Array.isArray(errorValue) ? String(errorValue[0]) : String(errorValue);
-            }).filter(msg => msg !== 'undefined' && msg.length > 0); // Filter out empty/undefined strings
+            
+            const tmpErrors: string[] = Object.values(response).map((error: any) =>{
+                return error;
+            } )
 
             setErrors(tmpErrors.length > 0 ? tmpErrors : ["Registration failed due to a server error."]);
         }
@@ -78,69 +81,77 @@ const Signup = () => {
   
 
   return (
-    <div className="grid place-items-center fixed inset-0 p-50">
-      <div className="grid gap-8 signup">
+    <div className="grid h-screen place-items-center">
+    {/* Outer Container: Grid fills the viewport height (h-screen) and centers everything within it. */}
+    <div className="grid gap-6 p-6 shadow-xl signup">
+
+      {/* Errors and Button (Aligned below the inputs) */}
+        <div className="grid gap-4">
+            {/* Error Message Display */}
+            {errors.length > 0 && (
+                <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
+                    {errors.map((error, index) => (
+                        <div key={`error_${index}`} className="text-sm">
+                            {error}
+                        </div>
+                    ))}
+                </div>
+            )}
+        {/* Main Form Content: Uses grid for vertical stacking with gap */}
+
+        {/* 1. Textual Data Inputs Column (A simple vertical stack) */}
+        <div className="grid place-items-center gap-2">
+            <input
+                value={username}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Username"
+                
+            />
+
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                
+            />
+
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                
+            />
+
+            <input
+                type="password"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                placeholder="Re-enter password"
+                
+            />
+        </div>
+
+
         
-       
-            
-            {/* 1. Textual Data Inputs Column */}
-            <div className="grid gap-2 order-last md:order-first">
-                <input
-                    value={username}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Username"
-                />
 
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                />
-
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
-
-                <input
-                    type="password"
-                    value={password2}
-                    onChange={(e) => setPassword2(e.target.value)}
-                    placeholder="Re-enter password"
-                />
-            </div>
-             
+            {/* Custom Button */}
+            <Custombtn
+                label='Sign-up'
+                onClick={submitSignup}
+            />
+        </div>
         
-        {/* Errors and Button (span both columns) */}
-        {errors.length > 0 && (
-          <div className="grid gap-2 p-3 bg-red-100 text-red-700 rounded-md">
-            {errors.map((error, index) => (
-              <div key={`error_${index}`} className="error-message">
-                {error}
-              </div>
-            ))}
-          </div>
-        )}
-        
-        <Custombtn
-          label='Sign-up'
-          onClick={submitSignup}
-        />
-
-      </div>
-
-
-      <div className="text-center text-subtitle mt-4">
-        Already have an account?{" "}
-        <Link href="/login" className=" hover:underline">
-          Login here
-        </Link>
-      </div>
-
+        {/* Link to Login */}
+        <div className="text-center text-sm text-gray-600 mt-2">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-600 hover:underline">
+                Login here
+            </Link>
+        </div>
     </div>
+</div>
   );
 }
 

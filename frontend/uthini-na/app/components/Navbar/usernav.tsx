@@ -14,9 +14,19 @@ const UserNav:React.FC <NavProps>= ({userId}) => {
                     <ToProfileButton />
                 </div>
                 ) : (
-                    <Link href="/login">
+                    <div className="grid grid-flow-col gap-4 place-items-center">
+                        <Link href="/login">
                         <div className="btn-nav">Login</div>
-                    </Link>
+                        </Link>
+                        <div>/</div>
+                        <Link href="/signup">
+                        <div className="btn-nav">Sign-up</div>
+                        </Link>
+                    
+                    </div>
+                    
+                    
+
                 
                 )}
 

@@ -19,7 +19,7 @@ const ProceedToTranslatebtn: React.FC<proceedToTranslateProps > = ({label, class
                     {label}
                 </div>
 
-                <div className="grid grid-rows-3 place-items-center pttbtn-icon padding-2">
+                <div className="grid grid-rows-3 place-items-center pttbtn-icon p-2">
                     {icon}
                 </div>
             </div>
