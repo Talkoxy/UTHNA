@@ -39,15 +39,15 @@ const Modal: React.FC<ModalProps> = ({ label, close, isOpen, content }) => {
             <div className="relative w-[90%] md:w-[80%] lg:w-[700px] my-6 mx-auto">
                 <div className={`translate duration-600 h-full ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-10'}`}>
                     <div className="w-full h-auto rounded-xl relative flex flex-col border-b-2 ">
-                        <header className="h-[60px] flex items-center  rounded-t justify-center relative border-b">
-                                <div onClick={handleClose} className=" absolute left-3 cursor-pointer">
-                                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <header className="h-[60px] flex items-center  rounded-t justify-center relative border-b pb-5">
+                                <div onClick={handleClose} className=" absolute left-3 cursor-pointer exit-modal">
+                                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                                     </svg>
 
                                 </div>
 
-                                <h2 className="text-lg">{label}</h2>
+                                <h2 className="text-lg modal-title">{label}</h2>
                         </header>
                         <section className="">
                                 {content}

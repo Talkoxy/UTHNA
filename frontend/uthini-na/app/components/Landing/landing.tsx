@@ -2,33 +2,21 @@ import Custombtn from "../Buttons/custombutton";
 import ProceedToTranslateButton from "../Buttons/proceedtotranslate";
 import Logo from "./logo";
 import { TranslateIcon } from "../icons";
+import MMVV from "../mmvv/mmvv";
+
 
 
 const Landing = () => {
 
     return (
-        <div className="grid grid-flow-col col-span-4 justify-items-center items-center">
+        <div className="grid place-items-center scroll-landing">
             <div>
                 <Logo />
             </div>
-            <div className ="grid grid-flow-row col-span-3 gap-10 justify-items-center items-center">
 
-                <div>
-                    <Custombtn label="Login" link="/login"/>
-                </div>
-                <div>
-                     
-                    <Custombtn label="Signup" link="/signup"/>
-                    
-                </div>
-
-                <div className="pt-10">
-                    <ProceedToTranslateButton label= "Proceed To Translate" icon={<TranslateIcon/>} link={"/translate"} />
-                </div>
-
+            <div>
+                <MMVV/>
             </div>
-            
-            
         </div>
     );
 }

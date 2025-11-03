@@ -85,9 +85,9 @@ const CreateAvatarModal = () => {
 
             }catch(error: unknown){
 
-                console.error("Error submitting Connect Post:", error);
+                console.error("Error creating avatar:", error);
             
-                let errorMessages = ["An unexpected network error occurred."];
+                let errorMessages = ["An unexpected error occurred are you still logged in ?."];
 
                 if (error instanceof Error) {
                     errorMessages = [error.message];
@@ -106,17 +106,28 @@ const CreateAvatarModal = () => {
     
     const content =(
         <>
-            <div className="grid">
-                <div className="grid card">
-                    <input type="file" accept="image/*" onChange={setImage}/>
-                </div>
+            <div className="grid gap-10 place-items-center ">
+                <div className="grid image-upload">
+        <input 
+            type="file" 
+            accept="image/*" 
+            onChange={setImage} 
+            placeholder="Click to upload your Avatar" 
+            id="avatar-upload-input" // <--- 1. ADDED ID HERE
+            hidden
+        />
+        {/* 2. ADDED LABEL HERE */}
+        <label htmlFor="avatar-upload-input" className="upload-label">
+            Click to Upload Your Avatar! 🖼️
+        </label>
+    </div>
                 {dataImage && (
                     <div className=" w-[200px] h-[150px] relative">
                             <Image 
                                 fill
                                 alt="Uploaded project cover art"
                                 src={URL.createObjectURL(dataImage)}
-                                className=" p-2 w-full h-full object-cover rounded-xl"
+                                className="ip-2 w-full h-full object-cover rounded-xl"
                             />
                     </div>
                 )}

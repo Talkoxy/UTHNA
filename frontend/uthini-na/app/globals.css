@@ -55,7 +55,9 @@
   --translation-border: #BDF9A5;
   --translation-border-focus: #91eb889c;
   --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
+  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #c7f9a5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
+
+  --mmvv-bg: linear-gradient(182.5deg, #a2d5e6 -29.1%, #a5f2f9 29.16%, #8bffa4 65.54%, #A0DEE5 139.45%);
   --translation-text: #112250;
   --translation-area-bg:#9bdce3f8;
 
@@ -180,6 +182,19 @@
   background: #a0dee5;
 
 }
+.exit-modal{
+  background: var(--translation-area-bg);
+  padding: 0.5rem;
+
+  border-radius: 10rem;
+}
+
+.modal-title{
+  background: var(--translation-area-bg);
+  padding: 1rem 2rem;
+
+  border-radius: 8rem;
+}
 
 .glow {
   box-shadow: 1 1 8px var(--card-glow);
@@ -195,6 +210,18 @@
 .scroll {
     width: min(100%, 1200px);
     max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1.5rem;
+    padding: 3rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) var(--color-container);
+
+    transition: all 0.7s ease-in-out;
+}
+
+.scroll-landing {
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 1.5rem;
@@ -407,6 +434,33 @@
 | Styles for all form controls and their containing areas.
 */
 
+.image-upload {
+    /* Existing styles for the container */
+    background-color: var(--translation-area-bg);
+    padding: 1rem;
+    
+    /* Ensure the grid centers or aligns the label */
+    display: grid;
+    place-items: center; 
+}
+
+.upload-label {
+    /* Styles to make it look like a button */
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #3b82f6; /* A nice blue color */
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer; /* Very important for UX */
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.upload-label:hover {
+    background-color: #2563eb; /* Slightly darker on hover */
+}
+
 .translation-container {
   display: flex;
   flex-direction: column;
@@ -450,6 +504,34 @@
   font-family: var(--font-main);
   transition: all 1s ease;
   overflow-y: hidden;
+}
+
+.mmvv{
+  max-width: 1000px;
+  background: var(--mmvv-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 18px;
+  font-family: var(--font-main);
+
+}
+
+.mmvv-title{
+  font-size: 25px;
+  font-family: var(--font-main);
+  transition: all 1s ease;
+  overflow-y: hidden;
+}
+
+.mmvv-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 30px var(--card-glow-main);
+  padding: 3rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
+
+  animation: pulse-glow-sm 3s  infinite ease-in-out;
 }
 
 .translation-textarea:hover {
