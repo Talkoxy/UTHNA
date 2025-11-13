@@ -37,7 +37,7 @@ export default function RootLayout({
 
 
             <Navbar />
-          <div className="pt-16">
+          <div className="">
             {children}
           </div>
           <CreateAvatarModal/>

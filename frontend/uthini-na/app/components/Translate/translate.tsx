@@ -282,6 +282,14 @@ const Translate = () => {
                     
                 </div>
 
+                <div className='grid place-items-center pt-20'>
+                                    <Custombtn
+                                        label="Translate"
+                                        onClick={submitTranslate}
+                                        disabled={!originalText.trim() || !targetLang}
+                                    />
+                                </div>
+
                 
                 
             </div>

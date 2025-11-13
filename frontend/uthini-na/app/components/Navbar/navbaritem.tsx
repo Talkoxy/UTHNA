@@ -16,9 +16,9 @@ const NavbarItem: React.FC<NavbarItemProps> = ({label, className, onClick,icon,l
             {link ?(
             <Link href={String(link)}>
                 <div onClick={onClick} className={`cursor-pointer ${className}`}>
-                    <div className="place-items-center grid grid-flow-col">
+                    <div className="grid grid-flow-col place-items-center">
                         <div>
-                            <div className="navbar-item">
+                            <div className="navbar-label">
                                 {label}
                             </div>
                         </div>
@@ -39,7 +39,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({label, className, onClick,icon,l
             <div>
                 <div onClick={onClick} className={`cursor-pointer  ${className}`}>
                      <div className="place-items-center grid grid-flow-col">
-                        <div className="navbar-item">
+                        <div className="navbar-label">
                             {label}
                         </div>
                         

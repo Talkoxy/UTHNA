@@ -106,7 +106,7 @@ const CreateAvatarModal = () => {
     
     const content =(
         <>
-            <div className="grid gap-10 place-items-center ">
+            <div className="grid gap-10 place-items-center p-4">
                 <div className="grid image-upload">
         <input 
             type="file" 
@@ -117,8 +117,8 @@ const CreateAvatarModal = () => {
             hidden
         />
         {/* 2. ADDED LABEL HERE */}
-        <label htmlFor="avatar-upload-input" className="upload-label">
-            Click to Upload Your Avatar! 🖼️
+        <label htmlFor="avatar-upload-input">
+            Click to Upload Avatar
         </label>
     </div>
                 {dataImage && (

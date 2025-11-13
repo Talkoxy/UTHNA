@@ -11,13 +11,14 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'api.uthinina.app',
-        port: '',
-        pathname: '/**'
+        protocol: 'http', // Use 'http' for localhost
+        hostname: 'localhost',
+        port: '8000', // Specify the port
+        pathname: '/media/**', // If your images are always in /media/
       },
     ],
   },
+
 
   // CONFIGURATION FOR TURBOPACK WARNING
   // Fixes the "Detected multiple lockfiles" warning

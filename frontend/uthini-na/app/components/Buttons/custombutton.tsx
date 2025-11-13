@@ -15,7 +15,7 @@ const Custombtn: React.FC<CustombtnProps> = ({label, className, onClick,icon,lin
         <>
             {link ?(
             <Link href={String(link)}>
-                <div onClick={onClick} className={`cursor-pointer btn place-items-center ${className}`}>
+                <div onClick={onClick} className={`cursor-pointer btnav place-items-center ${className}`}>
                     <div className="items-center">
                         {label}
                         {icon}
@@ -25,7 +25,7 @@ const Custombtn: React.FC<CustombtnProps> = ({label, className, onClick,icon,lin
              </Link>
             ):(
             <div>
-                <div onClick={onClick} className={`cursor-pointer btn place-items-center ${className}`}>
+                <div onClick={onClick} className={`cursor-pointer btnav place-items-center ${className}`}>
                     <div className="items-center">
                         {label}
                         {icon}
