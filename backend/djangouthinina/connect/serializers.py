@@ -13,6 +13,10 @@ class ConnectPostSerializer(serializers.ModelSerializer):
             'title',
             'text',
             'image',
+            'tone',
+            'usage',
+            'language',
+            'meaning',
         ]
 
 
@@ -43,6 +47,10 @@ class ConnectPostDetailSerializer(serializers.ModelSerializer):
             'title',
             'text',
             'created_at',
+            'tone',
+            'usage',
+            'language',
+            'meaning',
         ]
 
     # 3. Implement the method to get the post's main image URL

@@ -27,22 +27,52 @@
 
 :root.theme-light  {
 
-  /* page colors */
-  --page_bg: #EAF5EF;
-  --page_bg_2:#F8FCFC;
+  /* --- General/Input Borders --- */
+  --input-border:#24a9746a;
 
+  /* --- Page & Background Colors --- */
+  --page_bg: #eaf4ef;
+  --page_bg_2:#F8FCFC;
   --mmvv_bg:#F8FCFC;
   --key_bg:#ecf6f5;
-
-  /* card colors */
+  --easy_bg: #e9f9f4;
+  --team_bg:#def3ed;
+  --connect_bg:#f4fcf9;
+  --gradient-bg: linear-gradient(180.84deg, #b5dee4 23.93%, #a9ed9acb 117.08%);
+  --gradient-bg_2: linear-gradient(180.84deg, #2691a3 23.93%, #6fba5ecb 117.08%);
+  --post_bg:#f5faf8;
+  --post_head_bg:#e3f5e3e8;
+  --translate_bg:#F8FCFC;
+  /* --- Card Colors & Gradients --- */
   --card_bg: linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
   --card_focus: linear-gradient(90deg, #A0DEE5 0%, #BDF9A5 100%);
-  --card_bg_text: #112250;
-
+  --card_bg_text: #112250; /* DARK PRIMARY TEXT */
   --insights_card_bg: linear-gradient(177.28deg, #97dae296 -64.79%, #a0dee5a8 22.36%, #7cf44de7 230.53%);
   --insights_card_focus: linear-gradient(177.28deg, #97DBE2 -64.79%, #A0DEE5 22.36%, #5bfc16 230.53%);
+  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
+  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
 
-  /* button colors */
+  /* --- Input/Text Area Backgrounds & Borders --- */
+  --input_bg:#f3f8f6;
+  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
+  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
+  
+
+  --translation_bg_text:#f6f8f7;
+  --translation_bg:#FFFFFF;
+  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #c7f9a5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
+  --translation-area-bg:#feffff;
+  --translation-border: #e6f6e0;
+  --translation-border-focus: #a9ecd9;
+  --translation-text: #112250; /* DARK PRIMARY TEXT */
+  /* Note: translation-result variables are duplicates of translation- ones, kept for clarity */
+  --translation-result-border: var(--translation-border);
+  --translation-result-border-focus: var(--translation-result-border-focus);
+  --translation-result-bg: var(--translation-bg);
+  --translation-result-bg-focus: var(--translation-bg-focus);
+  --translation-result-text: var(--translation-text);
+
+  /* --- Button Colors --- */
   --theme_btn_text: #112250;
   --btn_bg: linear-gradient(90.45deg, #BDF5FC -6.39%, #BFF1F7 22.74%, #CAFAFF 46.97%, #B9F0F6 80.65%, #C0EDF2 102.73%, #7be2ee50 116.12%);
   --btn_bg-focus: linear-gradient(84.69deg, #BDF5FC -1.39%, rgba(170, 235, 242, 0.935) 22.09%, rgba(160, 242, 251, 0.88) 49.13%, rgba(182, 241, 248, 0.921) 78.54%, #C0EDF2 101.91%, #7BE2EE 114.59%);
@@ -51,60 +81,33 @@
   --btn-glow:#1c3c1a4d;
   --btn_bg_nav:#5bc4e462;
 
-  /* translation box colors */
-  --translation-border: #BDF9A5;
-  --translation-border-focus: #91eb889c;
-  --translation-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #c7f9a5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-
-  --gradient-bg: linear-gradient(180.84deg, #b5dee4 23.93%, #a9ed9acb 117.08%);
-  --translation-text: #112250;
-  --translation-area-bg:#9bdce3f8;
-
-  --translation-result-border: #BDF9A5;
-  --translation-result-border-focus: #91eb889c;
-  --translation-result-bg: linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-  --translation-result-bg-focus: linear-gradient(182.5deg, #B7E8D2 -29.1%, #BDF9A5 29.16%, #AEFF8B 65.54%, #A0DEE5 139.45%);
-  --translation-result-text: #112250;
-  
-
-  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%);
-  --dropdown-bg: #a0dee5;
-  --hover_bg: #28334f;
-
-  --card-glow: #c3ebeb;
-  --card-glow-main:  #8bd5f3;
-  --card-glow-sec:#98f4f3;
-
-  --input-bg:linear-gradient(90deg, #a0dee5 0%, #a0dee5 100%);
-  --input-bg-focus:linear-gradient(182.5deg, #B7E8D2 -29.1%, rgba(189, 249, 165, 0.88) 29.16%, rgba(174, 255, 139, 0.83) 65.54%, #A0DEE5 139.45%);
-
+  /* --- Glow & Shadow Colors --- */
+  --card-glow: #edf8f8;
+  --card-glow-main:  #c2e6f5;
+  --card-glow-sec:#d5ebeb;
   --connect-glow: #a1ebf7;
   --connect-glow-2: #cae6ea;
   --connect-glow-3: #dee4e5;
-  --connect-glow-4: #a2f5b7;
+  --connect-glow-4: #d5f1dc;
   --connect-glow-5: #90e19d;
   --connect-glow-6: #7befce;
-
-  --premium-card: linear-gradient(143.55deg, #CEF2BF 8.29%, #A0DEE5 62.47%, #ACFF8B 113.16%);
-  --free-card: linear-gradient(160.27deg, #A0DEE5 49.28%, #CEF2BF 72.58%, #ACFF8B 106.39%);
-  --upgrade-text: #1B4B17;
   --upgrade-glow:#215f1c;
 
+  /* --- Other UI Elements --- */
+  --dropdown-bg: #a0dee5;
+  --hover_bg: #28334f;
+  --settings-item-bg: linear-gradient(90deg, #3a5458 0%, #1b555a 100%); /* DARK BLUE-GREEN */
+  --upgrade-text: #1B4B17;
   --connect-post: linear-gradient(311.54deg, #a0e8fa -0.83%, #A0DEE5 33.38%, #bff2df 82.29%, #ABFF89 125.23%);
   --connect-post-focus: linear-gradient(311.54deg, #A0FAC6 -0.83%, rgba(160, 222, 229, 0.81) 33.38%, rgba(191, 242, 201, 0.9) 82.29%, #ABFF89 125.23%);
-
   --font_undestated:#b6cdd2;
 }
-/* LANDING PAGE */
-
-
 
 /*
 |--------------------------------------------------------------------------
 | 3. ANIMATIONS
 |--------------------------------------------------------------------------
-| Defines CSS keyframe animations.
+| Defines CSS keyframe animations. (No changes needed, consistent)
 */
 
 @keyframes pulse-glow {
@@ -166,8 +169,6 @@
   0% {
     transform: rotateY(360deg);
   }
-
-
   40% {
     /* Optional: pause/slow down the spin midway for effect */
     transform: rotateY(45deg); 
@@ -176,7 +177,6 @@
     /* Optional: pause/slow down the spin midway for effect */
     transform: rotateY(-45deg); 
   }
-
   100% {
     transform: rotateY(0deg);
   }
@@ -191,20 +191,10 @@
 
 .page_bg {
   background: var(--page_bg);
-  overflow: hidden;
 }
 
-.container-3d {
-  /* Set the viewing distance for the 3D effect */
-  perspective: 1000px; 
-}
-
-
-.logo-landing{
-  width: 400px; 
-  height: 400px; 
-  
-  animation: spin3d 10s linear infinite;
+.connect_bg{
+  background: var(--connect_bg);
 }
 
 .landing-bg {
@@ -212,36 +202,55 @@
   overflow: hidden;
 }
 
+.translate_bg{
+  background: var(--translate_bg);
+}
+
 .lightmode-nav {
   background: #a0dee5;
-
-
-}
-.exit-modal{
-  background: var(--translation-area-bg);
-  padding: 0.5rem;
-
-  border-radius: 10rem;
 }
 
-.modal-title{
-  background: var(--translation-area-bg);
-  padding: 1rem 2rem;
-
-  border-radius: 8rem;
+.glass-nav {
+    /* Sets the transparency */
+    background-color: rgba(24, 182, 79, 0.222);
+    /* Creates the frosted blur effect */
+    backdrop-filter: blur(15px);
+    /* Adds a subtle border for definition */
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.glow {
-  box-shadow: 1 1 8px var(--card-glow);
-  border-radius: 2rem;
-  padding: 1rem;
+.container-3d {
+  /* Set the viewing distance for the 3D effect */
+  perspective: 1000px; 
 }
 
-.NavCenter{
+.logo-landing{
+  width: 400px; 
+  height: 400px; 
+  animation: spin3d 10s linear infinite;
+}
 
+.landing-section{
   font-family: var(--font-main);
-
+  white-space: normal;
+  text-align: center;
+  width: 100vw;
 }
+
+.landing-section h1{
+  font-size: 50px; /* INCREASED for consistency with other main headings (e.g., connect-card-heading) */
+  font-weight: 700;
+  color: var(--card_bg_text); /* Ensure high contrast */
+}
+
+.landing-section p{
+  font-size: 20px; /* Standardized to 20px body text */
+  font-weight: 300;
+  white-space: normal;
+  width: 650px;
+  color: var(--card_bg_text); /* Ensure high contrast */
+}
+
 .scroll {
     width: min(100%, 1200px);
     max-height: 80vh;
@@ -249,10 +258,9 @@
     overflow-x: hidden;
     border-radius: 1.5rem;
     padding: 3rem;
-
+    /* Scrollbar styling for Firefox */
     scrollbar-width: thin;
     scrollbar-color: var(--color-scrollbar) var(--color-container);
-
     transition: all 0.7s ease-in-out;
 }
 
@@ -260,12 +268,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 1.5rem;
-    padding: 3rem;
-
+    padding: 2rem;
     scrollbar-width: thin;
     scrollbar-color: var(--color-scrollbar) var(--color-container);
-
     transition: all 0.7s ease-in-out;
+    width: 100%;
 }
 
 .scroll-translation {
@@ -275,10 +282,9 @@
     overflow-x: hidden;
     border-radius: 1.5rem;
     padding: 2rem;
-
+    /* Scrollbar styling for Firefox */
     scrollbar-width: thin;
     scrollbar-color: var(--color-scrollbar) var(--color-container);
-
     transition: all 0.7s ease-in-out;
 }
 
@@ -289,17 +295,24 @@
   border: 1px solid #ccc;
 }
 
+
 /*
 |--------------------------------------------------------------------------
-| 5. CARDS & CONTAINERS (Non-Input)
+| 5. CARDS & CONTAINERS 
 |--------------------------------------------------------------------------
 | Styles for general UI boxes, modals, and specialized content cards.
 */
 
+.glow {
+  box-shadow: 1 1 8px var(--card-glow);
+  border-radius: 2rem;
+  padding: 1rem;
+}
+
 .card {
   border-radius: 1rem;
   background: var(--card_bg);
-  font-size: 15px;
+  font-size: 20px; /* Standardized body size */
   font-family: var(--font-main);
   padding: 5rem;
   color: var(--card_bg_text);
@@ -320,9 +333,43 @@
   transition: all 1.5s ease-in;
 }
 
+.exit-modal{
+  background: var(--translation-area-bg);
+  padding: 0.5rem;
+  border-radius: 10rem;
+}
+
+.modal-title{
+  background: var(--translation-area-bg);
+  padding: 1rem 2rem;
+  border-radius: 8rem;
+  font-size: 30px; /* Added size based on H2/H3 standard */
+  font-weight: 700;
+  color: var(--card_bg_text);
+  font-family: var(--font-main);
+}
+
+.insights_card {
+  background: var(--insights_card_bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  color: var(--card_bg_text);
+  font-size: 25px; /* Standardized to H2/H3 size */
+  font-family: var(--font-main);
+  font-weight: 800; /* Increased weight for importance */
+  letter-spacing: 0%;
+  transition: all 2s ease;
+}
+
+
+
+.insights_card:hover {
+  background: var(--insights_card_focus);
+}
+
 .saved_translation_card {
   background: linear-gradient(-164deg, #a0dee5 5%, #b5f49a 90%);
-  font-size: 18px;
+  font-size: 20px; /* Standardized body size */
   font-family: var(--font-main);
   padding: 1rem;
   color: var(--card_bg_text);
@@ -331,27 +378,11 @@
   border-radius: 0.8rem;
 }
 
-.insights_card {
-  background: var(--insights_card_bg);
-  padding: 1rem;
-  border-radius: 1rem;
-  color: var(--card_bg_text);
-  font-size: 15px;
-  font-family: var(--font-main);
-  font-weight: 900;
-  letter-spacing: 0%;
-  transition: all 2s ease;
-}
-
-.insights_card:hover {
-  background: var(--insights_card_focus);
-}
-
 .premium-card{
   border-radius: 1rem;
   background: var(--premium-card);
   box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
+  font-size: 40px; /* Slightly reduced from 50px but still large */
   font-family: var(--font-main);
   padding: 5rem;
   color: var(--card_bg_text);
@@ -366,7 +397,7 @@
   border-radius: 1rem;
   background: var(--free-card);
   box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
+  font-size: 40px; /* Slightly reduced from 50px but still large */
   font-family: var(--font-main);
   padding: 5rem;
   color: var(--card_bg_text);
@@ -378,26 +409,14 @@
 }
 
 .upgrade-text{
-  font-size: 15px;
+  font-size: 20px; /* Standardized body size */
   color: var(--upgrade-text);
+  font-weight: 600; /* Added weight for emphasis */
+  font-family: var(--font-main);
 }
 
 /* Social Post Component */
-.connect-post{
-  width: 500px;
-  padding: 1.5rem;
-  background: var(--connect-post);
-  border-radius: 1rem;
-  font-size: 18px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border: none;
-  transition: all 0.3s ease;
-  animation: pulse-glow 3.2s infinite alternate ease-in-out;
-}
+
 
 .post-header {
     padding-top: 1rem;
@@ -416,39 +435,56 @@
 }
 
 .avatar {
-    border-radius: 10%;
+    border-radius: 50%; /* Made round */
     object-fit: cover;
     margin-bottom: 0.5rem;
-    
 }
 
 .username {
-    font-size: 18px;
+    font-size: 15px; /* Standardized small text */
     text-align: center;
     font-weight: 500;
-    opacity: 0.4;
+    opacity: 0.7; /* Increased opacity for readability */
+    color: var(--card_bg_text); /* Explicit color for contrast */
+    font-family: var(--font-main);
 }
 
 .postContent {
-    font-size: 18px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    /* Combined styles */
+    height: auto;
+    width: auto;
+    padding: 1rem;
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.5rem; 
 }
 
 .postTitle {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 25px; /* Standardized H3 size */
+    font-weight: 700;
     text-align: center;
     line-height: 1.2;
+    color: var(--card_bg_text);
+    font-family: var(--font-main);
 }
 
 .postText {
-    font-size: 18px;
-    text-align: center;
-    line-height: 1.4;
-    white-space: pre-wrap;
+    max-width: 400px;
+    max-height: 350px;
+    padding: 1rem;
+    border-radius: 1rem; 
+    border: 3px solid var(--translation-border);
+    background: var(--translation-bg-focus);
+    color: var(--translation-text);
+    font-size: 18px; /* Standardized body text size */
+    font-family: var(--font-main);
+    text-align: left; 
+    transition: all 1s ease-in-out;
+    overflow-y: auto;
+    overflow-x: auto;
+    overflow-wrap: normal;
+    outline: none;
 }
 
 .postFooter {
@@ -457,135 +493,249 @@
 }
 
 .postDate {
-    font-size: 0.8em;
+    font-size: 15px; /* Standardized small text */
     color: var(--card_bg_text);
     opacity: 0.6;
+    font-family: var(--font-main);
 }
 
-/*
-|--------------------------------------------------------------------------
-| 6. INPUTS, TEXTAREAS, & FORM AREAS
-|--------------------------------------------------------------------------
-| Styles for all form controls and their containing areas.
-*/
-
-.image-upload {
-    /* Existing styles for the container */
-    background-color: var(--translation-area-bg);
-    padding: 1rem;
-    
-    /* Ensure the grid centers or aligns the label */
-    display: grid;
-    place-items: center; 
+.post-interactions{
+    background: #bbffd51c;
+    border-radius: 1rem; /* Standardized radius */
+    padding: 0.9rem;
+    margin-left: 20rem;
 }
 
-.upload-label {
-    /* Styles to make it look like a button */
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #3b82f6; /* A nice blue color */
-    color: white;
-    border-radius: 0.5rem;
-    cursor: pointer; /* Very important for UX */
-    font-weight: 600;
-    text-align: center;
-    transition: background-color 0.2s ease;
-}
-
-.upload-label:hover {
-    background-color: #2563eb; /* Slightly darker on hover */
-}
-
-.translation-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.translation-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 30px var(--card-glow-main);
-  padding: 3rem;
-  border-radius: 2rem;
-  transition: all 1.3s ease;
-  border: none;
-
-  animation: pulse-glow-sm 3s  infinite ease-in-out;
+.comments-section{
+  background: #e9f7ec14;
+  border-radius: 1rem; /* Standardized radius */
 }
 
 
-.translation-result-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 3rem;
-  border-radius: 2rem;
-  transition: all 1.3s ease;
-  border: none;
-  animation: pulse-glow-result 2s infinite alternate ease-in-out;
+/* Connect Card and Inputs */
+
+.connect-card{
+  display: grid;
+  background: var(--mmvv_bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--input-border);
 }
 
-.translation-textarea {
-  height: auto;
-  width: 100%;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid var(--translation-border);
-  background-color: var(--translation-bg);
-  color: var(--translation-text);
+
+.connect-card input{
+  background: var(--input_bg);
+  padding: 10px ; /* Increased padding for consistency */
+  border-radius: 8px; /* Standardized radius */
+  border: 1px solid var(--input-border);
+  width: 1000px;
+  font-size: 16px; /* Explicit font size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+}
+.connect-card textarea{
+  background: var(--input_bg);
+  padding: 10px ; /* Increased padding for consistency */
+  border: 1px solid var(--input-border);
+  border-radius: 8px; /* Standardized radius */
+  width: 1000px;
+  height: 110px;
+  font-size: 16px; /* Explicit font size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+}
+
+.connect-inputs{
+  padding: 2rem;
+  font-size: 18px; /* Standardized body size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text);
+}
+
+.connect-inputs h2{
+  font-size: 18px; /* Standardized body size */
+  font-family: var(--font-main);
+  font-weight: 550;
+  color: var(--card_bg_text);
+}
+
+.connect-card-heading p{
+  font-family: var(--font-main) ;
+  color: var(--font_undestated); /* Using variable for consistency */
+  font-size: 20px; /* Increased size for prominence */
+  font-weight: 500;
+}
+
+.connect-card-heading h1{
+  font-size: 50px; /* Standardized main heading size */
+  font-family: var(--font-main);
+  font-weight: 700;
+  background-image: var(--gradient-bg);
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent;
+}
+
+.community-post h1{
+  font-size: 50px; /* Standardized main heading size */
+  font-family: var(--font-main);
+  font-weight: 700;
+
+   background-image: var(--gradient-bg);
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent;
+
+}
+
+.connect-post-content{
+  display: grid;
+  background: var(--post_bg);
+  min-width: 1150px;
+  min-height: 350px;
+  border-radius:1rem;
+  box-shadow: 0 0 5px                                                                 var(--btn-glow);
+
+  overflow-wrap: break-word; 
+  word-break: break-word;
+  padding: 2rem; /* Added padding for content spacing */
+}
+
+.connect-post{
+  padding: 2rem;
+}
+
+.connect-post-header{
+
+  background-color: var(--post_head_bg);
+  font-family: var(--font-main);
+  border-radius: 1rem;
+  padding: 1.5rem; /* Increased padding */
+
+  overflow-wrap: break-word; 
+  word-break: break-word;
+  color: var(--card_bg_text);
+  font-weight: 600;
+}
+
+.connect-post-meaning h1{
+
+  font-size: 35px; /* Standardized H2/H3 size, up from 30px */
+  font-family: var(--font-main);
+  font-weight: 800;
+  background-image: var(--gradient-bg_2); /* Darker/More Saturated Gradient */
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent;
+  
+}
+
+.connect-post-meaning{
+  font-size: 18px; /* Standardized body size, up from 15px */
+  font-family: var(--font-main);
+  font-weight: 400;
+  color: var(--card_bg_text);
+  
+}
+
+.connect-post-language{
+  background: var(--connect_bg);
+  padding: 10px;
+  border-radius: 1rem;
   font-size: 18px;
   font-family: var(--font-main);
-  transition: all 1s ease;
-  overflow-y: hidden;
+  color: var(--card_bg_text);
+  font-weight: 500;
 }
 
+.profile-heading h1{
+  font-size: 50px; /* Standardized main heading size */
+  font-family: var(--font-main);
+  font-weight: 700;
+  background-image: var(--gradient-bg);
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent;
+
+  
+}
+
+.profile-heading p{
+  font-size: 35px; /* Standardized main heading size */
+  font-family: var(--font-main);
+  font-weight: 700;
+ 
+  color: var(--font_undestated);
+}
+
+.profile-translations{
+  background-color: var(--translate_bg);
+  min-height: 300px;
+  min-width: 1200px;
+
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+
+}
+
+.profile-announcements{
+  background-color: var(--translate_bg);
+  min-height: 200px;
+  min-width: 1200px;
+
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+
+}
+
+.profile h2{
+  font-size: 25px; /* Standardized main heading size */
+  font-family: var(--font-main);
+  font-weight: 700;
+
+  
+ 
+  color: var(--card_bg_text);;
+
+}
+
+
+/* MMVV (Mission, Vision, Values) & Features/Team */
 .mmvv{
   max-width: 1000px;
   background: var(--mmvv_bg);
   border-radius: 12px;
   padding: 1rem;
-  font-size: 18px;
+  font-size: 18px; /* Standardized body size */
   font-family: var(--font-main);
   text-align: center;
+  color: var(--card_bg_text);
 }
 
 .mmvv-heading h1{
-
   font-family: var(--font-main);
   font-weight: 750;
-  font-size: 50px;
-
+  font-size: 50px; /* Standardized main heading size */
+  color: var(--card_bg_text);
 }
 
 .mmvv-heading p{
-
   font-family: var(--font-main);
   font-weight: 600;
   font-size: 50px;
   background-image: var(--gradient-bg);
-
   -webkit-background-clip: text; 
   background-clip: text;
-
   color: transparent;
-
-
-  
-
 }
 
 .mmvv-title {
-  font-size: 25px;
+  font-size: 30px; /* Standardized H2/H3 size */
   font-family: var(--font-main);
   font-weight: 700;
-  
   background-image: var(--gradient-bg);
-  
   -webkit-background-clip: text; 
   background-clip: text;
-
   color: transparent;
 }
 
@@ -600,73 +750,243 @@
 
 .features{
   background: var(--key_bg);
-  
-  width:100%;
-
+  width:100vw;
   padding: 5rem 10rem;
 }
 
 .features h1{
-
   font-family: var(--font-main) ;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 25px; /* Standardized H3/body emphasis size */
+  font-weight: 700; /* Increased weight for headings */
+  color: var(--card_bg_text);
 }
 
 .features p{
   font-family: var(--font-main) ;
-  font-size: 18px;
+  font-size: 18px; /* Standardized body size */
   font-weight: 300;
+  color: var(--card_bg_text);
 }
 
 .features-heading h1{
   font-family: var(--font-main) ;
-  font-size: 50px;
+  font-size: 50px; /* Standardized main heading size */
   font-weight: 700;
+  color: var(--card_bg_text);
 }
 
 .features-heading p{
   font-family: var(--font-main) ;
-  color: #656f65b1;
-  font-size: 18px;
+  color: var(--font_undestated); /* Using variable for consistency */
+  font-size: 20px; /* Increased size for prominence */
   font-weight: 500;
 }
-
-
-
 
 .feature{
   border-radius: 1rem;
   background: var(--mmvv_bg);
   font-family: var(--font-main);
-  padding: 2rem;
+  padding: 1rem;
   color: var(--card_bg_text);
   letter-spacing: 0%;
   border: none;
   transition: all 1.5s ease-in;
-
   white-space: normal;
   text-align: center;
-
-  width: 420px;
-  
-  padding: 2rem;
+  width: 400px;
+  height: 200px;
 }
 
-
-.translation-textarea:hover {
-  border-color: var(--translation-border);
-  box-shadow: 0 0 15px var(--card-glow);
-  border: 4px solid var(--translation-border);
+.easy{
+  display:grid ;
+  background: var(--easy_bg);
+  width: 100vw;
 }
 
-.translation-textarea:focus {
-  outline: none;
-  background: var(--translation-bg-focus);
-  border-color: var(--translation-border-focus);
-  border: 5px solid var(--translation-border);
-  box-shadow: 0 0 20px var(--card-glow);
+.easy-heading h1{
+  font-family: var(--font-main) ;
+  font-size: 50px; /* Standardized main heading size */
+  font-weight: 700;
+  color: var(--card_bg_text);
+}
+
+.easy-card{
+  border-radius: 1rem;
+  background: var(--mmvv_bg);
+  font-family: var(--font-main);
   padding: 1rem;
+  color: var(--card_bg_text);
+  letter-spacing: 0%;
+  border: none;
+  transition: all 1.5s ease-in;
+  white-space: normal;
+  text-align: center;
+  width: 1000px;
+  height: 300px;
+}
+
+.easy-card h1{
+  text-align: left;
+  font-family: var(--font-main) ;
+  font-size: 60px; /* Larger heading for this section */
+  font-weight: 700;
+  background-image: var(--gradient-bg);
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent;
+}
+
+.easy-card h2{
+  font-family: var(--font-main) ;
+  font-size: 30px; /* Standardized H2/H3 size */
+  font-weight: 700;
+  text-align: left;
+  color: var(--card_bg_text);
+}
+
+.easy-card p{
+  font-family: var(--font-main) ;
+  font-size: 18px; /* Standardized body size */
+  font-weight: 300;
+  white-space: normal;
+  -webkit-background-clip: text; 
+  background-clip: text;
+  width: 500px;
+  text-align: left;
+  color: var(--card_bg_text);
+}
+
+.easy_icon{
+  background: var(--gradient-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.team{
+  background: var(--team_bg);
+  width:100vw;
+  padding: 5rem 10rem;
+}
+
+.team h1{
+  font-family: var(--font-main) ;
+  font-size: 25px; /* Standardized H3/body emphasis size */
+  font-weight: 700;
+  color: var(--card_bg_text);
+}
+
+.team p{
+  font-family: var(--font-main) ;
+  font-size: 18px; /* Standardized body size */
+  font-weight: 300;
+  color: var(--card_bg_text);
+}
+
+.team-heading h1{
+  font-family: var(--font-main) ;
+  font-size: 50px; /* Standardized main heading size */
+  font-weight: 700;
+  text-align: center;
+  color: var(--card_bg_text);
+}
+
+.team-heading p{
+  font-family: var(--font-main) ;
+  color: var(--font_undestated); /* Using variable for consistency */
+  font-size: 20px; /* Increased size for prominence */
+  font-weight: 500;
+  white-space: normal;
+  width: 900px;
+}
+
+.member{
+  border-radius: 1rem;
+  background: var(--mmvv_bg);
+  font-family: var(--font-main);
+  padding: 1rem;
+  color: var(--card_bg_text);
+  letter-spacing: 0%;
+  border: none;
+  transition: all 1.5s ease-in;
+  white-space: normal;
+  text-align: center;
+  width: 250px;
+  height: 270px;
+  box-shadow: 0 0 5px var(--card_bg_text);
+}
+
+/*
+|--------------------------------------------------------------------------
+| 6. INPUTS, TEXTAREAS, & FORM AREAS
+|--------------------------------------------------------------------------
+| Styles for all form controls and their containing areas.
+*/
+
+/* Global Input Focus Override */
+input:focus{
+ outline: #5bfc16;
+ outline-width: 10rem;
+}
+
+.translation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.translation-area{
+  display: grid;
+  background: var(--translation_bg);
+  min-width: 1200;
+  min-height: 525;
+
+  border-radius: 5px;
+  border-radius: 15px;
+  border: 1px solid var(--translation-border);
+}
+
+.translation-result-area{
+  background-color: var(--translation-area-bg);
+  box-shadow: 1px 1px 20px var(--card-glow-main);
+  padding: 3rem;
+  border-radius: 2rem;
+  transition: all 1.3s ease;
+  border: none;
+  animation: pulse-glow-result 2s infinite alternate ease-in-out;
+}
+
+.translation-textarea {
+  height: 250px;
+  width: 500px;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid var(--translation-border);
+  background-color: var(--translation_bg_text);
+  color: var(--translation-text);
+  font-size: 18px; /* Standardized body size, up from 15px */
+  font-family: var(--font-main);
+  transition: all 1s ease;
+  overflow-y: hidden;
+  outline: none;
+}
+
+.translation-resultarea{
+  width: 500px;
+  height: 250px;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid var(--translation-border);
+  background-color: var(--translation_bg_text);
+  color: var(--translation-text);
+  font-size: 18px; /* Standardized body size */
+  font-family: var(--font-main);
+  text-align: center;
+  transition: all 1s ease-in-out;
+  overflow-y: hidden;
+  outline: none;
 }
 
 .post-textarea {
@@ -679,7 +999,7 @@
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
-  font-size: 20px;
+  font-size: 20px; /* Standardized body size */
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
@@ -701,556 +1021,6 @@
   min-width: 550px;
 }
 
-.translation-resultarea{
-  height: auto;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid var(--translation-border);
-  background: var(--translation-bg-focus);
-  color: var(--translation-text);
-  font-size: 18px;
-  font-family: var(--font-main);
-  text-align: center;
-  transition: all 1s ease-in-out;
-  overflow-y: hidden;
-  outline: none;
-}
-
-.image-input{
-  background-color: var(--translation-area-bg);
-  box-shadow: 0px 0px 10px var(--card-glow-sec);
-  padding: 2rem;
-  border-radius: 1rem;
-  font-size: 20px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-  border: none;
-  transition: all 2.3s ease;
-}
-
-/* General Input Focus Override */
-input:focus{
- outline: #5bfc16;
- outline-width: 10rem;
-}
-
-/* Login/Signup Forms */
-.login{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  padding: 4rem;
-  border-radius: 1rem;
-  font-size: 20px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-  border: none;
-  transition: all 2.3s ease;
-}
-
-.login input{
-  background: var(--card-bg);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.login input:focus{
-  background: var(--input-bg-focus);
-}
-
-.signup{
-  background: var(--translation-area-bg);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  padding: 4rem;
-  border-radius: 1rem;
-  font-size: 18px;
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-  border: none;
-  transition: all 1.5s ease;
-}
-
-.signup input{
-  background: var(--card-bg);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.signup input:focus{
-  background: var(--input-bg-focus);
-}
-
-.modal-card input{
-  background: var(--card-bg);
-  padding: 10px;
-  font-size: 20px;
-  font-family: var(--font-main);
-  border-radius: 10px;
-}
-
-.modal-card input:focus{
-  background: var(--input-bg-focus);
-}
-
-/*
-|--------------------------------------------------------------------------
-| 7. BUTTONS & CONTROLS
-|--------------------------------------------------------------------------
-| Styles for all buttons, toggles, and interactive elements.
-*/
-
-.btn {
-  background-color: var(--mmvv-bg);
-}
-
-.btnav {
-  background: var(--gradient-bg);
-  font-family: var(--font-main);
-  font-size: 12px;
-  border-radius: 12px;
-  font-weight: 700;
-  padding: 1rem;
-}
-
-.grdnt-btn{
-  background: var(--gradient-bg);
-  font-family: var(--font-main);
-  font-size: 16px;
-
-  font-weight: 700 ;
-
-  padding: 1rem 6rem;
-
-}
-
-.border-btn{
-
-}
-
-
-.scroll {
-    width: min(100%, 1200px);
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 1.5rem;
-    padding: 3rem;
-}
-
-.landing-section{
-  font-family: var(--font-main);
-
-  white-space: normal;
-  text-align: center;
-
-  width: 800px;
-  padding: 10px;
-}
-
-.landing-section h1{
-  font-size: 35px;
-  font-weight: 700;
-}
-
-.landing-section p{
-  font-size: 20px;
-  font-weight: 300;
-
-  white-space: normal;
-
-  width: 650px;
-
-}
-
-.translate_btn {
-  background-color: var(--mmvv-bg);
-  border-radius: 0.8rem;
-}
-
-.translate_btn:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 15px var(--card-glow);
-}
-
-.translate_btn:hover {
-  background: var(--btn_bg-focus);
-  box-shadow: 0 0 10px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);
-}
-
-.feedback_btn {
-  background: var(--btn_bg);
-  border-radius: 0.8rem;
-  border: 1px solid var(--btn_text);
-  padding: 1rem 2rem;
-  font-size: 20px;
-  font-family: var(--font-secondary);
-  color: var(--btn_text);
-  outline: none;
-  transition: all 1.5s ease;
-}
-
-.feedback_btn:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 10px var(--card-glow);
-}
-
-.feedback_btn:hover {
-  background: var(--btn_bg-focus);
-  box-shadow: 0 0 5px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);
-}
-
-.pttbtn {
-  border: #112250 solid 0.3rem;
-  background: transparent;
-  border-radius: 0.8rem;
-  padding: 1rem 4rem;
-}
-
-.pttbtn-text {
-  font-size: 54px;
-  font-family: var(--font-main);
-  color: #112250;
-  font-weight: 900;
-  letter-spacing: 0%;
-}
-
-.pttbtn-icon {
-  height: 50px;
-}
-
-.theme-toggle {
-  cursor: pointer;
-  background: var(--theme_btn_bg);
-  font-size: 20px;
-  font-family: var(--font-main);
-  color: var(--theme_btn_text);
-  border: none;
-  padding: 0.75rem 1rem;
-}
-
-.likebtn {
-  font-size: 20px;
-  color: var(--btn_text);
-}
-
-.label {
-  background: var(--btn_bg);
-  border-radius: 0.8rem;
-  font-size: 20px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  padding: 0.6rem 0.5rem 0.6rem;
-}
-
-/*
-|--------------------------------------------------------------------------
-| 8. NAVIGATION, PROFILE & DROPDOWNS
-|--------------------------------------------------------------------------
-| Styles for avatars, menu items, and profile drop-down functionality.
-*/
-
-.profile-image {
-  border-radius: 5rem;
-  border: 5px solid var(--btn_border);
-  transition: all 1.3s ease;
-}
-
-.profile-btn {
-  border: 2px solid var(--btn_text);
-  padding: 0.5rem;
-  color: var(--btn_text);
-}
-
-.settings-avatar {
-  border-radius: 10rem;
-  padding: 3rem;
-  background: var(--settings-item-bg);
-  font-weight: 900;
-  letter-spacing: 0%;
-  border: none;
-  transition: all 1.5s ease-in;
-}
-
-.nav-logo{
-  height: 40px;
-  width: 40px;
-}
-
-.navbar-item{
-  cursor: pointer;
-  font-size: 5px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-}
-
-.glass-nav {
-    /* Sets the transparency */
-    background-color: rgba(24, 182, 79, 0.222);
-    /* Creates the frosted blur effect */
-    backdrop-filter: blur(15px);
-    /* Adds a subtle border for definition */
-    border: 1px solid rgba(255, 255, 255, 0.18);
-
-
-    /* Adds a soft shadow */
-}
-
-.navbar-label{
-  cursor: pointer;
-  font-size: 15px;
-  font-family: var(--font-main);
-  font-weight: 600;
-  color: var(--btn_text);
-}
-
-.Navbar-Icon{
-  cursor: pointer;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  
-}
-.dropmenu {
-  background: var(--btn_bg);
-  color: var(--btn_text);
-  border: 2px solid var(--btn_border);
-  border-radius: 0.5rem;
-  text-align: center;
-  padding: 1rem 2rem;
-  cursor: pointer;
-  font-size: 18px;
-  font-family: var(--font-main);
-  transition: all 1.3s ease;
-  outline: none;
-}
-
-.dropmenu:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 15px var(--card-glow);
-}
-
-.dropmenu:hover {
-  box-shadow: 0 0 10px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);
-}
-
-.profile-dropdown-menu {
-  position: absolute;
-  margin-top: 18rem;
-  background-color: var(--dropdown-bg);
-  border-radius: 0.8rem;
-  padding: 3rem;
-  box-shadow: 0 0 10px 1px var(--card-glow);
-}
-
-.name-display{
-  font-size: 15px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  padding: 4px;
-  text-align: center;
-}
-
-.dropdown-item {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 18px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-}
-
-.full-width {
-  width: 100%;
-  text-align: left;
-}
-
-
-.saved_translation_card {
-  background: linear-gradient(-164deg, #a0dee5 5%, #b5f49a 90%);
-  font-size: 25px;
-  font-family: var(--font-main);
-  padding: 1rem;
-  color: var(--card_bg_text);
-
-  letter-spacing: 0%;
-
-  border: 0.1rem solid var(--card_bg_text);
-  border-radius: 0.8rem;
-}
-
-.insights_card {
-
-  background: var(--insights_card_bg);
-
-
-  padding: 2rem;
-  border-radius: 1rem;
-  color: var(--card_bg_text);
-  font-size: 25px;
-  font-family: var(--font-main);
-  font-weight: 900;
-  letter-spacing: 0%;
-  transition: all 2s ease;
-}
-
-
-input:focus{
- outline: #5bfc16;
- outline-width: 10rem;
-}
-
-.insights_card:hover {
-  background: var(--insights_card_focus);
-}
-
-.glow {
-  box-shadow: 1 1 8px var(--card-glow);
-  border-radius: 2rem;
-  padding: 1rem;
-} 
-
-
-.navbar-item{
-  cursor: pointer;
-  font-size: 25px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-}
-.Navbar-Icon{
-  cursor: pointer;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-}
-
-.premium-card{
-  border-radius: 1rem;
-  background: var(--premium-card);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
-  font-family: var(--font-main);
-  padding: 5rem;
-  color: var(--card_bg_text);
-  font-weight: 900;
-  letter-spacing: 0%;
-  cursor: pointer;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
-}
-
-.free-card{
-  border-radius: 1rem;
-  background: var(--free-card);
-  box-shadow: 1px 1px 25px var(--card-glow-sec);
-  font-size: 35px;
-  font-family: var(--font-main);
-  padding: 5rem;
-  color: var(--card_bg_text);
-  font-weight: 900;
-  letter-spacing: 0%;
-
-  cursor: pointer;
-
-  border: none;
-  transition: all 1.5s ease-in;
-
-}
-
-.upgrade-text{
-  font-size: 20px;
-  color: var(--upgrade-text);
-}
-
-.scroll {
-    width: min(100%, 1200px);
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 1.5rem;  
-    
-    padding: 3rem;
-   
-    
-    /* Scrollbar styling for Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-scrollbar) var(--color-container);
-    
-    /* Add smooth transition */
-    transition: all 0.7s ease-in-out;
-}
-
-
-.scroll-translation {
-    width: min(100%, 1200px);
-    max-height: 35vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 1.5rem;  
-    
-   padding: 2rem;
-   
-    
-    /* Scrollbar styling for Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-scrollbar) var(--color-container);
-    
-    /* Add smooth transition */
-    transition: all 0.7s ease-in-out;
-}
-
-.content-scroller {
-  /* This is the function/mixin concept */
-
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* You could also add padding or border styling here */
-  padding: 1rem;
-  border: 1px solid #ccc;
-}
-
-.connect-post{
-  width: 500px;
-  /* Reduced height to allow content to dictate size, better for text posts */
-  /* height: 200px; */ 
-  padding: 1.5rem; /* Added padding to give content breathing room */
-  
-  background: var(--connect-post);
-  border-radius: 1rem;
-
-  font-size: 20px; /* Reduced base font size for better readability */
-  font-family: var(--font-main);
-  color: var(--card_bg_text);
-
-  display: flex; /* Makes the post content stack vertically */
-  flex-direction: column;
-  gap: 1rem; /* Space between header and footer */
-
-  border: none;
-  transition: all 0.3s ease; /* Faster transition for general use */
-
-   /* --- ADDED FOR ANIMATED GLOW --- */
-  animation: pulse-glow 3.2s infinite alternate ease-in-out; 
-}
-
-.post-header {
-    padding-top: 1rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-}
-
-.post-interactions{
-    background: #bbffd51c;
-    border-radius: 12px;
-    padding: 0.9rem;
-    margin-left: 20rem;
-   
-}
-
 .comment-textarea{
   min-height: 100px;
   min-width: 400px;
@@ -1261,7 +1031,7 @@ input:focus{
   border: 3px solid var(--translation-border);
   background-color: var(--translation-bg);
   color: var(--translation-text);
-  font-size: 20px;
+  font-size: 18px; /* Standardized body size */
   font-family: var(--font-main);
   transition: all 1.3s ease;
   overflow-y: hidden;
@@ -1284,193 +1054,28 @@ input:focus{
   min-width: 410px;
 }
 
-/* User Info: Avatar and Username */
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center avatar and username */
-    width: 60px; /* Define a fixed width for the user column */
-    flex-shrink: 0; /* Prevents this column from shrinking */
+.image-upload {
+    background-color: var(--translation-area-bg);
+    padding: 1rem;
+    display: grid;
+    place-items: center; 
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #3b82f6; 
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
     text-align: center;
+    transition: background-color 0.2s ease;
+    font-family: var(--font-main);
 }
 
-.avatar {
-    border-radius: 50%; /* Make the avatar round */
-    object-fit: cover;
-    margin-bottom: 0.5rem;
-}
-
-.username {
-    font-size: 0.9em;
-    font-weight: 500;
-    opacity: 0.4; /* Make the username less prominent than the title */
-}
-
-/* Post Content: Title and Text */
-.postContent {
-  height: auto;
-  width: auto;
-  padding: 1rem;
-}
-
-.postTitle {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.postText {
-    max-width: 400px;
-  max-height: 350px;
-  padding: 1rem;
-  border-radius: 1rem; /* Reduced: 3rem is too rounded for multi-line text */
-  border: 3px solid var(--translation-border);
-  background: var(--translation-bg-focus);
-  color: var(--translation-text);
-  font-size: 16px;
-  font-family: var(--font-main);
-  /* CHANGE 1: Align text left for better readability (unless posts are always short) */
-  text-align: left; 
-  transition: all 1s ease-in-out;
-  /* CHANGE 2: REMOVE or change this to 'auto' */
-  overflow-y: auto;
-  overflow-x: auto;
-  overflow-wrap: normal;
-  /* ADD: Word-break property to handle extremely long URLs or words */
-  
-  outline: none;
-}
-
-.comments-section{
-  background: #e9f7ec14;
-  border-radius: 13px;
-}
-
-/* Post Footer (Metadata like date) */
-.postFooter {
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
-}
-
-.postDate {
-    font-size: 0.8em;
-    color: var(--card_bg_text);
-    opacity: 0.6;
-}
-
-/*
-|--------------------------------------------------------------------------
-| 6. INPUTS, TEXTAREAS, & FORM AREAS
-|--------------------------------------------------------------------------
-| Styles for all form controls and their containing areas.
-*/
-
-.translation-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.translation-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 30px var(--card-glow-main);
-  padding: 3rem;
-  border-radius: 2rem;
-  transition: all 1.3s ease;
-  border: none;
-
-  animation: pulse-glow-sm 3s  infinite ease-in-out;
-}
-
-
-.translation-result-area{
-  background-color: var(--translation-area-bg);
-  box-shadow: 1px 1px 20px var(--card-glow-main);
-  padding: 3rem;
-  border-radius: 2rem;
-  transition: all 1.3s ease;
-  border: none;
-  animation: pulse-glow-result 2s infinite alternate ease-in-out;
-}
-
-.translation-textarea {
-  height: auto;
-  width: 100%;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid var(--translation-border);
-  background-color: var(--translation-bg);
-  color: var(--translation-text);
-  font-size: 18px;
-  font-family: var(--font-main);
-  transition: all 1s ease;
-  overflow-y: hidden;
-}
-
-.translation-textarea:hover {
-  border-color: var(--translation-border);
-  box-shadow: 0 0 15px var(--card-glow);
-  border: 4px solid var(--translation-border);
-}
-
-.translation-textarea:focus {
-  outline: none;
-  background: var(--translation-bg-focus);
-  border-color: var(--translation-border-focus);
-  border: 5px solid var(--translation-border);
-  box-shadow: 0 0 20px var(--card-glow);
-  padding: 1rem;
-}
-
-.post-textarea {
-  min-height: 200px;
-  min-width: 500px;
-  height: auto;
-  width: 100%;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid var(--translation-border);
-  background-color: var(--translation-bg);
-  color: var(--translation-text);
-  font-size: 20px;
-  font-family: var(--font-main);
-  transition: all 1.3s ease;
-  overflow-y: hidden;
-}
-
-.post-textarea:hover {
-  border-color: var(--translation-border);
-  box-shadow: 0 0 15px var(--card-glow);
-  border: 4px solid var(--translation-border);
-}
-
-.post-textarea:focus {
-  outline: none;
-  background: var(--translation-bg-focus);
-  border-color: var(--translation-border-focus);
-  border: 5px solid var(--translation-border);
-  box-shadow: 0 0 20px var(--card-glow);
-  min-height: 200px;
-  min-width: 550px;
-}
-
-.translation-resultarea{
-  height: auto;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 3px solid var(--translation-border);
-  background: var(--translation-bg-focus);
-  color: var(--translation-text);
-  font-size: 18px;
-  font-family: var(--font-main);
-  text-align: center;
-  transition: all 1s ease-in-out;
-  overflow-y: hidden;
-  outline: none;
+.upload-label:hover {
+    background-color: #2563eb;
 }
 
 .image-input{
@@ -1485,10 +1090,31 @@ input:focus{
   transition: all 2.3s ease;
 }
 
-/* General Input Focus Override */
-input:focus{
- outline: #5bfc16;
- outline-width: 10rem;
+.dropmenu {
+  background: var(--input_bg);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  outline: none;
+}
+
+.dropmenu-translate{
+  background: var(--input_bg);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  padding: 8px;
+  width: 400px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--font-main);
+  transition: all 1.3s ease;
+  outline: none;
 }
 
 /* Login/Signup Forms */
@@ -1508,6 +1134,8 @@ input:focus{
   background: var(--card-bg);
   padding: 10px;
   border-radius: 10px;
+  font-family: var(--font-main); /* Ensure font consistency */
+  font-size: 18px;
 }
 
 .login input:focus{
@@ -1519,7 +1147,7 @@ input:focus{
   box-shadow: 1px 1px 25px var(--card-glow-sec);
   padding: 4rem;
   border-radius: 1rem;
-  font-size: 20px;
+  font-size: 18px;
   font-family: var(--font-main);
   color: var(--card_bg_text);
   border: none;
@@ -1530,6 +1158,8 @@ input:focus{
   background: var(--card-bg);
   padding: 10px;
   border-radius: 10px;
+  font-family: var(--font-main); /* Ensure font consistency */
+  font-size: 18px;
 }
 
 .signup input:focus{
@@ -1556,68 +1186,58 @@ input:focus{
 */
 
 .btn {
-  background: var(--btn_bg);
-  border-radius: 0.8rem;
-  box-shadow: 0 0 5px 2px var(--btn-glow);
-  border: 2px solid var(--btn_border);
-  padding: 1rem 2rem;
-  font-size: 20px;
+  background-color: var(--mmvv-bg);
+  /* Added base styles for consistency */
   font-family: var(--font-main);
-  color: var(--btn_text);
-  transition: all 1s ease-in-out;
-  outline: none;
-  border: none;
-}
-
-.btn-nav {
-  background: var(--btn_bg_nav);
-  border-radius: 0.8rem;
-  border: 2px solid var(--btn_border);
-  padding: 1rem 2rem ;
   font-size: 18px;
-  font-family: var(--font-main);
-  color: var(--btn_text);
-  transition: all 1s ease-in-out;
-  outline: none;
-  border: none;
-}
-
-.btn:hover {
-  box-shadow: 0 0 10px 5px var(--btn-glow);
+  font-weight: 600;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  color: var(--card_bg_text);
 }
 
 .translate_btn {
-  background-color: var(--btn_bg);
-  border-radius: 0.8rem;
-  border: 1px solid var(--btn_text);
-  padding: 1rem 2rem;
+  background-color: var(--mmvv-bg);
+  border-radius: 5px;
+  width: 1100px;
+  /* Added base styles for consistency */
+  font-family: var(--font-main);
   font-size: 20px;
-  font-family: var(--font-secondary);
-  color: var(--btn_text);
-  outline: none;
-  transition: all 1.3s ease;
+  font-weight: 700;
+  padding: 1rem;
+
 }
 
-.translate_btn:focus {
-  background: var(--btn_bg-focus);
-  border: 3px solid var(--btn_border_focus);
-  box-shadow: 0 0 15px var(--card-glow);
+.translate-heading h1{
+  text-align: center;
+
+   font-family: var(--font-main);
+  color: var(--card_bg_text);
+  font-size: 50px;
+  font-weight: 700;
+
+
 }
 
-.translate_btn:hover {
-  background: var(--btn_bg-focus);
-  box-shadow: 0 0 10px var(--card-glow);
-  border: 2px solid var(--btn_border_focus);
+.translate-heading p{
+  font-family: var(--font-main) ;
+  color: var(--font_undestated); /* Using variable for consistency */
+  font-size: 20px; /* Increased size for prominence */
+  font-weight: 500;
+  text-align: center;
+
+  width: 500px;
 }
 
 .feedback_btn {
   background: var(--btn_bg);
   border-radius: 0.8rem;
-  border: 1px solid var(--btn_text);
+  border: 1px solid var(--btn_border); /* Changed from btn_text to btn_border for softer look */
   padding: 1rem 2rem;
   font-size: 20px;
-  font-family: var(--font-secondary);
-  color: var(--btn_text);
+  font-family: var(--font-main); /* Used main font for consistency */
+  color: var(--theme_btn_text);
+  font-weight: 700;
   outline: none;
   transition: all 1.5s ease;
 }
@@ -1634,6 +1254,30 @@ input:focus{
   border: 2px solid var(--btn_border_focus);
 }
 
+.btnav {
+  background: var(--gradient-bg);
+  font-family: var(--font-main);
+  font-size: 17px;
+  border-radius: 12px;
+  font-weight: 700;
+  padding: 0.75rem 1rem; /* Slightly reduced vertical padding for nav */
+  color: var(--card_bg_text); /* Ensure high contrast text */
+}
+
+.grdnt-btn{
+  background: var(--gradient-bg);
+  font-family: var(--font-main);
+  font-size: 18px; /* Standardized button text size */
+  font-weight: 700 ;
+  padding: 1rem 6rem;
+  border-radius: 1rem;
+  color: var(--card_bg_text);
+}
+
+.border-btn{
+  /* Empty selector, left for now */
+}
+
 .pttbtn {
   border: #112250 solid 0.3rem;
   background: transparent;
@@ -1644,7 +1288,7 @@ input:focus{
 .pttbtn-text {
   font-size: 54px;
   font-family: var(--font-main);
-  color: #112250;
+  color: var(--card_bg_text);
   font-weight: 900;
   letter-spacing: 0%;
 }
@@ -1655,17 +1299,18 @@ input:focus{
 
 .theme-toggle {
   cursor: pointer;
-  background: var(--theme_btn_bg);
+  background: var(--btn_bg_nav); /* Adjusted to a defined nav BG variable */
   font-size: 20px;
   font-family: var(--font-main);
   color: var(--theme_btn_text);
   border: none;
   padding: 0.75rem 1rem;
+  border-radius: 1rem;
 }
 
 .likebtn {
   font-size: 20px;
-  color: var(--btn_text);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
 }
 
 .label {
@@ -1673,7 +1318,7 @@ input:focus{
   border-radius: 0.8rem;
   font-size: 20px;
   font-family: var(--font-main);
-  color: var(--btn_text);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
   padding: 0.6rem 0.5rem 0.6rem;
 }
 
@@ -1684,6 +1329,36 @@ input:focus{
 | Styles for avatars, menu items, and profile drop-down functionality.
 */
 
+.NavCenter{
+  font-family: var(--font-main);
+}
+
+.nav-logo{
+  height: 40px;
+  width: 40px;
+}
+
+.navbar-item{
+  cursor: pointer;
+  font-size: 20px; /* Standardized size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+}
+
+.Navbar-Icon{
+  cursor: pointer;
+  font-family: var(--font-main);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+}
+
+.navbar-label{
+  cursor: pointer;
+  font-size: 16px; /* Standardized size */
+  font-family: var(--font-main);
+  font-weight: 600;
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+}
+
 .profile-image {
   border-radius: 5rem;
   border: 5px solid var(--btn_border);
@@ -1691,284 +1366,308 @@ input:focus{
 }
 
 .profile-btn {
-  border: 2px solid var(--btn_text);
+  border: 2px solid var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
   padding: 0.5rem;
-  color: var(--btn_text);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
 }
 
-
-
-/* DARK THEME 
-html.theme-dark {
-  --color-main-bg: #F9FFF7;
-  --color-main-bg-nav: #142030;
-  --color-container: #142030;
-  --color-container-accent: #F9EBA8;
-  --color-text: #F9EBA8;
-  --color-text-nav: #082637;
-  --color-btn: #1E3442;
-  --color-btn-text: #d1c0ec;
-  --color-logo: #F9EBA8;
-  --color-logo-hover: #F9EBA8;
-  --color-logo-border-transition: #d1c0ec;
-  --color-logo-glow:#d1c0ecc9;
-  --color-phrase-box-glow-outline: #d1c0ecc3;
-  --color-theme-toggle-hover-outline:#d1c0ec;
-
-  --color-translation-bg: #1E3442;
-  --color-translation-text: #d1c0ec;
-  --color-translation-border: #d1c0ec80;
-  --color-translation-glow: #d1c0ec44;
-
-  --color-translation-result-bg:#082637;
-
-  --color-scrollbar:#d1c0ec;
-
-  --color-language-select-outline: #d1c0ec44;
-
-  
-}
-*/
-
-.error-container {
-  width: 100%;
-  max-width: 700px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 2rem;
-  background: linear-gradient(to left,
-      rgba(107, 255, 250, 0.136),
-      rgba(137, 255, 73, 0.31));
-  border: 1px solid rgba(255, 107, 107, 0.663);
-  transition: all 2.5s ease;
-  box-shadow: 0 0 4px rgba(255, 107, 107, 0.5);
+.settings-avatar {
+  border-radius: 10rem;
+  padding: 3rem;
+  background: var(--settings-item-bg);
+  font-weight: 900;
+  letter-spacing: 0%;
+  border: none;
+  transition: all 1.5s ease-in;
+  color: #FFFFFF; /* HIGH CONTRAST TEXT FOR DARK BG */
+  font-size: 20px;
+  font-family: var(--font-main);
 }
 
-.error-message {
+.profile-dropdown-menu {
+  position: absolute;
+  margin-top: 18rem;
+  background-color: var(--dropdown-bg);
+  border-radius: 0.8rem;
+  padding: 3rem;
+  box-shadow: 0 0 10px 1px var(--card-glow);
+}
 
-  max-width: 300px;
-  overflow: hidden;
-  color: #5e2d2dce;
-  font-family: var(--font-secondary);
-  font-size: 18px;
+.name-display{
+  font-size: 18px; /* Standardized size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
+  padding: 4px;
   text-align: center;
-  padding: 0.5rem;
-  transition: all 1.3s ease;
+  font-weight: 600;
 }
 
-.error-container:hover {
-  box-shadow: 0 0 10px rgba(255, 107, 107, 0.553);
-  max-width: 720px;
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 18px; /* Standardized size */
+  font-family: var(--font-main);
+  color: var(--card_bg_text); /* Changed from btn_text to card_bg_text for contrast */
 }
 
-.success-container {
+.full-width {
   width: 100%;
-  max-width: 400px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 4rem;
-  background: linear-gradient(to left,
-      rgba(107, 255, 250, 0.136),
-      rgba(137, 255, 73, 0.31));
-  transition: all 1.3s ease;
-  box-shadow: 0 0 4px rgba(107, 255, 110, 0.5);
+  text-align: left;
 }
-
-.success-message {
-  color: #3d8448ce;
-  font-family: var(--font-secondary);
-  font-size: 18px;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.success-container:hover {
-  box-shadow: 0 0 10px rgba(107, 255, 171, 0.553);
-  max-width: 420px;
-}
-
 
 /*
 |--------------------------------------------------------------------------
-| 10. SPECIFIC SCROLLBAR OVERRIDES (translation-saves)
+| 9. MOBILE RESPONSIVENESS (@MEDIA QUERIES)
 |--------------------------------------------------------------------------
-| Custom scrollbar styling for the translation-saves container.
+| Adjustments for screens 768px and below (Tablet/Mobile) and 480px and below (Mobile).
 */
 
-.translation-saves {
-  width: min(100%, 1200px);
-  max-height: 80vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  border-radius: 1.5rem;
-  padding: 2rem;
-
-  /* Base scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: var(--translation-border) var(--translation-bg);
-
-  /* Webkit scrollbar styling */
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--translation-bg);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--translation-border);
-    border-radius: 4px;
-    border: 2px solid var(--translation-bg);
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: var(--translation-border-focus);
-  }
-
-  /* Smooth transitions */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-
-  /* Container styling */
-  background: var(--translation-bg);
-  border: 2px solid var(--translation-border);
-  box-shadow: 0 0 15px var(--card-glow);
-}
-
-.translation-saves:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px var(--card-glow);
-}
-
-/* Handle scrollbar appearance when hovering the container */
-.translation-saves:hover::-webkit-scrollbar-thumb {
-  background: var(--translation-border-focus);
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
-  .signup, .login {
-    padding: 2rem;
-    font-size: 13px;
-  }
-  .translation-saves {
-    width: 95vw;
-    padding: 1rem;
-    max-height: 70vh;
-  }
-
-  .btn-nav {
-    font-size: 12px;
-    padding: 0.5rem 1rem ;
-    border-radius: 10px;
-  }
-
-   .navbar-item{
-    font-size: 10px;
-  }
-
-  .Navbar-Icon{
-    font-size: 10px
-  }
-
-  .nav-logo{
-    height: 50px;
-    width: 50px;
-  }
-
-  .login{
-    font-size :14px;
-    padding: 2rem;
-    border-radius: 0.5rem;
-  }
-
-  .success-container {
-  max-width: 200px;
+  /*
+   * 1. CORE LAYOUT, PADDING, & WIDTHS 
+   * Transitioning from fixed-width desktop layout to fluid mobile layout.
+   */
   
+  /* Global Containers */
+  .scroll, 
+  .scroll-translation {
+      width: 95vw;
+      max-width: 100%; /* Ensure they don't exceed screen width */
+      padding: 1.5rem; /* Reduced padding from 3rem */
+      max-height: 70vh;
   }
-  .success-message{
-    font-size: 13px;
-    border-radius: 1rem;
-    padding: 5px ;
-  }
-
-  .error-container{
-    max-width: 200px;
-    padding: auto;
-  }
-
-  .error-message {
-    font-size: 11px;
-    border-radius: 1rem;
-    padding: 5px ;
-  }
-
-  .translation-textarea {
-    min-height: 120px;
-    min-width: 200px;
+  
+  /* Landing/Feature/Team Sections */
+  .landing-section,
+  .features,
+  .easy,
+  .team {
+      width: 100vw;
+      padding: 3rem 1rem; /* Reduce large horizontal padding */
+      box-sizing: border-box; /* Include padding in the width calculation */
   }
 
+  /* Fixed-Width Components (must be fluid) */
+  .profile-translations,
+  .profile-announcements,
+  .connect-post-content,
+  .translation-area {
+      min-width: 100%; /* Overrides 1150px/1200px desktop widths */
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 1.5rem;
+  }
+  
+  .easy-card {
+      width: 95%; /* Make card fluid */
+      height: auto;
+      margin: 1rem auto;
+  }
+  
+  .mmvv {
+      max-width: 95%;
+      margin: 0 auto;
+  }
+  
+  .feature,
+  .member {
+      width: 45vw; /* Allow two side-by-side in some cases */
+      height: auto;
+      min-width: 250px; /* Prevent collapse below this point */
+  }
+
+  /*
+   * 2. INPUTS & FORMS 
+   */
+
+  /* General Inputs & Textareas */
+  .connect-card input,
+  .connect-card textarea,
+  .translate_btn {
+      width: 100%; /* Overrides 1000px/1100px fixed widths */
+      box-sizing: border-box;
+      min-width: unset;
+  }
+
+  /* Translation Textarea */
+  .translation-textarea,
+  .translation-resultarea {
+      width: 95%; /* Fluid width for translation boxes */
+      height: 150px; /* Standardize height */
+      min-height: 120px; /* Use your provided min-height */
+      min-width: unset; /* Remove min-width restriction */
+  }
+  
   .translation-textarea:focus{
-    min-height: 125px;
-    min-width: 205px;
+    min-height: 155px; /* Adjust focus size slightly */
+    min-width: unset;
   }
 
-  .translation-resultarea{
-    height: auto;
+  .dropmenu-translate {
+      width: 95%; /* Fluid width for dropdown */
+      box-sizing: border-box;
+  }
+  
+  /* Forms */
+  .login,
+  .signup {
+      font-size: 16px; /* Slightly increased from 14px for better readability */
+      padding: 2rem;
+      border-radius: 0.5rem;
   }
 
-  .btn{
+  /*
+   * 3. FONT SCALING (Headings and Large Text)
+   * Scaling down large 50px+ text for legibility.
+   */
+
+  /* Main Headings (50px+) */
+  .landing-section h1,
+  .connect-card-heading h1,
+  .community-post h1,
+  .mmvv-heading h1,
+  .features-heading h1,
+  .easy-heading h1,
+  .team-heading h1,
+  .profile-heading h1 {
+      font-size: 38px; /* Scaled from 50px */
+  }
+  
+  /* Super Large Heading (60px) */
+  .easy-card h1 {
+      font-size: 45px; /* Scaled from 60px */
+  }
+
+  /* Subheadings (30-40px) */
+  .mmvv-title,
+  .easy-card h2,
+  .profile-heading p,
+  .profile h2 {
+      font-size: 24px; /* Scaled from 30px/35px */
+  }
+  
+  .connect-post-meaning h1 {
+      font-size: 28px; /* Scaled from 35px */
+  }
+
+  /* Card and Body Text Adjustments */
+  .card,
+  .premium-card,
+  .free-card {
+      padding: 2rem;
+      font-size: 30px; /* Card titles scaled from 40px */
+  }
+
+  /* Post Text (Social Feed) */
+  .postTitle {
+      font-size: 18px; /* Scaled from 25px */
+  }
+
+  .postText {
+      font-size: 16px; /* Scaled from 18px */
+      max-width: 100%;
+      max-height: 250px;
+  }
+
+  /*
+   * 4. NAVIGATION & BUTTONS 
+   */
+  .btn {
     font-size: 16px;
     text-align: center;
     padding: 0.5rem 1rem;
+    width: auto;
   }
 
+  .feedback_btn,
+  .grdnt-btn {
+      font-size: 16px;
+      padding: 0.75rem 1.5rem;
+  }
+  
+  .btnav {
+      font-size: 12px;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+  }
+  
+  .navbar-item, .Navbar-Icon {
+      font-size: 13px;
+  }
+  
+  .nav-logo {
+      height: 50px;
+      width: 50px;
+  }
+  
   .profile-dropdown-menu {
     position: absolute;
     margin-top: 18rem;
-    margin-right: 8rem;
-    font-size: 13px;
+    right: 1rem; /* Adjust to be relative to the right edge */
+    left: auto; /* Remove left constraints */
+    font-size: 14px; /* Adjusted slightly */
+    padding: 1.5rem;
   }
-
-
-
-  .connect-post{
-  width: 300px;
-  height: 165px;
-  padding: 1.5rem;
-  }
-
-  .username {
-    font-size: 14px;
   
-}
+  /*
+   * 5. POSTS & SPECIFIC COMPONENTS 
+   */
+  
+  .connect-post {
+      width: 100%; /* Fluid width */
+      height: auto;
+      padding: 1rem;
+      box-sizing: border-box;
+  }
+  
+  .post-interactions {
+      margin-left: 0; /* Remove excessive margin */
+      padding: 0.5rem;
+  }
+  
+  .username {
+      font-size: 14px;
+  }
 
   .postContent {
       font-size: 15px;
       gap: 0.5rem;
   }
-
-
-  .postTitle {
-      font-size: 16px;
+  
+  .landing-section p,
+  .team-heading p,
+  .translate-heading p {
+      width: 95%;
+      margin: 0 auto;
   }
 
-  .postText {
-      font-size: 15px;
+  /* Success/Error Messages */
+  .success-container,
+  .error-container {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 0.5rem;
+  }
+
+  .success-message {
+      font-size: 13px;
+      border-radius: 1rem;
+      padding: 5px;
+  }
+
+  .error-message {
+      font-size: 11px;
+      border-radius: 1rem;
+      padding: 5px;
   }
 }
 
-
 @media (max-width: 480px) {
+  /* Keeping your existing 480px rule, though 768px handles most things */
   .translation-saves {
     max-height: 60vh;
     border-radius: 1rem;
   }
-
-
 }
 
 /* Prevent scroll issues on mobile */
@@ -1977,5 +1676,3 @@ html.theme-dark {
     transform: none;
   }
 }
- 
-

@@ -6,6 +6,7 @@ import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
 import { CommentIcon } from '../../icons';
 import ConnectComments from '../ConnectComment/connectcomments';
+import { connect } from 'http2';
 
 
 interface ConnectPostsItemProps {
@@ -77,81 +78,84 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
     const defaultAvatar = '/avatar.png'; 
 
     return (
-        <div className='grid grid-cols-1 place-items-center p-6'> 
-        {/* The main post container */}
-        <div className='grid connect-post'> 
-            {/* Top row for user info and post content */}
-            <div className='grid grid-flow-row place-items-center'>
-                {/* 1. USER INFO - Column 1 */}
-                <div className='place-items-center gap-2 userInfo'>
-                    <div>
-                        {avatar.image_url ? ( // Check if avatar URL is present
-                            <Image
-                                src={avatar.image_url}
-                                height={50}
-                                width={50}
-                                alt={`Avatar for ${connectpost.author.username}`}
-                                
-                            />
-                        ) : (
-                            // Display fallback image if avatar URL is missing
-                            <Image
-                                src={defaultAvatar} 
-                                height={50}
-                                width={50}
-                                alt="Default Avatar"
-                            />
-                        )}
-                    </div>
-                    <div className='username'>
-                        {connectpost.author.username}
-                    </div>
-                    <div className='pl-30'>
-                        <small className='text-gray-500 text-xs'>{formattedDate}</small>
-                    </div>
+        <main className='grid grid-flow-row place-items-center connect-post'>
 
-                </div>
-
-                {/* 2. POST CONTENT - Column 2 */}
-                <div className='grid place-items-center postContent'>
-                    <div className='postTitle'>
-                        {connectpost.title} 
-                    </div>
-                    <div className='postText'> 
-                         {connectpost.text}
-                    </div>
-                    
-                </div>
-
-                <div className='post-interactions grid grid-flow-col place-items-center gap-4'>
-                    
-                </div>
-            </div>
-            <div className='place-items-center ml-80 post-actions grid grid-flow-col'>
-                <div>
-                    <CommentIcon/>
-                </div>
-                
-            </div>
-            <div className='line rounded'/>
-                <div>
-                    {isCommentsOpen && (
-                        <div 
-                            id={`comments-section-${connectpost.id}`}
-                            className='p-4 comments-section'
-                        >
-                            
-                            <p className='text-gray-500'>Comments section for post ID: {connectpost.id} (to be implemented)</p>
+            <div className='grid place-items-center connect-post-content'>
+                <div className='grid'>
+                    <div className='grid  grid-flow-col place-items-center connect-post-header'>
+                        <div className='grid grid-flow-col gap-2 place-items-center '>
                             <div>
-                                <ConnectComments postId={connectpost.id} />
+                                {avatar.image_url ? ( // Check if avatar URL is present
+                                <Image
+                                    src={avatar.image_url}
+                                    height={45}
+                                    width={45}
+                                    alt={`Avatar for ${connectpost.author.username}`}
+                                    className='rounded-full'
+                                    
+                                />
+                                ) : (
+                                // Display fallback image if avatar URL is missing
+                                <Image
+                                    src={defaultAvatar} 
+                                    height={45}
+                                    width={45}
+                                    alt="Default Avatar"
+                                />
+                                )}
+                            </div>
+                            
+
+                            <div ><h2>{connectpost.author.username}</h2></div>
+                        </div>
+
+                        
+                        <div>{formattedDate}</div>
+                    </div>
+                    
+
+                    <div className='grid connect-post place-items-center grid-flow-col'>
+                       
+
+                        <div className='grid connect-post-meaning'>
+
+                            <div className='grid grid-flow-col place-items-center gap-200'>
+                                <h1>{connectpost.text}</h1>
+
+                                <div className='grid place-items-center connect-post-language'>
+                                    <h3>{connectpost.language}</h3>
+                                </div>
+
+                            </div>
+                            <div className=''>
+                            <h2>Meaning: {connectpost.meaning}</h2>
+                            </div>
+                            <div>
+                            <h2>Example: {connectpost.usage} </h2> 
                             </div>
                         </div>
-                    )}
-                </div>
-            
-        </div>
-    </div>
 
+                        
+
+                         
+
+                    </div>
+
+                        
+                    
+
+                </div>
+
+                
+                
+                <div className='grid place-items-center connect-comment'>
+
+                </div>
+            </div>
+
+            
+
+        </main>
     )
 }
 

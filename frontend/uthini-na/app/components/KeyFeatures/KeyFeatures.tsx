@@ -4,7 +4,7 @@
 const KeyFeatures = () =>{
     return(
 
-        <main className=" grid place-items-center features gap-5 ">
+        <main className="grid grid-flow-row place-items-center features gap-5 ">
 
             <div className="grid place-items-center features-heading p-10">
                 <h1>Key Features</h1>
@@ -12,7 +12,7 @@ const KeyFeatures = () =>{
             </div>
 
             <div className="grid gap-5 grid-flow-col place-items-center p-2">
-                <div className="feature">
+                <div className="feature ">
                     <h1>Lightning-fast & precise translations</h1>
                     <p>Experience high-speed and accurate 
                         translations for text, spoken words

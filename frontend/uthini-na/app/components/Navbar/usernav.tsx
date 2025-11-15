@@ -18,11 +18,6 @@ const UserNav:React.FC <NavProps>= ({userId}) => {
                         <Link href="/login">
                         <div className="btnav">Login</div>
                         </Link>
-                        <div>/</div>
-                        <Link href="/signup">
-                        <div className="btnav">Sign-up</div>
-                        </Link>
-                    
                     </div>
                     
                     

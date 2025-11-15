@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import apiService from "@/app/services/apiService";
 import SavedTranslations from "../Translations/savedtranslations/savedtranslations";
-import LikedTranslations from "../Translations/likedtranslations/likedtranslations";
+
 import TranslationInsights from "../Insights/insights";
 
 
@@ -138,28 +138,42 @@ const ClientDetails = ({ user, userId }: ClientDetailsProps) => {
 
 
     return (
-        <main className="grid place-items-center">
-                <div className="scroll grid md:grid-flow-col ">
-                    <div className="grid gap-2 pt-25">
-                            <div className='p-4 '>
-                                <Avatar user_id={userId}/>
-                            </div>   
-                            <div> 
-                                <TranslationInsights userId={userId} /> 
-                            </div>
-                    </div>
+        <main className="grid gap-4 grid-flow-row place-items-center pt-10 gap-4">
+            <div className="grid  profile-heading pr-200">
+                <h1 className="">My profile</h1>
+                <p>{user.username}</p>
+            </div>
 
-                    <div className="grid place-items-center grid-flow-row ">
-
-                        <div className="grid place-items-center">
-                             <div className="label">MY SAVED TRANSLATIONS</div>
-                            <div className="scroll-translation" ><SavedTranslations user_id={userId} /></div>
+            <div className="grid place-items-center profile gap-6">
+                <div>
+                    <div className="grid grid-flow-row place-items-center profile-translations p-4">
+                        <h2>Insights</h2>
+                        <div>
+                            <TranslationInsights userId={userId}/>
                         </div>
-                           
-
                     </div>
 
                 </div>
+                <div>
+                    <div className="grid place-items-center profile-translations ">
+                            <h2 className="">Saved Translations</h2>
+                            <div className="scroll-translation"><SavedTranslations user_id={userId} /></div>
+                    </div>
+                </div>
+                <div>
+                    <div className="grid place-items-center profile-announcements ">
+                        <div>
+                            <h2 className="">Announcement</h2>
+                            <p> Uthini Na will use this space to Inform you on upcoming features and other important updates</p>
+
+                        </div>
+                            
+                            <div className="scroll-translation"><SavedTranslations user_id={userId} /></div>
+                    </div>
+                </div>
+
+            </div>
+                
         </main>
     );
 };

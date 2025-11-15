@@ -54,33 +54,23 @@ const TranslationInsights: React.FC<TranslationInsightsProps> = ({ userId }) => 
 
     return (
         <div className="grid place-items-center gap-4">
-            <div className="label">My Insights</div>
+            
 
-            <div className='grid grid-cols-2 insights_card place-items-center gap-4'>
+            <div className='grid grid-cols-3 insights place-items-center gap-4'>
                 
-
-                <div className="col-span-2 ">
-                    <h2 className="text-xl font-semibold mb-4">Translation Statistics</h2>
-                </div>
-                
-                <div className="">
+                <div className="insights_card">
                     <h3 className="text-lg font-medium">Total Translations</h3>
                     <p className="text-2xl font-bold">{stats.total_translations}</p>
                 </div>
 
-                <div className="">
+                <div className="insights_card">
                     <h3 className="text-lg font-medium">Words Translated</h3>
                     <p className="text-2xl font-bold">{stats.total_words_translated}</p>
                 </div>
 
-                <div className="">
+                <div className="insights_card">
                     <h3 className="text-lg font-medium">Saved Translations</h3>
                     <p className="text-2xl font-bold">{stats.saved_translations}</p>
-                </div>
-
-                <div className="">
-                    <h3 className="text-lg font-medium">Liked Translations</h3>
-                    <p className="text-2xl font-bold">{stats.liked_translations}</p>
                 </div>
 
             </div>

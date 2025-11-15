@@ -91,12 +91,7 @@ const ProfileDropdown = ({ userId}: ProfileDropdownProps) => {
 
                         </div>
                         <div>
-                            <Link href={`/settings/${userId}`}>
-                                <div className="dropdown-item " onClick={handleLinkClick}>
-                                    Settings
-                                </div>
-                            </Link>
-
+                            
                         </div>
 
                         <div className="dropdown-item" onClick={handleLinkClick}>

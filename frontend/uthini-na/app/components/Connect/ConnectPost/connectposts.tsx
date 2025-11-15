@@ -4,13 +4,17 @@ import { useEffect, useState, useCallback } from 'react';
 import apiService from '@/app/services/apiService';
 import ConnectPostItem from './connectpostitem';
 import CreateConnectPostButton from '../../Buttons/connect/addConnectPostbutton';
+import Connected from './connected';
 
 
 export type ConnectPostsType= {
 
-    id: string; 
-    title: string;
+    id:  string; 
     text: string;
+    tone: string;
+    usage: string;
+    language: string;
+    meaning: string;
     created_at: string;
 
     author: {
@@ -58,7 +62,6 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
     
     // 2. Define the public handler function to be passed to children (the refresh trigger)
     const handlePostCreated = useCallback(() => {
-        // This function forces a re-fetch of the post list.
         getConnectPosts();
         console.log("New post creation detected. Refreshing list...");
     }, [getConnectPosts]);
@@ -72,15 +75,19 @@ const ConnectPosts: React.FC<ConnectPostsProps> = ({ user_id }) => {
 
     
     return (
-        <div className='grid grid-cols-1 place-items-center  gap-4'>
+        <div className='grid grid-cols-1 place-items-center pt-10 gap-4'>
 
-            <div className='grid '>
-                <CreateConnectPostButton onPostCreated={handlePostCreated} />
-            </div>
-            
-            <div className='grid scroll '>
+            <div className='grid'>
+                <div className='grid '>
+                    <Connected/>
+                </div>
+
+                <div className='grid place-items-center community-post '>
+                    <h1>Community Posts</h1>
+                </div>
+
                     {isLoading ? (
-                    <p className='p-6 text-gray-500'>Loading posts...</p>
+                    <p className='p-6 text-gray-500 '>Loading posts...</p>
                 ) : connectPosts.length > 0 ? (
                     connectPosts.map((connectpost) => (
                         <div key={connectpost.id} className="">

@@ -7,6 +7,11 @@ class ConnectPostForm(ModelForm):
         fields = [
             'title',
             'text',
+            'tone',
+            'usage',
+            'language',
+            'meaning',
+            
         ]
 
 class ConnectCommentForm(ModelForm):

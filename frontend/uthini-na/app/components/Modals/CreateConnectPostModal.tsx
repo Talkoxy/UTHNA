@@ -84,7 +84,7 @@ const CreateConnectPostModal = () => {
                     return Array.isArray(error) ? error[0] : String(error);
                 });
 
-                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error."]);
+                setErrors(tmpErrors.length > 0 ? tmpErrors : ["Post failed due to a server error. "]);
                 setIsError(true);
             }
 

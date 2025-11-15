@@ -18,7 +18,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
 
     // 3. Pass *only* the data the ClientDetails component expects
     return (
-        <main className="page_bg">
+        <main className=" w-full min-h-screen connect_bg">
             <ClientDetails
                 user={user} 
                 userId={userId}

@@ -36,15 +36,15 @@ const Navbar = async () => {
                 <div className="grid grid-cols-4 place-items-center md:gap-20 "> {/* Adjusted grid for 3 items */}
 
                     <div>
-                        <NavbarItem label='Translate' icon={<TranslateIcon />} link='/translate' />
+                        <NavbarItem label='Translate' link='/translate' />
                     </div>
 
                     <div>
-                        <NavbarItem label='Connect' icon={<ConnectIcon />} link='/connect' />
+                        <NavbarItem label='Connect' link='/connect' />
                     </div>
 
                     <div>
-                        <NavbarItem label= "Upgrade" icon={<CrownIcon />} link='/upgrade'/>
+                        
                     </div>
 
                     <div className="place-items-center">

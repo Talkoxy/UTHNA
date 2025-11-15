@@ -153,8 +153,12 @@ const Translate = () => {
 
 
     return (
-        <main className="grid grid-col-1 place-items-center fixed inset-0">
-            <div className="scroll grid place-items-center grid-flow-row gap-5">
+        <main className="grid grid-col-1 place-items-center pt-10 gap-4">
+             <div className="grid place-items-center translate-heading">
+                <h1>Translate African Languages</h1>
+                <p>Help us build fast, accurate translations that preserve cultural meaning</p>
+            </div>
+            <div className="grid place-items-center grid-flow-row gap-5">
                 <div className=' grid '>
                     {/* Success/Error Messages */}
                         {isSuccess && (
@@ -177,62 +181,15 @@ const Translate = () => {
                             </div>
                         )}
                 </div>
-
-        {/* Translation Result Section */}
-                {isTranslated && (
-                    <div className="grid gap-8 md:grid-flow-col translation-result-area">
-                        <div className="grid md:grid-flow-col gap-6">
-                            <div className='grid md:grid-flow-row gap-8 place-items-center'>
-                                <textarea
-                                className="translation-resultarea"
-                                value={translatedText}
-                                readOnly
-                            />
-                            </div> 
-                            
-                        </div>
+        </div>
+        <div>
+           
+            <div className=" grid p-6 translation-area">
                         <div>
-                            <div className="grid place-items-center gap-8">
-                            <Custombtn
-                                    label="Save Translation"
-                                    onClick={handleSaveTranslation}
-                                    disabled={!translatedText}
-                            />
-                                
-                            <AddFeedbackButton 
-                                original_translation={translatedText} 
-                                translated_from={sourceLang} 
-                                translated_to={targetLang}
-                            />
-                            </div>
-                        </div>
-                    </div>
-                )}
-                {/* Translation Input Section */}
-                <div className="grid gap-10 translation-area">
-                    <div className="grid md:grid-flow-col gap-6">
-                        <div className="grid md:grid-flow-row  gap-8 place-items-center">
-                            <textarea
-                                className="translation-textarea"
-                                placeholder="Enter text to translate"
-                                id="originalText"
-                                value={originalText}
-                                onChange={(e) => {
-                                    setOriginalText(e.target.value);
-                                    autoGrowTextArea(e.target);
-                                }}
-                            />
-
-                           
-
-                            
-                        </div>
-
-                        {/* Language Selection */}
-                        <div className="grid grid-flow-row place-items-center gap-10">
-                            <div className="grid place-items-center gap-5">
+                            <div className="grid place-items-center grid-flow-col p-4">
+                        
                                 <select
-                                    className="dropmenu"
+                                    className="dropmenu-translate"
                                     value={sourceLang}
                                     onChange={(e) => setSourceLang(e.target.value)}
                                 >
@@ -244,7 +201,7 @@ const Translate = () => {
                                 </select>
 
                                 <select
-                                    className="dropmenu"
+                                    className="dropmenu-translate"
                                     value={targetLang}
                                     onChange={(e) => setTargetLang(e.target.value)}
                                 >
@@ -255,43 +212,58 @@ const Translate = () => {
                                     <option value="en">English</option>
                                     <option value="af">Afrikaans</option>
                                 </select>
-                            </div>
 
-                            <div className='grid place-items-center gap-20 justify-items-center'>
-                                <div className='grid place-items-center'>
-                                    <Custombtn
+                            </div>
+                            <div>
+
+                            <div className="grid place-items-center grid-flow-col p-2">
+                                <div className="grid gap-2">
+                                    <h2>Source Text</h2>
+                                    <textarea
+                                        className="translation-textarea"
+                                        placeholder="Enter text to translate"
+                                        id="originalText"
+                                        value={originalText}
+                                        onChange={(e) => {
+                                            setOriginalText(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                            
+                                <div className="grid gap-2">
+                                    <h2>Translation</h2>
+                                    <textarea
+                                        className="translation-resultarea"
+                                        value={translatedText}
+                                        readOnly
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid place-items-center p-8">
+                            <Custombtn
+                                        className="translate_btn"
                                         label="Translate"
                                         onClick={submitTranslate}
                                         disabled={!originalText.trim() || !targetLang}
                                     />
-                                </div>
 
-                                
-                                
-                            
-                            </div>
-                            
-                            
                         </div>
 
+                                    
                         
-
                         
+                           
+                            
                     </div>
-                    
-                    
                 </div>
 
-                <div className='grid place-items-center pt-20'>
-                                    <Custombtn
-                                        label="Translate"
-                                        onClick={submitTranslate}
-                                        disabled={!originalText.trim() || !targetLang}
-                                    />
-                                </div>
+                
 
-                
-                
+                <div>
+                   
+                </div>
             </div>
         </main>
     );
