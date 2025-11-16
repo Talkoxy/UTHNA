@@ -34,9 +34,3 @@ requests==2.32.4
 rsa==4.9.1
 sqlparse==0.5.3
 urllib3==2.5.0
-gunicorn==21.2.0
-
-#server-Digital-Ocean
-
-#sudo apt install python3-dev libpq-dev postgresql postgresql-contrib nginx certbot python3-certbot-nginx supervisor
-#sudo groupadd --system DTA //then// sudo useradd --system --gid DTA --shell /bin/bash --home /DTA/uthinina uthina_admin
