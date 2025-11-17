@@ -23,7 +23,7 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'clients.User'
 
 
-WEBSITE_URL ='http://localhost:8000'
+
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
@@ -174,7 +174,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DATABASE'),
-        'USER': config('USER'),
+        'USER': 'uthna',
         'PASSWORD': config('PASSWORD'),
         'HOST': config('HOST'),
         'PORT': config('PORT'),
