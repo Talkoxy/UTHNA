@@ -173,8 +173,8 @@ WSGI_APPLICATION = 'djangouthinina.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'UTHINI_NA',
-        'USER': 'UTHINI_NA_ADMIN',
+        'NAME': config('PROD_DATABASE'),
+        'USER': config('PROD_USER'),
         'PASSWORD': config('PROD_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '',
