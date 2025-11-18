@@ -2,6 +2,9 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -175,7 +178,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'UTHINI_NA',
         'USER': 'UTHINI_NA_ADMIN',
-        'PASSWORD': config('PROD_PASSWORD'),
+        'PASSWORD': os.environ.get('PROD_PASSWORD',''),
         'HOST': 'localhost',
         'PORT': '',
     }
