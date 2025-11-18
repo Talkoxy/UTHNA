@@ -178,7 +178,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'UTHINI_NA',
         'USER': 'UTHINI_NA_ADMIN',
-        'PASSWORD': os.environ.get('PROD_PASSWORD',''),
+        'PASSWORD': 'uThinaubunthu@2025more',
         'HOST': 'localhost',
         'PORT': '',
     }
