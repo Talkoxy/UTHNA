@@ -20,7 +20,7 @@ ALLOWED_HOSTS = ['api.uthinina.app', 'uthinina.app',]
 
 SITE_ID = 1
 
-WEBSITE_URL = 'http://api.uthinina.app'
+WEBSITE_URL = 'https://api.uthinina.app'
 
 AUTH_USER_MODEL = 'clients.User'
 
