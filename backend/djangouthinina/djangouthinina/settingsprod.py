@@ -16,13 +16,13 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "creds/g_creds.json"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['api.uthinina.app', 'uthinina.app',]
 
 SITE_ID = 1
 
+WEBSITE_URL = 'http://api.uthinina.app'
+
 AUTH_USER_MODEL = 'clients.User'
-
-
 
 
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
@@ -58,9 +58,8 @@ REST_FRAMEWORK = {
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
     "https://uthinina.app",
+
 ]
 
 
