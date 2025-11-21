@@ -43,10 +43,6 @@ const Navbar = async () => {
                         <NavbarItem label='Connect' link='/connect' />
                     </div>
 
-                    <div>
-                        
-                    </div>
-
                     <div className="place-items-center">
                         <UserNav userId={user_id}/>
                     </div>
