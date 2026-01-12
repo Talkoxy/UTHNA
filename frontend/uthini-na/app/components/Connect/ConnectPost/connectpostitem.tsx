@@ -1,7 +1,7 @@
 'use client'
 import { ConnectPostsType } from './connectposts';
 import Image from 'next/image';
-import { useEffect, useState, useCallback } from 'react'; // Added useCallback
+import { useEffect, useState, useCallback } from 'react'; 
 import apiService from '@/app/services/apiService';
 import { AvatarType } from '../../Avatar/avatar';
 import { CommentIcon } from '../../icons';
@@ -84,7 +84,7 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                 <div className='grid'>
                     <div className='grid  grid-flow-col place-items-center connect-post-header'>
                         <div className='grid grid-flow-col gap-2 place-items-center '>
-                            <div>
+                            {/* <div>
                                 {avatar.image_url ? ( // Check if avatar URL is present
                                 <Image
                                     src={avatar.image_url}
@@ -103,7 +103,7 @@ const ConnectPostItem: React.FC<ConnectPostsItemProps> =
                                     alt="Default Avatar"
                                 />
                                 )}
-                            </div>
+                            </div> */}
                             
 
                             <div ><h2>{connectpost.author.username}</h2></div>

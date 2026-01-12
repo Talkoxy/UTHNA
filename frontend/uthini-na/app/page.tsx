@@ -4,7 +4,7 @@ export default function Home() {
   return (
    <main className="grid grid-flow-col page_bg ">
         <Landing />
-  </main>
+    </main>
             
   
   );
